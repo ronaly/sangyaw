@@ -9,9 +9,9 @@ class MyApp extends StatelessWidget {
      return MaterialApp(
        title: 'Sangyaw',
        theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.blue,
        ),
-       home: MyDrawer(),
+       home: MyMainPage(),
 
 
      );
@@ -20,26 +20,51 @@ class MyApp extends StatelessWidget {
 
 } //MyApp
 
-class MyDrawer extends StatelessWidget {
+class MyMainPage extends StatelessWidget {
 
 @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(title: Text('Sangyawanan')),
-      body: Center(child: Text('My Page')),
-      drawer: Drawer(
-          //adding ListView to the drawer
+      appBar: AppBar(title: Text('Sangyawan App')),
+      body: SetBackgroundImage(),
+      drawer: MyDrawer(),
+
+
+
+    ); //scaffold
+
+
+
+} //Widget build
+
+} //MyMainPage
+
+class MyDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    return Drawer(
+      //adding ListView to the drawer
         child: ListView(
-              //important: remove any padding from the ListView
+          //important: remove any padding from the ListView
           padding: EdgeInsets.zero,
           children: <Widget> [
             DrawerHeader(
-                 child: Text('Sangyawanan Menu'),
-                 decoration: BoxDecoration(color: Colors.yellow),
+              child: Text('Choose Directory',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(height: 6, fontSize: 28)),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/background.png"),
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
 
             ListTile(
-              title: Text('Pamutan Directory'),
+              title: Text('Pamutan Directory',
+                textAlign: TextAlign.center,
+                  style: TextStyle(height: 4, fontSize: 20)),
               onTap: () {
                 // update the state of the app
                 // ....
@@ -49,7 +74,10 @@ class MyDrawer extends StatelessWidget {
             ),
 
             ListTile(
-              title: Text('Toong Directory'),
+              title: Text('Toong Directory',
+                textAlign: TextAlign.center,
+                  style: TextStyle(height: 4, fontSize: 20)
+              ),
               onTap: () {
                 // update the state of the app
                 // ....
@@ -61,23 +89,41 @@ class MyDrawer extends StatelessWidget {
 
           ],
 
-        ),
+        )
 
-      ),
+    ); //Drawer
 
-
-
-
-    ); //scaffold
-
-
-
-} //Widget build
-
-
-
-
-
-
+  }  // widget build
 
 } //MyDrawer
+
+
+class SetBackgroundImage extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context){
+
+     return Container(
+       constraints: BoxConstraints.expand(),
+       decoration: BoxDecoration(
+         image: DecorationImage(
+           image: AssetImage("assets/images/background.png"),
+           fit: BoxFit.fill,
+         ),
+       ),
+
+
+     ); //container
+
+
+
+
+
+
+
+  } // Widget build
+
+
+
+
+} //SetBackgroundImage
