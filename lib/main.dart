@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
+
+
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
    @override
@@ -11,7 +14,7 @@ class MyApp extends StatelessWidget {
        theme: ThemeData(
         primarySwatch: Colors.blue,
        ),
-       home: MyMainPage(),
+       home: MyHome(),
 
 
      );
@@ -20,24 +23,59 @@ class MyApp extends StatelessWidget {
 
 } //MyApp
 
-class MyMainPage extends StatelessWidget {
+class MyHome extends StatefulWidget {
 
 @override
+  State<StatefulWidget> createState(){
+    return _HomeState();
+
+}
+
+} //MyHome
+
+
+class _HomeState extends State<MyHome>{
+  int _currentIndex = 0;
+
+  @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(title: Text('Sangyawan App')),
+      appBar: AppBar(title: Text('My Sangyawan App')),
       body: SetBackgroundImage(),
       drawer: MyDrawer(),
-
-
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: onTabTapped,
+        currentIndex: _currentIndex,
+        items:[
+          BottomNavigationBarItem(icon: new Icon(Icons.search), title: new Text('Search Facebook Name')),
+          BottomNavigationBarItem(icon: new Icon(Icons.search), title: new Text('Search By Assigned Name')),
+        ],  //items
+      ),
 
     ); //scaffold
 
+  } //Widget build
 
 
-} //Widget build
 
-} //MyMainPage
+
+  void onTabTapped(int index) {
+    setState (() {
+      _currentIndex = index;
+
+    } );
+   // print('Current Index $_currentIndex');
+  }
+
+} //_HomeState
+
+
+
+
+
+
+
+
 
 class MyDrawer extends StatelessWidget {
   @override
