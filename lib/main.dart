@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-
+//global
+int _selectedDirectory = 0;
 
 
 class MyApp extends StatelessWidget {
@@ -18,19 +19,14 @@ class MyApp extends StatelessWidget {
 
 
      );
-
    } // Widget build
-
 } //MyApp
 
 class MyHome extends StatefulWidget {
-
 @override
   State<StatefulWidget> createState(){
     return _HomeState();
-
-}
-
+   }
 } //MyHome
 
 
@@ -41,7 +37,7 @@ class _HomeState extends State<MyHome>{
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(title: Text('My Sangyawan App')),
-      body: SetBackgroundImage(),
+      body: TextField(),
       drawer: MyDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
@@ -65,13 +61,23 @@ class _HomeState extends State<MyHome>{
 
     } );
    // print('Current Index $_currentIndex');
-  }
+  } //onTabTapped
 
 } //_HomeState
 
 
 
 
+//class SearchFacebookForm extends StatelessWidget {
+
+
+//}// SearchFacebookForm
+
+
+//class SearchAssignedForm extends StatelessWidget {
+
+
+//} //SearchAssignedForm
 
 
 
@@ -80,7 +86,6 @@ class _HomeState extends State<MyHome>{
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return Drawer(
       //adding ListView to the drawer
         child: ListView(
@@ -90,23 +95,17 @@ class MyDrawer extends StatelessWidget {
             DrawerHeader(
               child: Text('Choose Directory',
                   textAlign: TextAlign.center,
-                  style: TextStyle(height: 6, fontSize: 28)),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/background.png"),
-                  fit: BoxFit.fill,
-                ),
-              ),
+                  style: TextStyle(fontSize: 24)),
             ),
 
             ListTile(
               title: Text('Pamutan Directory',
-                textAlign: TextAlign.center,
-                  style: TextStyle(height: 4, fontSize: 20)),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20)),
+              trailing: Icon(Icons.arrow_forward),
               onTap: () {
-                // update the state of the app
-                // ....
-                // Then close the drawer
+                selectedDirectory(0);
+                // close the drawer
                 Navigator.pop(context);
               },
             ),
@@ -114,33 +113,34 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text('Toong Directory',
                 textAlign: TextAlign.center,
-                  style: TextStyle(height: 4, fontSize: 20)
+                  style: TextStyle(fontSize: 20)
               ),
+              trailing: Icon(Icons.arrow_forward),
               onTap: () {
-                // update the state of the app
-                // ....
-                // Then close the drawer
+                selectedDirectory(1);
+                // close the drawer
                 Navigator.pop(context);
               },
             ),
-
-
           ],
-
         )
-
     ); //Drawer
-
   }  // widget build
-
 } //MyDrawer
+
+void selectedDirectory (int index) {
+  _selectedDirectory = index;
+
+  // 0 - Pamutan Directory;
+  // 1 - Toong Directory;
+
+  print ('Selected Directory: $_selectedDirectory');
+}
 
 
 class SetBackgroundImage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context){
-
      return Container(
        constraints: BoxConstraints.expand(),
        decoration: BoxDecoration(
@@ -149,19 +149,6 @@ class SetBackgroundImage extends StatelessWidget {
            fit: BoxFit.fill,
          ),
        ),
-
-
      ); //container
-
-
-
-
-
-
-
   } // Widget build
-
-
-
-
 } //SetBackgroundImage
