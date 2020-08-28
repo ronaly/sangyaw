@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sangyaw_app/bucawe_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,11 +34,14 @@ class MyHome extends StatefulWidget {
 class _HomeState extends State<MyHome>{
   int _currentIndex = 0;
 
+  TextEditingController facebookNameController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(title: Text('My Sangyawan App')),
-      body: TextField(),
+      resizeToAvoidBottomPadding: false,
       drawer: MyDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
@@ -47,10 +51,37 @@ class _HomeState extends State<MyHome>{
           BottomNavigationBarItem(icon: new Icon(Icons.search), title: new Text('Search By Assigned Name')),
         ],  //items
       ),
+      body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget> [
+              Form(
+                  child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget> [
+                          TextFormField(
+                            controller: facebookNameController,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Enter Facebook Name';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(labelText: 'Facebook Name'),
+                          )
+                        ],
+                      )
+                  )
 
+              )
+            ],
+          )
+      ),
     ); //scaffold
-
   } //Widget build
+
 
 
 
@@ -68,10 +99,6 @@ class _HomeState extends State<MyHome>{
 
 
 
-//class SearchFacebookForm extends StatelessWidget {
-
-
-//}// SearchFacebookForm
 
 
 //class SearchAssignedForm extends StatelessWidget {
@@ -138,17 +165,22 @@ void selectedDirectory (int index) {
 }
 
 
-class SetBackgroundImage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context){
-     return Container(
-       constraints: BoxConstraints.expand(),
-       decoration: BoxDecoration(
-         image: DecorationImage(
-           image: AssetImage("assets/images/background.png"),
-           fit: BoxFit.fill,
-         ),
-       ),
-     ); //container
-  } // Widget build
-} //SetBackgroundImage
+
+
+
+
+
+// class SetBackgroundImage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context){
+//      return Container(
+//        constraints: BoxConstraints.expand(),
+//        decoration: BoxDecoration(
+//          image: DecorationImage(
+//            image: AssetImage("assets/images/background.png"),
+//            fit: BoxFit.fill,
+//          ),
+//        ),
+//      ); //container
+//   } // Widget build
+// } //SetBackgroundImage
