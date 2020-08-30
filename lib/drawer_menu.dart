@@ -41,7 +41,7 @@ class DrawerMenu extends StatelessWidget {
     ];
 
     state.viewWorkbooks.forEach((workbook) {
-      arr.add(getListTile(workbook, onTap: () {
+      arr.add(getListTile(workbook, workbook == state.viewCurrentWorkbook, onTap: () {
         StoreProvider.of<AppState>(context)
             .dispatch(CurrentWorkbook(workbook));
         Navigator.pushReplacementNamed(context, '/about');
@@ -65,9 +65,13 @@ class DrawerMenu extends StatelessWidget {
     );
   }
 
-  Widget getListTile(title, {Function onTap}) {
+  Widget getListTile(String title, bool isSelected, {Function onTap}) {
     return ListTile(
+      leading: Icon(Icons.terrain_rounded),
       title: Text(title),
+      trailing: Icon(Icons.keyboard_arrow_right),
+      selected: isSelected,
+      subtitle: Text('e-click, aron maka sangyaw sa taga ${title}'),
       onTap: onTap,
     );
   }
