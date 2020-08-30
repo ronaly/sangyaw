@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sangyaw_app/controller/form_controller.dart';
-import 'package:sangyaw_app/model/bucawe_form.dart';
+import 'package:sangyaw_app/controller/data_controller.dart';
+import 'package:sangyaw_app/model/master_form.dart';
 
 
 class BucaweView extends StatelessWidget {

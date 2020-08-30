@@ -1,4 +1,4 @@
-class BucaweForm {
+class MasterForm {
 
 
   String facebookName;
@@ -15,7 +15,7 @@ class BucaweForm {
   String progressStatus;
 
 
-  BucaweForm(
+  MasterForm(
 
       this.facebookName,
       this.gender,
@@ -38,9 +38,9 @@ class BucaweForm {
       "Date Contacted=$dateContacted&Remarks=$remarks&Progress Status=$progressStatus";
 
 
-  factory BucaweForm.fromJson(dynamic json) {
+  factory MasterForm.fromJson(dynamic json) {
 
-    return BucaweForm(
+    return MasterForm(
 
         "${json["Facebook Name"]}",
         "${json["Gender"]}",
@@ -65,6 +65,6 @@ class BucaweForm {
 
 
 
-} //BucaweForm
+} //MasterForm
 
 
