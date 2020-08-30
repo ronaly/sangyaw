@@ -1,42 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:sangyaw_app/drawer_menu.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:sangyaw_app/model/app_state.dart';
+import 'package:sangyaw_app/redux/actions.dart';
 
-const kTitle = 'Redux';
+const headerTitle = 'Territories';
 
 class DrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            child: Center(
-              child: Text(
-                kTitle,
-                style: TextStyle(
-                  fontSize: Theme.of(context).textTheme.title.fontSize,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: Colors.teal,
-            ),
-          ),
-          getListTile('Home', onTap: () {
-            Navigator.pushReplacementNamed(context, '/');
-          }),
-          getLine(),
-          getListTile('About', onTap: () {
-            Navigator.pushReplacementNamed(context, '/about');
-          }),
-          getLine(),
-          getListTile('Settings', onTap: () {
-            Navigator.pushReplacementNamed(context, '/settings');
-          }),
-        ],
+      child: StoreConnector<AppState, AppState>(
+        converter: (store) => store.state,
+        builder: (context, state) {
+          return ListView(
+            padding: EdgeInsets.zero,
+            children: getWidgets(context, state),
+          );
+        },
       ),
     );
+  }
+
+  List<Widget> getWidgets(context, AppState state) {
+    List<Widget> arr =  <Widget>[
+      DrawerHeader(
+        child: Center(
+          child: Text(
+            headerTitle,
+            style: TextStyle(
+              fontSize: Theme.of(context).textTheme.title.fontSize,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        decoration: BoxDecoration(
+          color: Colors.teal,
+        ),
+      ),
+    ];
+
+    state.viewWorkbooks.forEach((workbook) {
+      arr.add(getListTile(workbook, onTap: () {
+        StoreProvider.of<AppState>(context)
+            .dispatch(CurrentWorkbook(workbook));
+        Navigator.pushReplacementNamed(context, '/about');
+      }));
+      arr.add(getLine());
+
+    });
+
+
+
+    return arr;
+
   }
 
   Widget getLine() {

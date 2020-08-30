@@ -25,12 +25,12 @@ class About extends StatelessWidget {
           builder: (context, state) {
             return RichText(
               text: TextSpan(
-                text: text,
+                text: 'The Current Workbook: ${state.viewCurrentWorkbook}',
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.lightBlue,
-                  fontWeight: text == state.currentWorkbook ? FontWeight.bold : FontWeight.normal,
-                  fontStyle: text == state.currentWorkbook ? FontStyle.italic : FontStyle.normal,
+                  fontWeight: text == state.viewCurrentWorkbook ? FontWeight.bold : FontWeight.normal,
+                  fontStyle: text == state.viewCurrentWorkbook ? FontStyle.italic : FontStyle.normal,
                 ),
               ),
             );

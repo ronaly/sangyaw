@@ -3,10 +3,10 @@ import 'package:sangyaw_app/drawer_menu.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 
-const kAppTitle = 'State by Redux';
+const kAppTitle = 'My Sangyaw App';
 
 class Home extends StatelessWidget {
-  String text = 'the quick brown fox';
+  String text = 'Manangyaw ta tanan atong sangyawan :)';
 
   @override
   Widget build(BuildContext context) {
