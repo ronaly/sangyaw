@@ -8,11 +8,6 @@ import 'package:sangyaw_app/redux/actions.dart';
 
 AppState reducer(AppState state, action) {
 
-  print('#######################');
-  print('reducer is called');
-  print(state);
-  print(action);
-  print('#######################');
   AppState app = AppState(
     workbooks: workbookReducer(state.workbooks, action),
     masterList: masterListReducer(state.masterList, action),

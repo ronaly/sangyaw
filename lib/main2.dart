@@ -4,6 +4,7 @@ import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_logging/redux_logging.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:sangyaw_app/all_persons.dart';
 
 import 'package:sangyaw_app/home.dart';
 import 'package:sangyaw_app/about.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => Home(),
           '/about': (context) => About(),
           '/settings': (context) => Settings(),
+          '/all': (context) => AllPersons(),
         },
       ),
     );

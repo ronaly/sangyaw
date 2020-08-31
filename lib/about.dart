@@ -1,7 +1,4 @@
-/**
- * Created by Mahmud Ahsan
- * https://github.com/mahmudahsan
- */
+
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/drawer_menu.dart';
 import 'package:flutter_redux/flutter_redux.dart';
