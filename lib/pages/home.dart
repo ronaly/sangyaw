@@ -7,7 +7,7 @@ class Home extends AppLayoutContainer {
 
   @override
   String getTitle(context, AppState state) {
-    return 'This is home, TODO change this';
+    return 'My Sangyawan App';
   }
 
   Widget buildBody(context, AppState state) {
