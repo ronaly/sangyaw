@@ -40,7 +40,7 @@ class DrawerMenu extends StatelessWidget {
           ),
         ),
         decoration: BoxDecoration(
-          color: Colors.teal,
+          color: Colors.blueAccent,
         ),
       ),
     ];

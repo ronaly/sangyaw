@@ -32,7 +32,7 @@ abstract class AppLayoutContainer extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(this.getTitle(context, state)),
-              backgroundColor: Colors.teal,
+              backgroundColor: Colors.blueAccent,
             ),
             drawer: DrawerMenu(),
             bottomNavigationBar: BottomMenu(),

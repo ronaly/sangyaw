@@ -14,6 +14,7 @@ class SearchByFacebook extends AppLayoutContainer {
 
     // START BODY HERE
     Widget body = new Container (
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget> [
