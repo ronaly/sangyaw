@@ -19,9 +19,7 @@ abstract class AppLayoutContainer extends StatelessWidget {
     return dataController;
   }
 
-  DataController getDC() {
-    return this.getDataControler();
-  }
+  DataController get dc => this.getDataControler();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +36,7 @@ abstract class AppLayoutContainer extends StatelessWidget {
             bottomNavigationBar: BottomMenu(),
             body: Container(
                 margin: EdgeInsets.all(10.0),
-                child: state.viewLoading ? getSpinner() : this.buildBody(context, state)
+                child: this.dc.loading ? getSpinner() : this.buildBody(context, state)
             ),
           );
         });
