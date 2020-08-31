@@ -40,7 +40,7 @@ class PersonList extends StatelessWidget {
 
   Widget personTile(Person person, {Function onTap}) {
     return ListTile(
-      leading: Icon(Icons.face_rounded),
+      leading: Icon(Icons.face),
       title: Text(person.facebookName),
       trailing: Icon(Icons.keyboard_arrow_right),
       subtitle: Text('Taga: ${person.address}, Gi Assign ni: ${person.assignedTo}, Gender: ${person.gender}'),

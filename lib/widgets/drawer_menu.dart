@@ -71,7 +71,7 @@ class DrawerMenu extends StatelessWidget {
 
   Widget getListTile(String title, bool isSelected, {Function onTap}) {
     return ListTile(
-      leading: Icon(Icons.terrain_rounded),
+      leading: Icon(Icons.terrain),
       title: Text(title),
       trailing: Icon(Icons.keyboard_arrow_right),
       selected: isSelected,
