@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/widgets/app_layout_container.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/widgets/person_list.dart';
 
-class AllPersons extends StatelessWidget {
+class AllPersons extends AppLayoutContainer {
+
   @override
-  Widget build(BuildContext context) {
-    return StoreConnector<AppState, AppState>(
-      converter: (store) => store.state,
-      builder: (context, state) {
-        return AppLayoutContainer(
-            title: 'Found ${state.masterList.length} Persons  ${state.currentWorkbook}',
-            child: this.getBody(context, state)
-        );
-      });
+  String getTitle(context, AppState state) {
+    return 'Found ${state.viewMasterList.length} in ${state.currentWorkbook}';
   }
 
-
-
-  Widget getBody(context, state) {
+  Widget buildBody(context, AppState state) {
 
     // START BODY HERE
     Widget body = PersonList(list: state.viewMasterList);

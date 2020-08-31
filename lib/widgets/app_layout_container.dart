@@ -8,11 +8,9 @@ import 'drawer_menu.dart';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class AppLayoutContainer extends StatelessWidget {
-  Widget child;
-  String title;
-
-  AppLayoutContainer({this.child, this.title});
+abstract class AppLayoutContainer extends StatelessWidget {
+  String getTitle(context, AppState state);
+  Widget buildBody(context, AppState state);
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +19,14 @@ class AppLayoutContainer extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(this.title),
+              title: Text(this.getTitle(context, state)),
               backgroundColor: Colors.teal,
             ),
             drawer: DrawerMenu(),
             bottomNavigationBar: BottomNavigationBar(),
             body: Container(
                 margin: EdgeInsets.all(10.0),
-                child: state.viewLoading ? this.getSpinner() : this.child
+                child: buildBody(context, state)
             ),
           );
         });

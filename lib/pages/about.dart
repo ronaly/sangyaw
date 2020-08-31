@@ -4,21 +4,14 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/widgets/person_list.dart';
 
-class About extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StoreConnector<AppState, AppState>(
-        converter: (store) => store.state,
-        builder: (context, state) {
+class About extends AppLayoutContainer {
 
-          return AppLayoutContainer(
-              title: 'Found ${state.masterList.length} Persons  ${state.currentWorkbook}',
-              child: this.getBody(context, state),
-          );
-        });
+  @override
+  String getTitle(context, AppState state) {
+    return 'This is an About Page';
   }
 
-  Widget getBody(context, state) {
+  Widget buildBody(context, AppState state) {
 
     // START BODY HERE
     Widget body = RichText(
@@ -34,4 +27,5 @@ class About extends StatelessWidget {
     // END/RETURN The body
     return body;
   }
+
 }
