@@ -18,9 +18,7 @@ abstract class AppLayoutContainer extends StatelessWidget {
     return dataController;
   }
 
-  DataController getDC() {
-    return this.getDataControler();
-  }
+  get dc => this.getDataControler();
 
   @override
   Widget build(BuildContext context) {

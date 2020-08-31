@@ -20,6 +20,13 @@ class DataController {
   }
 
   List<Person> get masterList =>  store.state.viewMasterList;
+  List<Person> get persons =>  store.state.viewMasterList;
+
+  List<String> get directories => store.state.viewWorkbooks;
+
+  String get currentDirectory => store.state.viewCurrentWorkbook;
+
+  bool get loading => store.state.viewLoading;
 
 
 } // DataController class

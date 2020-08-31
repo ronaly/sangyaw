@@ -13,7 +13,7 @@ class AllPersons extends AppLayoutContainer {
   Widget buildBody(context, AppState state) {
 
     // START BODY HERE
-    Widget body = PersonList(list: this.getDC().masterList);
+    Widget body = PersonList(list: this.dc.masterList);
 
     // END/RETURN The body
     return body;
