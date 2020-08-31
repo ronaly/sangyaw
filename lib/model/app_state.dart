@@ -15,6 +15,7 @@ class AppState {
     currentWorkbook = another.currentWorkbook;
     masterList = another.masterList;
     loading = another.loading;
+
   }
   List<String> get viewWorkbooks => workbooks;
   String get viewCurrentWorkbook => currentWorkbook;

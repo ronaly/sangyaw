@@ -4,11 +4,11 @@ import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_logging/redux_logging.dart';
 import 'package:redux_thunk/redux_thunk.dart';
-import 'package:sangyaw_app/all_persons.dart';
+import 'package:sangyaw_app/pages/all_persons.dart';
 
-import 'package:sangyaw_app/home.dart';
-import 'package:sangyaw_app/about.dart';
-import 'package:sangyaw_app/settings.dart';
+import 'package:sangyaw_app/pages/home.dart';
+import 'package:sangyaw_app/pages/about.dart';
+import 'package:sangyaw_app/pages/settings.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/reducers.dart';
 
