@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/model/person.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class PersonList extends StatelessWidget {
   List<Person> list;

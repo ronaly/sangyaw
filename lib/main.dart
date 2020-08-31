@@ -8,7 +8,7 @@ import 'package:sangyaw_app/pages/all_persons.dart';
 
 import 'package:sangyaw_app/pages/home.dart';
 import 'package:sangyaw_app/pages/about.dart';
-import 'package:sangyaw_app/pages/settings.dart';
+import 'package:sangyaw_app/pages/template.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/reducers.dart';
 
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => Home(),
           '/about': (context) => About(),
-          '/settings': (context) => Settings(),
+          '/template': (context) => Template(),
           '/all': (context) => AllPersons(),
         },
       ),

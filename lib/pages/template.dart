@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sangyaw_app/widgets/app_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 
-class About extends AppLayoutContainer {
+class Template extends AppLayoutContainer {
+  String theText = 'Manangyaw ta tanan atong sangyawan :)';
 
   @override
   String getTitle(context, AppState state) {
-    return 'This is an About Page';
+    return 'This is template, TODO change this';
   }
 
   Widget buildBody(context, AppState state) {
@@ -14,7 +15,7 @@ class About extends AppLayoutContainer {
     // START BODY HERE
     Widget body = RichText(
       text: TextSpan(
-        text: 'The Current Workbook: ${state.viewCurrentWorkbook},  ${state.viewMasterList.length}',
+        text: theText,
         style: TextStyle(
           fontSize: 20,
           color: Colors.lightBlue,
