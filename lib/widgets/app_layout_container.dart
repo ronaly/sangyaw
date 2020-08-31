@@ -25,7 +25,7 @@ abstract class AppLayoutContainer extends StatelessWidget {
             drawer: DrawerMenu(),
             body: Container(
                 margin: EdgeInsets.all(10.0),
-                child: buildBody(context, state)
+                child: state.viewLoading ? getSpinner() : this.buildBody(context, state)
             ),
           );
         });
