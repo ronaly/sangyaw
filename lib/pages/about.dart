@@ -10,11 +10,11 @@ class About extends AppLayoutContainer {
   }
 
   Widget buildBody(context, AppState state) {
-
+    String str = this.dc.assignToList.join(', ');
     // START BODY HERE
     Widget body = RichText(
       text: TextSpan(
-        text: 'The Current Directory: ${this.dc.currentDirectory},  Total Persons: ${this.dc.totalPersons}',
+        text: 'Assigned To List: ${str}',
         style: TextStyle(
           fontSize: 20,
           color: Colors.lightBlue,

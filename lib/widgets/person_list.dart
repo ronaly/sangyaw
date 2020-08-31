@@ -6,14 +6,15 @@ class PersonList extends StatelessWidget {
   List<Person> list;
   PersonList({this.list});
 
+
   @override
   Widget build(BuildContext context) {
     return ListView(padding: EdgeInsets.zero,
-      children: getWidgets()
+      children: getWidgets(context)
     );
   }
 
-  List<Widget> getWidgets() {
+  List<Widget> getWidgets(context) {
     List<Widget> arr =  <Widget>[];
 
     list.forEach((person) {
@@ -21,6 +22,8 @@ class PersonList extends StatelessWidget {
       arr.add(personTile(person, onTap: () {
         // TODO: implement callback here with person as paramater
         print('TODO: person click: ${person}');
+
+        Navigator.pushReplacementNamed(context, '/about');
       }));
       arr.add(getLine());
     });
