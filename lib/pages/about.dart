@@ -14,7 +14,7 @@ class About extends AppLayoutContainer {
     // START BODY HERE
     Widget body = RichText(
       text: TextSpan(
-        text: 'The Current Workbook: ${state.viewCurrentWorkbook},  ${state.viewMasterList.length}',
+        text: 'The Current Directory: ${this.dc.currentDirectory},  Total Persons: ${this.dc.totalPersons}',
         style: TextStyle(
           fontSize: 20,
           color: Colors.lightBlue,

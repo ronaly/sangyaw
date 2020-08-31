@@ -21,6 +21,7 @@ class DataController {
 
   List<Person> get masterList =>  store.state.viewMasterList;
   List<Person> get persons =>  store.state.viewMasterList;
+  int get totalPersons => store.state.viewMasterList.length;
 
   List<String> get directories => store.state.viewWorkbooks;
 

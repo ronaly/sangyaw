@@ -7,13 +7,13 @@ class AllPersons extends AppLayoutContainer {
 
   @override
   String getTitle(context, AppState state) {
-    return 'Found ${state.viewMasterList.length} in ${state.currentWorkbook}';
+    return 'Found ${this.dc.totalPersons} in ${this.dc.currentDirectory}';
   }
 
   Widget buildBody(context, AppState state) {
 
     // START BODY HERE
-    Widget body = PersonList(list: this.dc.masterList);
+    Widget body = PersonList(list: this.dc.persons);
 
     // END/RETURN The body
     return body;
