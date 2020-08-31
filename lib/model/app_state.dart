@@ -9,7 +9,7 @@ class AppState {
   String currentWorkbook;
   List<Person> masterList;
   bool loading;
-  AppState({@required this.workbooks, @required this.masterList, bool loading = false});
+  AppState({@required this.workbooks, @required this.masterList, @required this.loading });
   AppState.fromAppState(AppState another) {
     workbooks = another.workbooks;
     currentWorkbook = another.currentWorkbook;

@@ -22,6 +22,22 @@ class AllPersons extends StatelessWidget {
               child: StoreConnector<AppState, AppState>(
                 converter: (store) => store.state,
                 builder: (context, state) {
+                  if (state.viewLoading) {
+                    return new WillPopScope(
+                        onWillPop: () async => false,
+                        child: SimpleDialog(
+                            key: key,
+                            backgroundColor: Colors.black54,
+                            children: <Widget>[
+                              Center(
+                                child: Column(children: [
+                                  CircularProgressIndicator(),
+                                  SizedBox(height: 10,),
+                                  Text("Please Wait....",style: TextStyle(color: Colors.blueAccent),)
+                                ]),
+                              )
+                            ]));
+                  }
                   return PersonList(list: state.viewMasterList);
                 },
             ),

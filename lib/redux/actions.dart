@@ -39,7 +39,6 @@ ThunkAction<AppState> getMasterList = (Store<AppState> store) async {
   );
   List result = json.decode(response.body) as List;
   List<Person> persons = result.map((json){
-    print('Person Json: ' + json.toString());
     return Person.fromJson(json);
   }).toList();
 
