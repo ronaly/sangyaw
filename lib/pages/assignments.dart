@@ -15,7 +15,7 @@ class Assignments extends AppLayoutContainer {
     this.dc.assignToList.forEach((preacher) {
       String name = preacher == null || preacher == '' ? '- Not Assigned -' : preacher;
       arr.add(ListTile(
-          leading: Icon(Icons.assignment_ind_outlined),
+          leading: Icon(Icons.assignment_ind),
           title: Text(name),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {

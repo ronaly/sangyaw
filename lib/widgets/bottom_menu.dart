@@ -24,7 +24,7 @@ class BottomMenu extends StatelessWidget {
       items: [
         BottomNavigationBarItem(icon: new Icon(Icons.search),
             title: new Text('Search Facebook Name')),
-        BottomNavigationBarItem(icon: new Icon(Icons.assignment_rounded),
+        BottomNavigationBarItem(icon: new Icon(Icons.assignment_ind),
             title: new Text('Assignments')),
       ], //items
       type: BottomNavigationBarType.fixed,
