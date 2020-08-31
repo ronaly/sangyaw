@@ -19,6 +19,8 @@ class DataController {
     store.dispatch(getMasterList(store));
   }
 
+  List<Person> get masterList =>  store.state.viewMasterList;
+
 
 } // DataController class
 
