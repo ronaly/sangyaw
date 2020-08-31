@@ -6,13 +6,13 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/actions.dart';
 
-class LocalState extends StatefulWidget {
-  BottomMenu createState() {
-    return BottomMenu();
-  }
-}
+// class LocalState extends StatefulWidget {
+//   BottomMenu createState() {
+//     return BottomMenu();
+//   }
+// }
 
-class BottomMenu extends State<LocalState> {
+class BottomMenu extends StatelessWidget {
 
   int _currentIndex = 1;
   BuildContext localContext;
@@ -45,7 +45,7 @@ class BottomMenu extends State<LocalState> {
       case 0:
        // Navigator.pushReplacementNamed(localContext, '/search_facebook');
         Navigator.pushNamedAndRemoveUntil(localContext, '/search_facebook', (route) => false);
-
+        _currentIndex = index;
 
         break;
       case 1:
@@ -55,9 +55,9 @@ class BottomMenu extends State<LocalState> {
         break;
     } //end switch
 
-     setState(() {
-       _currentIndex = index;
-     });
+     // setState(() {
+     //   _currentIndex = index;
+     // });
      print('Current Index $_currentIndex');
   } //onTabTapped
 
