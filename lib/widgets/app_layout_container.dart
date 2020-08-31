@@ -23,7 +23,6 @@ abstract class AppLayoutContainer extends StatelessWidget {
               backgroundColor: Colors.teal,
             ),
             drawer: DrawerMenu(),
-            bottomNavigationBar: BottomNavigationBar(),
             body: Container(
                 margin: EdgeInsets.all(10.0),
                 child: buildBody(context, state)
