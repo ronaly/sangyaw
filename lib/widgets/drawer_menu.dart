@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:sangyaw_app/controller/data_controller.dart';
 import 'package:sangyaw_app/widgets/drawer_menu.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
@@ -9,12 +10,14 @@ import 'package:sangyaw_app/redux/actions.dart';
 const headerTitle = 'Territories';
 
 class DrawerMenu extends StatelessWidget {
+  DataController dataController;
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         builder: (context, state) {
+          this.dataController = new DataController(StoreProvider.of<AppState>(context));
           return ListView(
             padding: EdgeInsets.zero,
             children: getWidgets(context, state),
@@ -44,17 +47,17 @@ class DrawerMenu extends StatelessWidget {
 
     state.viewWorkbooks.forEach((workbook) {
       arr.add(getListTile(workbook, workbook == state.viewCurrentWorkbook, onTap: () {
-        StoreProvider.of<AppState>(context)
-            .dispatch(CurrentWorkbook(workbook));
+//        StoreProvider.of<AppState>(context)
+//            .dispatch(CurrentWorkbook(workbook));
+//
+//        StoreProvider.of<AppState>(context).dispatch(getMasterList( StoreProvider.of<AppState>(context)));
 
-        StoreProvider.of<AppState>(context).dispatch(getMasterList( StoreProvider.of<AppState>(context)));
+        this.dataController.loadMasterList(workbook);
         Navigator.pushReplacementNamed(context, '/all');
       }));
       arr.add(getLine());
 
     });
-
-
 
     return arr;
 
