@@ -7,7 +7,7 @@ class Assignments extends AppLayoutContainer {
 
   @override
   String getTitle(context, AppState state) {
-    return 'Please select to view assigned to:';
+    return 'Assignments:';
   }
 
   Widget buildBody(context, AppState state) {
