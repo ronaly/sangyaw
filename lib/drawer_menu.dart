@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/drawer_menu.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -42,8 +44,19 @@ class DrawerMenu extends StatelessWidget {
 
     state.viewWorkbooks.forEach((workbook) {
       arr.add(getListTile(workbook, workbook == state.viewCurrentWorkbook, onTap: () {
+        print('calling MAster list dispatcher blahb lahbalbha');
         StoreProvider.of<AppState>(context)
             .dispatch(CurrentWorkbook(workbook));
+
+//        Completer completer = new Completer();
+        print('calling MAster list dispatcher');
+        StoreProvider.of<AppState>(context).dispatch(getMasterList( StoreProvider.of<AppState>(context)));
+        print('calling MAster list dispatcher 222222222222');
+//        try {
+//          await completer.future;
+//        } on Exception catch (e) {
+//          print(e);
+//        }
         Navigator.pushReplacementNamed(context, '/about');
       }));
       arr.add(getLine());

@@ -25,7 +25,7 @@ class About extends StatelessWidget {
           builder: (context, state) {
             return RichText(
               text: TextSpan(
-                text: 'The Current Workbook: ${state.viewCurrentWorkbook}',
+                text: 'The Current Workbook: ${state.viewCurrentWorkbook},  ${state.viewMasterList.length}',
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.lightBlue,

@@ -31,7 +31,7 @@ class Person {
 
       );
 
-  factory Person.fromJson(dynamic json) {
+  factory Person.fromJson(Map<String, dynamic> json) {
     return Person(
 
         "${json["Facebook Name"]}",

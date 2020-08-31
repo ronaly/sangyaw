@@ -26,19 +26,17 @@ class DataController {
   // Async function which loads feedback from endpoint URL and returns List
 
   Future<List<Person>> getMasterListFromPamutan() async {
-    return await http.get(URL_Pamutan).then((response) {
-
-       var jsonList = convert.jsonDecode(response.body) as List;
-       return jsonList.map((json) => Person.fromJson(json)).toList();
-    });
+    print('Gets Pamutan from site');
+    final response = await http.get(URL_Pamutan);
+    var jsonList = convert.jsonDecode(response.body) as List;
+    return jsonList.map((json) => Person.fromJson(json)).toList();
   } //getMasterListFromPamutan
 
   Future<List<Person>> getMasterListFromToong() async {
-    return await http.get(URL_Toong).then((response) {
-
-      var jsonList = convert.jsonDecode(response.body) as List;
-      return jsonList.map((json) => Person.fromJson(json)).toList();
-    });
+    print('Gets Toong from site');
+    final response = await http.get(URL_Toong);
+    var jsonList = convert.jsonDecode(response.body) as List;
+    return jsonList.map((json) => Person.fromJson(json)).toList();
   } //getMasterListFromToong
 
 

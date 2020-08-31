@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/model/person.dart';
 
+@immutable
 class AppState {
   List<String> workbooks;
   String currentWorkbook;
@@ -10,7 +13,6 @@ class AppState {
   AppState.fromAppState(AppState another) {
     workbooks = another.workbooks;
     currentWorkbook = another.currentWorkbook;
-    currentWorkbook = another.currentWorkbook;
     masterList = another.masterList;
     loading = another.loading;
   }
@@ -18,5 +20,17 @@ class AppState {
   String get viewCurrentWorkbook => currentWorkbook;
   List<Person> get viewMasterList => masterList;
   bool get viewLoading => loading;
+
+  dynamic toJson() => {
+    'workbooks': workbooks,
+    'currentWorkbook': currentWorkbook,
+    'masterList': masterList.hashCode,
+    'loading': loading,
+  };
+
+  @override
+  String toString() {
+    return 'AppState: ${JsonEncoder.withIndent('  ').convert(this)}';
+  }
 
 }
