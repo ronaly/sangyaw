@@ -29,30 +29,15 @@ const STATUS_SUCCESS = "SUCCESS";
 //}
 
 
-ThunkAction<AppState> getMasterList2(Completer completer) { // Define the parameter
-  print('ThunkAction is called');
-  return (Store<AppState> store) async {
-    print('ThunkAction is called 22222222222');
-    try {
-      List<Person>  arr = await getMasterListFromPamutan();
-      store.dispatch(new MasterList(arr));
-      completer.complete();   // No exception, complete without error
-    } on Exception catch (e) {
-      completer.completeError(e);   // Exception thrown, complete with error
-    }
-  };
-}
-
-
 ThunkAction<AppState> getMasterList = (Store<AppState> store) async {
-
+  store.dispatch(
+      new Loading(true)
+  );
+  String url = store.state.currentWorkbook == 'Pamutan' ? URL_Pamutan  : URL_Toong;
   http.Response response = await http.get(
-    Uri.encodeFull(URL_Pamutan),
+    Uri.encodeFull(url),
   );
   List result = json.decode(response.body) as List;
-  print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-  print(result);
-  print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
   List<Person> persons = result.map((json){
     print('Person Json: ' + json.toString());
     return Person.fromJson(json);
@@ -61,21 +46,11 @@ ThunkAction<AppState> getMasterList = (Store<AppState> store) async {
   store.dispatch(
       new MasterList(persons)
   );
+  store.dispatch(
+      new Loading(false)
+  );
 };
 
-Future<List<Person>> getMasterListFromPamutan() async {
-  print('Gets Pamutan from site');
-  final response = await http.get(URL_Pamutan);
-  var jsonList = convert.jsonDecode(response.body) as List;
-  return jsonList.map((json) => Person.fromJson(json)).toList();
-} //getMasterListFromPamutan
-
-Future<List<Person>> getMasterListFromToong() async {
-  print('Gets Toong from site');
-  final response = await http.get(URL_Toong);
-  var jsonList = convert.jsonDecode(response.body) as List;
-  return jsonList.map((json) => Person.fromJson(json)).toList();
-} //getMasterListFromToong
 
 
 class Workbooks {

@@ -12,7 +12,7 @@ import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/reducers.dart';
 
 void main() {
-  final _initialState = AppState(workbooks: ['Bucawe', 'Tuong'], masterList: []);
+  final _initialState = AppState(workbooks: ['Pamutan', 'Tuong'], masterList: []);
   final _store = Store<AppState>(
     reducer,
     initialState: _initialState,
