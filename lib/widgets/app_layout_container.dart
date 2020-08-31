@@ -5,6 +5,7 @@ import 'package:sangyaw_app/controller/data_controller.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'drawer_menu.dart';
+import 'bottom_menu.dart';
 
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -32,6 +33,7 @@ abstract class AppLayoutContainer extends StatelessWidget {
               backgroundColor: Colors.teal,
             ),
             drawer: DrawerMenu(),
+            bottomNavigationBar: BottomMenu(),
             body: Container(
                 margin: EdgeInsets.all(10.0),
                 child: state.viewLoading ? getSpinner() : this.buildBody(context, state)

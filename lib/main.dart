@@ -11,6 +11,8 @@ import 'package:sangyaw_app/pages/about.dart';
 import 'package:sangyaw_app/pages/template.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/reducers.dart';
+import 'package:sangyaw_app/pages/search_by_facebook.dart';
+import 'package:sangyaw_app/pages/search_by_assigned_to.dart';
 
 void main() {
   final _initialState = AppState(workbooks: ['Pamutan', 'Tuong'], masterList: [], loading: false);
@@ -42,6 +44,9 @@ class MyApp extends StatelessWidget {
           '/about': (context) => About(),
           '/template': (context) => Template(),
           '/all': (context) => AllPersons(),
+          '/search_facebook': (context) => SearchByFacebook(),
+          '/search_assigned_to': (context) => SearchByAssignedTo(),
+
         },
       ),
     );

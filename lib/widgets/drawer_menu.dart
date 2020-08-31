@@ -7,7 +7,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/actions.dart';
 
-const headerTitle = 'Territories';
+const headerTitle = 'Directory';
 
 class DrawerMenu extends StatelessWidget {
   DataController dataController;
