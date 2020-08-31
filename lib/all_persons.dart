@@ -3,7 +3,21 @@ import 'package:sangyaw_app/drawer_menu.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/widgets/PersonList.dart';
-import 'package:sticky_headers/sticky_headers.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+const spinkit1 = SpinKitRotatingCircle(
+  color: Colors.blueAccent,
+  size: 50.0,
+);
+final spinkit2 = SpinKitFadingCircle(
+  itemBuilder: (BuildContext context, int index) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: index.isEven ? Colors.red : Colors.green,
+      ),
+    );
+  },
+);
 
 class AllPersons extends StatelessWidget {
   @override
@@ -23,20 +37,7 @@ class AllPersons extends StatelessWidget {
                 converter: (store) => store.state,
                 builder: (context, state) {
                   if (state.viewLoading) {
-                    return new WillPopScope(
-                        onWillPop: () async => false,
-                        child: SimpleDialog(
-                            key: key,
-                            backgroundColor: Colors.black54,
-                            children: <Widget>[
-                              Center(
-                                child: Column(children: [
-                                  CircularProgressIndicator(),
-                                  SizedBox(height: 10,),
-                                  Text("Please Wait....",style: TextStyle(color: Colors.blueAccent),)
-                                ]),
-                              )
-                            ]));
+                    return spinkit1;
                   }
                   return PersonList(list: state.viewMasterList);
                 },
