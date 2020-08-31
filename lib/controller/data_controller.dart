@@ -34,6 +34,42 @@ class DataController {
     return result;
   }
 
+  Person findPerson(facebookName) {
+    return this.persons.firstWhere((p) {
+      if (p != null && p.facebookName != null && facebookName != null) {
+        return facebookName.toLowerCase() == p.facebookName.toLowerCase();
+      }
+      return false;
+    });
+  }
+  
+  List<Person> findPersonsAssignedTo(String assignedTo) {
+    return this.persons.where((p) {
+      if (p != null && p.assignedTo != null && assignedTo != null) {
+        return assignedTo.toLowerCase() == p.assignedTo.toLowerCase();
+      }
+      return false;
+    }).toList();
+  }
+
+  List<Person> findPersonsFBStartsWith(String startswith) {
+    return this.persons.where((p) {
+      if (p != null && p.facebookName != null && startswith != null) {
+        return p.facebookName.toLowerCase().startsWith(startswith.toLowerCase());
+      }
+      return false;
+    }).toList();
+  }
+
+  List<Person> findPersonsFBContains(String contains) {
+    return this.persons.where((p) {
+      if (p != null && p.facebookName != null && contains != null) {
+        return p.facebookName.toLowerCase().contains(contains.toLowerCase());
+      }
+      return false;
+    }).toList();
+  }
+
 
 } // DataController class
 

@@ -24,8 +24,8 @@ class BottomMenu extends StatelessWidget {
       items: [
         BottomNavigationBarItem(icon: new Icon(Icons.search),
             title: new Text('Search Facebook Name')),
-        BottomNavigationBarItem(icon: new Icon(Icons.search),
-            title: new Text('Search By Assigned Name')),
+        BottomNavigationBarItem(icon: new Icon(Icons.assignment_rounded),
+            title: new Text('Assignments')),
       ], //items
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.blueAccent,
@@ -50,7 +50,7 @@ class BottomMenu extends StatelessWidget {
         break;
       case 1:
         //Navigator.pushReplacementNamed(localContext, '/search_assigned_to');
-        Navigator.pushNamedAndRemoveUntil(localContext, '/search_assigned_to', (route) => false);
+        Navigator.pushNamedAndRemoveUntil(localContext, '/assignments', (route) => false);
 
         break;
     } //end switch
