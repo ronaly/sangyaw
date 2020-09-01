@@ -66,6 +66,7 @@ class PersonDetails extends AppLayoutContainer {
               ListTile (
                 leading:  rowField("Date Contacted: "),
                 title: rowValue(formatDate(this.dc.currentPerson.dateContacted)),
+                //title: rowValue(this.dc.currentPerson.dateContacted),
               ) ,
               ListTile (
                 leading:  rowField("Remarks: "),
@@ -97,11 +98,20 @@ class PersonDetails extends AppLayoutContainer {
   } //rowValue
 
    formatDate (var strDate) {
-     var formatter = new DateFormat('MM-dd-yyyy');
-     var parDate = DateTime.parse(strDate);
-     var newDate;
-     if (strDate != null ) newDate = formatter.format(parDate);
-     return newDate;
+    try {
+      var formatter = new DateFormat('MM-dd-yyyy');
+      var parDate;
+      parDate = DateTime.parse(strDate);
+      var newDate;
+      if (strDate != null ) newDate = formatter.format(parDate);
+      return newDate;
+
+
+    } catch (err) {
+      print (err);
+      return 'Invalid Date';
+
+    }
   } //formatDate
 
 
