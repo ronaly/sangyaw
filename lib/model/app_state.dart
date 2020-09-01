@@ -18,7 +18,13 @@ class AppState {
   String appErrorTitle;
   String appErrorMessage;
 
-  AppState({@required this.workbooks, @required this.masterList, @required this.loading, @required this.appError });
+  AppState(){
+    this.workbooks = ['Pamutan', 'Tuong'];
+    this.masterList = [];
+    this.loading = false;
+    this.appError = false;
+//    {@required this.workbooks, @required this.masterList, @required this.loading, @required this.appError }
+  }
   AppState.fromAppState(AppState another) {
     workbooks = another.workbooks;
     currentWorkbook = another.currentWorkbook;
