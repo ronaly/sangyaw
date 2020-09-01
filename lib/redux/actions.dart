@@ -9,21 +9,12 @@ import 'package:http/http.dart' as http;
 
 
 // Google App Script Web URL.
+const String APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsKt8R9yIWp_vMpCxxDmZlhSBFMJp2T5MZmLp7vi_B760KfVM/exec';
+
+
 String getGoogleSheetApiUrl(Store<AppState> store) {
-  const String URL_Pamutan = "https://script.google.com/macros/s/AKfycbwsKt8R9yIWp_vMpCxxDmZlhSBFMJp2T5MZmLp7vi_B760KfVM/exec";
-  const String URL_Toong = "https://script.google.com/macros/s/AKfycbw2Xz2F_okd_ciCHavm57HalTdDrE3V1aiYg-6Zi6qegvZJioo/exec";
-  //Success Status Message
-  const STATUS_SUCCESS = "SUCCESS";
-
-  if('Pamutan' == store.state.currentWorkbook) {
-    return URL_Pamutan;
-  }
-
-  if('Tuong' == store.state.currentWorkbook) {
-    return URL_Pamutan;
-  }
-
-  return 'https://lsdjflsdjflsdflsdfjldks/';
+  String sheetId = SANGYAW_SHEET_IDS[store.state.currentWorkbook];
+  return '$APP_SCRIPT_URL?sheetId=${sheetId}';;
 }
 
 

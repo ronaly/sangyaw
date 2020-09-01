@@ -3,6 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/model/person.dart';
 
+const Map<String, String> SANGYAW_SHEET_IDS = {
+  'Pamutan' : '1NiDMwngtzsQeUKUt24j4qNrJtb4UPAdesCrwgU8-_7w',
+  'Tuong' : '1seS0he8l4wp_n8-i-gzPT3sY6ocCjC6DeuzGEvsAvsk',
+};
+
 @immutable
 class AppState {
   List<String> workbooks;
@@ -19,7 +24,7 @@ class AppState {
   String appErrorMessage;
 
   AppState(){
-    this.workbooks = ['Pamutan', 'Tuong', 'Error Test'];
+    this.workbooks = SANGYAW_SHEET_IDS.keys.toList(); // ['Pamutan', 'Tuong', 'Error Test'];
     this.masterList = [];
     this.loading = false;
     this.appError = false;
