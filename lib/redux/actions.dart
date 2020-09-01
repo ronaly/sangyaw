@@ -28,11 +28,12 @@ String getGoogleSheetApiUrl(Store<AppState> store) {
 
 
 ThunkAction<AppState> getMasterList = (Store<AppState> store) async {
-  store.dispatch(
-      new Loading(true)
-  );
+
+  store.dispatch(new ClearAppErrors());
+
   String url = getGoogleSheetApiUrl(store);
   try {
+    store.dispatch(new Loading(true));
     http.Response response = await http.get(
       Uri.encodeFull(url),
     );
@@ -41,19 +42,12 @@ ThunkAction<AppState> getMasterList = (Store<AppState> store) async {
       return Person.fromJson(json);
     }).toList();
 
-    store.dispatch(
-        new MasterList(persons)
-    );
-    store.dispatch(
-        new Loading(false)
-    );
+    store.dispatch(new MasterList(persons));
+    store.dispatch(new Loading(false));
 
   } catch (err) {
-    print('Error${err.toString()}');
-    store.dispatch(
-        new Loading(false)
-    );
-
+    store.dispatch(new CreateAppError('Internet Connection Failed', err.toString()));
+    store.dispatch(new MasterList([]));
   }
 };
 
@@ -107,5 +101,15 @@ class AppErrorTitle {
 class AppErrorMessage {
   final String payload;
   AppErrorMessage(this.payload);
+}
+
+class ClearAppErrors {
+  ClearAppErrors();
+}
+
+class CreateAppError {
+  final String title;
+  final String message;
+  CreateAppError(this.title, this.message);
 }
 

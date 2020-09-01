@@ -56,6 +56,16 @@ AppState reducer(AppState prevState, dynamic action) {
     newState.appErrorTitle = action.payload;
   } else if (action is AppErrorMessage) {
     newState.appErrorMessage = action.payload;
+  } else if (action is ClearAppErrors) {
+    newState.appError = false;
+    newState.appErrorTitle = null;
+    newState.appErrorMessage = null;
+    newState.loading = false;
+  } else if (action is CreateAppError) {
+    newState.appError = true;
+    newState.appErrorTitle = action.title;
+    newState.appErrorMessage = action.message;
+    newState.loading = false;
   } else {
     print('Unknow Redux Reduce Action!!!');
     return prevState;
