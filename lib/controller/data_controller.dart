@@ -11,11 +11,6 @@ class DataController {
     this.store = store;
   }
 
-  loadMasterList(String directory) {
-    store.dispatch(CurrentWorkbook(directory));
-    store.dispatch(getMasterList(store));
-  }
-
   List<Person> get masterList =>  store.state.viewMasterList;
   List<Person> get persons =>  store.state.viewMasterList;
   int get totalPersons => store.state.viewMasterList.length;
@@ -30,6 +25,10 @@ class DataController {
   Person get newPerson => store.state.viewNewPerson;
   String get currentAssigned => store.state.viewCurrentAssigned;
 
+  bool get error => store.state.appError;
+  String get errorTitle => store.state.appErrorTitle;
+  String get errorMessage => store.state.appErrorMessage;
+
   set currentPerson(Person person) {
     store.dispatch(CurrentPerson(person));
   }
@@ -40,6 +39,30 @@ class DataController {
 
   set currentAssigned(String currentAssigned) {
     store.dispatch(CurrentAssigned(currentAssigned));
+  }
+
+  set error(bool error) {
+    store.dispatch(AppError(error));
+  }
+
+  set errorTitle(String title) {
+    store.dispatch(AppErrorTitle(title));
+  }
+
+  set errorMessage(String message) {
+    store.dispatch(AppErrorMessage(message));
+  }
+
+
+  loadMasterList(String directory) {
+    store.dispatch(CurrentWorkbook(directory));
+    store.dispatch(getMasterList(store));
+  }
+
+  clearErrors() {
+    this.error = false;
+    this.errorTitle = '';
+    this.errorMessage = '';
   }
 
   List<String> get assignToList {
