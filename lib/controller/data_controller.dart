@@ -26,6 +26,22 @@ class DataController {
 
   bool get loading => store.state.viewLoading;
 
+  Person get currentPerson => store.state.viewCurrentPerson;
+  Person get newPerson => store.state.viewNewPerson;
+  String get currentAssigned => store.state.viewCurrentAssigned;
+
+  set currentPerson(Person person) {
+    store.dispatch(CurrentPerson(person));
+  }
+
+  set newPerson(Person person) {
+    store.dispatch(NewPerson(person));
+  }
+
+  set currentAssigned(String currentAssigned) {
+    store.dispatch(CurrentAssigned(currentAssigned));
+  }
+
   List<String> get assignToList {
     List<String> arr = [];
     arr = this.persons.map((e) => e.assignedTo.toLowerCase() ).toList();

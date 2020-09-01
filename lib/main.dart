@@ -5,6 +5,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_logging/redux_logging.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:sangyaw_app/pages/all_persons.dart';
+import 'package:sangyaw_app/pages/assigned_persons.dart';
 import 'package:sangyaw_app/pages/assignments.dart';
 
 import 'package:sangyaw_app/pages/home.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
           '/search_facebook': (context) => SearchByFacebook(),
           '/search_assigned_to': (context) => SearchByAssignedTo(),
           '/assignments': (context) => Assignments(),
-
+          '/assigned_persons': (context) => AssignedPersons(),
         },
       ),
     );
