@@ -9,11 +9,16 @@ class AppState {
   String currentWorkbook;
   List<Person> masterList;
   bool loading;
+
   Person currentPerson;
   Person newPerson;
   String currentAssigned;
 
-  AppState({@required this.workbooks, @required this.masterList, @required this.loading });
+  bool appError;
+  String appErrorTitle;
+  String appErrorMessage;
+
+  AppState({@required this.workbooks, @required this.masterList, @required this.loading, @required this.appError });
   AppState.fromAppState(AppState another) {
     workbooks = another.workbooks;
     currentWorkbook = another.currentWorkbook;
@@ -22,14 +27,22 @@ class AppState {
     currentPerson = another.currentPerson;
     newPerson = another.newPerson;
     currentAssigned = another.currentAssigned;
+    appError = another.appError;
+    appErrorTitle = another.appErrorTitle;
+    appErrorMessage = another.appErrorMessage;
   }
   List<String> get viewWorkbooks => workbooks;
   String get viewCurrentWorkbook => currentWorkbook;
   List<Person> get viewMasterList => masterList;
   bool get viewLoading => loading;
+
   Person get viewCurrentPerson => currentPerson;
   Person get viewNewPerson => newPerson;
   String get viewCurrentAssigned => currentAssigned;
+
+  bool get viewAppError => appError;
+  String get viewAppErrorTitle => appErrorTitle;
+  String get viewAppErrorMessage => appErrorMessage;
 
   dynamic toJson() => {
     'workbooks': workbooks,
@@ -39,6 +52,9 @@ class AppState {
     'currentPerson': currentPerson.hashCode,
     'newPerson': newPerson.hashCode,
     'currentAssigned': currentAssigned,
+    'appError': appError,
+    'appErrorTitle': appErrorTitle,
+    'appErrorMessage': appErrorMessage,
   };
 
   @override

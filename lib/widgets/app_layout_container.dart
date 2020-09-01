@@ -4,6 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/controller/data_controller.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/model/person.dart';
+import 'package:sangyaw_app/utils/spinner.dart';
 import 'drawer_menu.dart';
 import 'bottom_menu.dart';
 
@@ -27,6 +28,12 @@ abstract class AppLayoutContainer extends StatelessWidget {
         converter: (store) => store.state,
         builder: (context, state) {
           this.dataController = new DataController(StoreProvider.of<AppState>(context));
+          Widget renderMe;
+          if(this.dc.loading) {
+            renderMe = getAppSpinner();
+          } else {
+            renderMe = this.buildBody(context, state);
+          }
           return Scaffold(
             appBar: AppBar(
               title: Text(this.getTitle(context, state)),
@@ -36,28 +43,10 @@ abstract class AppLayoutContainer extends StatelessWidget {
             bottomNavigationBar: BottomMenu(),
             body: Container(
                 margin: EdgeInsets.all(10.0),
-                child: this.dc.loading ? getSpinner() : this.buildBody(context, state)
+                child: renderMe
             ),
           );
         });
   }
 
-  final spinkit1 = SpinKitRotatingCircle(
-    color: Colors.blueAccent,
-    size: 50.0,
-  );
-  final spinkit2 = SpinKitFadingCircle(
-    itemBuilder: (BuildContext context, int index) {
-      return DecoratedBox(
-        decoration: BoxDecoration(
-          color: index.isEven ? Colors.red : Colors.green,
-        ),
-      );
-    },
-  );
-
-
-  Widget getSpinner() {
-    return spinkit1;
-  }
 }

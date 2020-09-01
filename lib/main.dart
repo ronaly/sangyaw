@@ -18,7 +18,7 @@ import 'package:sangyaw_app/pages/search_by_facebook.dart';
 import 'package:sangyaw_app/pages/search_by_assigned_to.dart';
 
 void main() {
-  final _initialState = AppState(workbooks: ['Pamutan', 'Tuong'], masterList: [], loading: false);
+  final _initialState = AppState(workbooks: ['Pamutan', 'Tuong'], masterList: [], loading: false, appError: false);
   final _store = Store<AppState>(
     reducer,
     initialState: _initialState,
