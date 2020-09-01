@@ -19,7 +19,7 @@ class AppState {
   String appErrorMessage;
 
   AppState(){
-    this.workbooks = ['Pamutan', 'Tuong'];
+    this.workbooks = ['Pamutan', 'Tuong', 'Error Test'];
     this.masterList = [];
     this.loading = false;
     this.appError = false;

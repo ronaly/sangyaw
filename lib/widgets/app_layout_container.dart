@@ -8,10 +8,10 @@ import 'package:sangyaw_app/utils/spinner.dart';
 import 'drawer_menu.dart';
 import 'bottom_menu.dart';
 
-
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 abstract class AppLayoutContainer extends StatelessWidget {
+
+  final _loadingTitle = 'Loading please wait ...';
+
   String getTitle(context, AppState state);
   Widget buildBody(context, AppState state);
 
@@ -29,14 +29,20 @@ abstract class AppLayoutContainer extends StatelessWidget {
         builder: (context, state) {
           this.dataController = new DataController(StoreProvider.of<AppState>(context));
           Widget renderMe;
-          if(this.dc.loading) {
+          String strTitle;
+          if(this.dc.error) {
+            strTitle = this.dc.errorTitle;
+            renderMe = Text(this.dc.errorMessage);
+          } else if(this.dc.loading) {
+            strTitle = _loadingTitle;
             renderMe = getAppSpinner();
           } else {
             renderMe = this.buildBody(context, state);
+            strTitle = this.getTitle(context, state);
           }
           return Scaffold(
             appBar: AppBar(
-              title: Text(this.getTitle(context, state)),
+              title: Text(strTitle),
               backgroundColor: Colors.blueAccent,
             ),
             drawer: DrawerMenu(),
