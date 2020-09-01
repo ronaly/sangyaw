@@ -4,6 +4,7 @@ import 'package:sangyaw_app/widgets/app_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:intl/intl.dart';
+import 'package:sangyaw_app/widgets/show_photo_view.dart';
 
 
 class PersonDetails extends AppLayoutContainer {
@@ -23,35 +24,13 @@ class PersonDetails extends AppLayoutContainer {
 
   }  //build widget
 
-  Widget photoView() {
-    return  SizedBox(
-        height: 400.0,
-        child: Card (
-        elevation: 5,
-        child: ClipRect (
-           child: Align (
-              heightFactor: 0.5,
-              child: PhotoView(
-               // imageProvider: AssetImage("assets/images/sample.png"),
-               // imageProvider: NetworkImage("$netWorkImagePath/akasya_images/Adriana Sanchez.Profile Image.073906.png"),
-                imageProvider: NetworkImage(netWorkImagePath),
-                minScale: PhotoViewComputedScale.contained * 0.8,
-                maxScale: PhotoViewComputedScale.contained * 5.8,
-                basePosition: Alignment.center,
-              ),
-          ),
-        ),
-       )
-    );
-  } //photoView
-
 
   Widget listView(BuildContext context) {
     return ListView (
           children: ListTile.divideTiles(
             context: context,
             tiles: [
-              photoView(),
+              ShowPhotoView(),
               ListTile (
                 leading: rowField("Facebook Name: "),
                 title: rowValue(this.dc.currentPerson.facebookName),

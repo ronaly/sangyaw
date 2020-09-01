@@ -70,10 +70,11 @@ class SearchByFacebook extends AppLayoutContainer {
                //Validate() returns true if the form is valid or false otherwise
                if(_formKey.currentState.validate()) {
                  //if the form is valid, display a snackbar.
+                 performSearch(_textController.text, context);
+               }
+               else {
                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Searching ....',),
                      duration: Duration(seconds: 2)));
-
-                 performSearch(_textController.text, context);
                }
              },
              child: Text('Search'),
