@@ -72,3 +72,19 @@ class Loading {
   final bool payload;
   Loading(this.payload);
 }
+
+class CurrentPerson {
+  final Person payload;
+  CurrentPerson(this.payload);
+}
+
+class NewPerson {
+  final Person payload;
+  NewPerson(this.payload);
+}
+
+class CurrentAssigned {
+  final String payload;
+  CurrentAssigned(this.payload);
+}
+
