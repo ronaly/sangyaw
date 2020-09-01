@@ -50,8 +50,14 @@ AppState reducer(AppState prevState, dynamic action) {
     newState.newPerson = action.payload;
   } else if (action is CurrentAssigned) {
     newState.currentAssigned = action.payload;
+  } else if (action is AppError) {
+    newState.appError = action.payload;
+  } else if (action is AppErrorTitle) {
+    newState.appErrorTitle = action.payload;
+  } else if (action is AppErrorMessage) {
+    newState.appErrorMessage = action.payload;
   } else {
-    print('Action is string');
+    print('Unknow Redux Reduce Action!!!');
     return prevState;
   }
 

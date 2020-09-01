@@ -88,3 +88,18 @@ class CurrentAssigned {
   CurrentAssigned(this.payload);
 }
 
+class AppError {
+  final bool payload;
+  AppError(this.payload);
+}
+
+class AppErrorTitle {
+  final String payload;
+  AppErrorTitle(this.payload);
+}
+
+class AppErrorMessage {
+  final String payload;
+  AppErrorMessage(this.payload);
+}
+
