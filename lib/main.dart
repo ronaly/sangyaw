@@ -10,6 +10,7 @@ import 'package:sangyaw_app/pages/assignments.dart';
 
 import 'package:sangyaw_app/pages/home.dart';
 import 'package:sangyaw_app/pages/about.dart';
+import 'package:sangyaw_app/pages/person_details.dart';
 import 'package:sangyaw_app/pages/template.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/reducers.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
           '/search_assigned_to': (context) => SearchByAssignedTo(),
           '/assignments': (context) => Assignments(),
           '/assigned_persons': (context) => AssignedPersons(),
+          '/person_details': (context) => PersonDetails(),
         },
       ),
     );

@@ -54,5 +54,8 @@ class Person {
     String toParams() => "?Facebook Name=$facebookName&Gender=$gender&Address=$address&Age Group=$ageGroup&Messenger Status=$messengerStatus&"
         "Profile Image=$profileImage&Reference Details=$referenceDetails&Assigned To=$assignedTo&Preached By=$preachedBy&"
         "Date Contacted=$dateContacted&Remarks=$remarks&Progress Status=$progressStatus";
+    String toString() => "Facebook Name: $facebookName \n Gender: $gender\n Address: $address\n Age Group: $ageGroup\n Messenger Status: $messengerStatus\n "
+        "Profile Image: $profileImage\n Reference Details: $referenceDetails\n Assigned To: $assignedTo\n Preached By: $preachedBy\n "
+        "Date Contacted: $dateContacted\n Remarks: $remarks\n Progress Status: $progressStatus";
 
 } //Person

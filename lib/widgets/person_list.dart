@@ -22,7 +22,7 @@ class PersonList extends StatelessWidget {
         // TODO: implement callback here with person as paramater
         print('TODO: person click: ${person}');
 
-        Navigator.pushReplacementNamed(context, '/about');
+        Navigator.pushReplacementNamed(context, '/person_details');
       }));
       arr.add(getLine());
     });
