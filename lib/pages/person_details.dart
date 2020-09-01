@@ -10,20 +10,44 @@ class PersonDetails extends AppLayoutContainer {
   }
 
   Widget buildBody(context, AppState state) {
-    String str = this.dc.assignToList.join(', ');
-    // START BODY HERE
-    Widget body = RichText(
-      text: TextSpan(
-        text: 'CurrentPerson Details: ${this.dc.currentPerson != null ? this.dc.currentPerson.toString() : 'No Person Assigned'}',
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.lightBlue,
-        ),
-      ),
-    );
 
-    // END/RETURN The body
-    return body;
+    return Column (
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget> [
+
+        SizedBox(
+          height: 184.0,
+          child: Stack (
+            children: <Widget> [
+              Positioned.fill(
+                // In order to have the ink splash appear above the image, you
+                //must use Ink.image. This allows the image to be painted as part
+                // of the Material and display ink effects above it. Using a
+                // standard image will obscure the ink splash.
+                child: Ink.image(
+                    image: AssetImage("assets/images/dog.jpeg"),
+                    fit: BoxFit.cover,
+                    child: Container() ),
+              ),
+              Positioned(
+                  bottom: 16.0,
+                  left: 16.0,
+                  right: 16.0,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                        this.dc.currentPerson.facebookName
+                    ),
+                  )
+              ),
+            ],
+          ),
+        )
+      ],
+    ); //Column
+
+
   }
 
 }
