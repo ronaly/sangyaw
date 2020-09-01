@@ -19,7 +19,8 @@ class Assignments extends AppLayoutContainer {
           title: Text(name),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            print('Tapped: ${preacher}');
+            this.dc.currentAssigned = preacher;
+            Navigator.pushNamedAndRemoveUntil(context, '/assigned_persons', (route) => false);
           },
       ));
       arr.add(SizedBox(

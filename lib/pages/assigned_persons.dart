@@ -7,13 +7,13 @@ class AssignedPersons extends AppLayoutContainer {
 
   @override
   String getTitle(context, AppState state) {
-    return 'Found ${this.dc.totalPersons} in ${this.dc.currentDirectory}';
+    return '${this.dc.currentDirectory} > Assigned To: ${this.dc.currentAssigned} ';
   }
 
   Widget buildBody(context, AppState state) {
 
     // START BODY HERE
-    Widget body = PersonList(list: this.dc.persons);
+    Widget body = PersonList(list: this.dc.findPersonsAssignedTo(this.dc.currentAssigned));
 
     // END/RETURN The body
     return body;
