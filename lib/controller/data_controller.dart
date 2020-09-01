@@ -79,6 +79,14 @@ class DataController {
     return result;
   }
 
+  List<String> get addressList {
+    List<String> arr = [];
+    arr = this.persons.map((e) => e.address.toLowerCase() ).toList();
+    List<String> result = LinkedHashSet<String>.from(arr).toList();
+    result.sort();
+    return result;
+  }
+
   Person findPerson(facebookName) {
     return this.persons.firstWhere((p) {
       if (p != null && p.facebookName != null && facebookName != null) {
