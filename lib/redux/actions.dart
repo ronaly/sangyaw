@@ -14,7 +14,7 @@ const String APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsKt8R9y
 
 String getGoogleSheetApiUrl(Store<AppState> store) {
   String sheetId = SANGYAW_SHEET_IDS[store.state.currentWorkbook];
-  return '$APP_SCRIPT_URL?sheetId=${sheetId}';;
+  return '$APP_SCRIPT_URL?action=listPersons&sheetId=${sheetId}';
 }
 
 
@@ -28,6 +28,10 @@ ThunkAction<AppState> getMasterList = (Store<AppState> store) async {
     http.Response response = await http.get(
       Uri.encodeFull(url),
     );
+    print('####################');
+    print(response.body);
+    print('####################');
+
     List result = json.decode(response.body) as List;
     List<Person> persons = result.map((json){
       return Person.fromJson(json);
