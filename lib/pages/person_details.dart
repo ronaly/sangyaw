@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/widgets/app_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
+import 'package:photo_view/photo_view.dart';
 
 class PersonDetails extends AppLayoutContainer {
 
@@ -19,7 +20,14 @@ class PersonDetails extends AppLayoutContainer {
               width: 200,
               child: Card (
                 elevation: 5,
-                child: Image.asset("assets/images/sample.png"),
+                child: Container (
+                  margin: const EdgeInsets.symmetric(vertical: 20.0),
+                  height: 300.0,
+                  child: PhotoView(
+                    imageProvider: AssetImage("assets/images/sample.png"),
+                  ),
+
+                )
               )
           ),
 
@@ -114,10 +122,13 @@ class PersonDetails extends AppLayoutContainer {
   Widget rowValue(String fieldValue) {
     if (fieldValue.isEmpty) fieldValue = "";
 
-    return Container (
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Text("$fieldValue"),
-    );
+    return Expanded (
+        //padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Text("$fieldValue")
+
+
+      );
+
   }
 
 
