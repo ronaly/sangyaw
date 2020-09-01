@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:sangyaw_app/model/person.dart';
 
 const Map<String, String> SANGYAW_SHEET_IDS = {
-  'Pamutan' : '1LReu2kHwuW7CqGoyESjXwylc_Jbve6p9LyjVzHP4I24',
-  'Tuong' : '1Mc9CkGIiMVl9p7ETQN6itQKlbx6xb1F_D51GJsGt1yI',
+  'Pamutan' : '1y-GqdmM20Byli_u-wVB1CbRzUDV0qPhdcb5fH5xowTU',
+  'Tuong' : '1Dqt2yNeMH-KTORX36-evAfsl-ftXtNuML5r7ZSwD0fs',
 };
 
 @immutable
