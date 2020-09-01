@@ -57,13 +57,14 @@ class PersonList extends AppStatelessWidget {
 
 String setImagePath(Person person) {
   String path;
-  if (person.profileImage.isNotEmpty) {
-    path = person.profileImage;
-  }
-  else {
-    path = "assets/images/dog.jpeg";
-    print('showing image here');
-  }
+  // if (person.profileImage.isNotEmpty) {
+  //   path = person.profileImage;
+  // }
+  // else {
+  //   path = "assets/images/dog.jpeg";
+  //   print('showing image here');
+  // }
+  path = "assets/images/sample.png";
 
   return path;
 }

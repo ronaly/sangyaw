@@ -16,6 +16,7 @@ import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/reducers.dart';
 import 'package:sangyaw_app/pages/search_by_facebook.dart';
 import 'package:sangyaw_app/pages/search_by_assigned_to.dart';
+import 'package:sangyaw_app/pages/searched_persons.dart';
 
 void main() {
   final _initialState = AppState();
@@ -52,6 +53,8 @@ class MyApp extends StatelessWidget {
           '/assignments': (context) => Assignments(),
           '/assigned_persons': (context) => AssignedPersons(),
           '/person_details': (context) => PersonDetails(),
+          '/searched_persons': (context) => SearchedPersons(),
+
         },
       ),
     );

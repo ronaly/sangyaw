@@ -3,8 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:sangyaw_app/widgets/app_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:intl/intl.dart';
+
 
 class PersonDetails extends AppLayoutContainer {
+
+   final String netWorkImagePath = "https://drive.google.com/uc?export=view&id=1tuXRwIIBmPxJfv0ApLoptmdsZtzS9rpK";
 
   @override
   String getTitle(context, AppState state) {
@@ -28,7 +32,9 @@ class PersonDetails extends AppLayoutContainer {
            child: Align (
               heightFactor: 0.5,
               child: PhotoView(
-                imageProvider: AssetImage("assets/images/sample.png"),
+               // imageProvider: AssetImage("assets/images/sample.png"),
+               // imageProvider: NetworkImage("$netWorkImagePath/akasya_images/Adriana Sanchez.Profile Image.073906.png"),
+                imageProvider: NetworkImage(netWorkImagePath),
                 minScale: PhotoViewComputedScale.contained * 0.8,
                 maxScale: PhotoViewComputedScale.contained * 5.8,
                 basePosition: Alignment.center,
@@ -37,7 +43,6 @@ class PersonDetails extends AppLayoutContainer {
         ),
        )
     );
-
   } //photoView
 
 
@@ -77,11 +82,11 @@ class PersonDetails extends AppLayoutContainer {
               ) ,
               ListTile (
                 leading:  rowField("Preached By: "),
-                title: rowValue(this.dc.currentPerson.preachedBy),
+                title: rowValue(this.dc.currentPerson.preachedBy ),
               ) ,
               ListTile (
                 leading:  rowField("Date Contacted: "),
-                title: rowValue(this.dc.currentPerson.dateContacted),
+                title: rowValue(formatDate(this.dc.currentPerson.dateContacted)),
               ) ,
               ListTile (
                 leading:  rowField("Remarks: "),
@@ -94,9 +99,6 @@ class PersonDetails extends AppLayoutContainer {
             ], //tiles []
           ).toList(), //ListTiles
         ); //ListView
-
-
-
   } //listView
 
 
@@ -114,6 +116,14 @@ class PersonDetails extends AppLayoutContainer {
         child: Text("$fieldValue")
       );
   } //rowValue
+
+   formatDate (var strDate) {
+     var formatter = new DateFormat('MM-dd-yyyy');
+     var parDate = DateTime.parse(strDate);
+     var newDate;
+     if (strDate != null ) newDate = formatter.format(parDate);
+     return newDate;
+  } //formatDate
 
 
 }  //class PersonDetails
