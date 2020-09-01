@@ -23,6 +23,8 @@ class AppState {
   String appErrorTitle;
   String appErrorMessage;
 
+  String queryTerm;
+
   AppState(){
     this.workbooks = SANGYAW_SHEET_IDS.keys.toList(); // ['Pamutan', 'Tuong', 'Error Test'];
     this.masterList = [];
@@ -41,6 +43,7 @@ class AppState {
     appError = another.appError;
     appErrorTitle = another.appErrorTitle;
     appErrorMessage = another.appErrorMessage;
+    queryTerm = another.queryTerm;
   }
   List<String> get viewWorkbooks => workbooks;
   String get viewCurrentWorkbook => currentWorkbook;
@@ -55,6 +58,8 @@ class AppState {
   String get viewAppErrorTitle => appErrorTitle;
   String get viewAppErrorMessage => appErrorMessage;
 
+  String get viewQueryTerm => queryTerm;
+
   dynamic toJson() => {
     'workbooks': workbooks,
     'currentWorkbook': currentWorkbook,
@@ -66,6 +71,7 @@ class AppState {
     'appError': appError,
     'appErrorTitle': appErrorTitle,
     'appErrorMessage': appErrorMessage,
+    'queryTerm': queryTerm,
   };
 
   @override

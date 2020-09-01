@@ -108,3 +108,8 @@ class CreateAppError {
   CreateAppError(this.title, this.message);
 }
 
+class QueryTerm {
+  final String payload;
+  QueryTerm(this.payload);
+}
+
