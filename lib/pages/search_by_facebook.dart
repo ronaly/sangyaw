@@ -87,8 +87,9 @@ class SearchByFacebook extends AppLayoutContainer {
   void performSearch(String searchString, BuildContext context ) {
 
     print('Entering performSearch');
-    List<Person> _personList = this.dc.findPersonsFBStartsWith(searchString);
+    //List<Person> _personList = this.dc.findPersonsFBStartsWith(searchString);
    // this.dc.findPersonsFBContains(searchString);
+    this.dc.queryTerm = searchString;
     Navigator.pushNamedAndRemoveUntil(context, '/searched_persons', (route) => false);
 
   }

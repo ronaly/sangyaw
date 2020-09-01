@@ -13,7 +13,7 @@ class SearchedPersons extends AppLayoutContainer {
   Widget buildBody(context, AppState state) {
 
     // START BODY HERE
-    Widget body = PersonList(list: this.dc.persons);
+    Widget body = PersonList(list: this.dc.findPersonsFBContains(this.dc.queryTerm));
 
     // END/RETURN The body
     return body;
