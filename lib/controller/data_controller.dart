@@ -29,6 +29,8 @@ class DataController {
   String get errorTitle => store.state.appErrorTitle;
   String get errorMessage => store.state.appErrorMessage;
 
+  String get queryTerm => store.state.queryTerm;
+
   set currentPerson(Person person) {
     store.dispatch(CurrentPerson(person));
   }
@@ -51,6 +53,10 @@ class DataController {
 
   set errorMessage(String message) {
     store.dispatch(AppErrorMessage(message));
+  }
+
+  set queryTerm(String queryTerm) {
+    store.dispatch(QueryTerm(queryTerm));
   }
 
 

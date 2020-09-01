@@ -66,6 +66,8 @@ AppState reducer(AppState prevState, dynamic action) {
     newState.appErrorTitle = action.title;
     newState.appErrorMessage = action.message;
     newState.loading = false;
+  } else if (action is QueryTerm) {
+    newState.queryTerm = action.payload;
   } else {
     print('Unknow Redux Reduce Action!!!');
     return prevState;
