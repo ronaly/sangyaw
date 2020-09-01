@@ -5,12 +5,15 @@ import 'package:sangyaw_app/controller/data_controller.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 
 abstract class AppStatelessWidget extends StatelessWidget {
-  Widget buildBody(context);
+  Widget buildBody(BuildContext context);
 
   DataController dataController;
   DataController getDataControler() {
     return dataController;
   }
+
+  DataController get dc => this.getDataControler();
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AppState>(

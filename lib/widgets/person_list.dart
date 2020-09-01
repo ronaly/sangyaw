@@ -1,13 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/model/person.dart';
+import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 
-class PersonList extends StatelessWidget {
+class PersonList extends AppStatelessWidget {
   List<Person> list;
   PersonList({this.list});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return ListView(padding: EdgeInsets.zero,
       children: getWidgets(context)
     );
@@ -19,9 +20,7 @@ class PersonList extends StatelessWidget {
     list.forEach((person) {
 
       arr.add(personTile(person, onTap: () {
-        // TODO: implement callback here with person as paramater
-        print('TODO: person click: ${person}');
-
+        this.dc.currentPerson = person;
         Navigator.pushReplacementNamed(context, '/person_details');
       }));
       arr.add(getLine());
