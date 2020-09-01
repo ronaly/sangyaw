@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:sangyaw_app/config/config.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:redux/redux.dart';
@@ -10,9 +11,6 @@ import 'package:http/http.dart' as http;
 
 // Google App Script Web URL.
 //const String APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsKt8R9yIWp_vMpCxxDmZlhSBFMJp2T5MZmLp7vi_B760KfVM/exec';
-
-const String APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMqHh-lcYmNinrydajF-oKDiHREcg1313jbi6JsfDVliXSNiA/exec';
-
 
 String getGoogleSheetApiUrl(Store<AppState> store) {
   String sheetId = SANGYAW_SHEET_IDS[store.state.currentWorkbook];

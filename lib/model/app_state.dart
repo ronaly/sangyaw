@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:sangyaw_app/config/config.dart';
 import 'package:sangyaw_app/model/person.dart';
 
-const Map<String, String> SANGYAW_SHEET_IDS = {
-  'Pamutan' : '1y-GqdmM20Byli_u-wVB1CbRzUDV0qPhdcb5fH5xowTU',
-  'Tuong' : '1Dqt2yNeMH-KTORX36-evAfsl-ftXtNuML5r7ZSwD0fs',
-};
+
 
 @immutable
 class AppState {
