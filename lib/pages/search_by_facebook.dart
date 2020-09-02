@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sangyaw_app/widgets/app_layout_container.dart';
+import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/widgets/search_facebook_form.dart';
 import 'package:sangyaw_app/model/person.dart';
 
 
-class SearchByFacebook extends AppLayoutContainer {
+class SearchByFacebook extends AppStateLessLayoutContainer {
   String theText = 'Search by Facebook Name :)';
   //_formKey is needed to validate the form. The validate method will call the validator function of each textfield
   final _formKey = GlobalKey<FormState>();

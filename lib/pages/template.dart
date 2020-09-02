@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sangyaw_app/widgets/app_layout_container.dart';
+import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 
-class Template extends AppLayoutContainer {
+class Template extends AppStateLessLayoutContainer {
   String theText = 'Manangyaw ta tanan atong sangyawan :)';
 
   @override

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sangyaw_app/widgets/app_layout_container.dart';
+import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:intl/intl.dart';
 import 'package:sangyaw_app/widgets/show_photo_view.dart';
 
 
-class PersonDetails extends AppLayoutContainer {
+class PersonDetails extends AppStateLessLayoutContainer {
 
    final String netWorkImagePath = "https://drive.google.com/uc?export=view&id=1tuXRwIIBmPxJfv0ApLoptmdsZtzS9rpK";
 

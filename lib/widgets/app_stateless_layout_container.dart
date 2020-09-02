@@ -8,7 +8,7 @@ import 'package:sangyaw_app/utils/spinner.dart';
 import 'drawer_menu.dart';
 import 'bottom_menu.dart';
 
-abstract class AppLayoutContainer extends StatelessWidget {
+abstract class AppStateLessLayoutContainer extends StatelessWidget {
 
   final _loadingTitle = 'Loading please wait ...';
 
