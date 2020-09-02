@@ -36,7 +36,9 @@ import 'package:sangyaw_app/redux/actions.dart';
 
 AppState reducer(AppState prevState, dynamic action) {
   AppState newState = AppState.fromAppState(prevState);
-  if (action is Workbooks) {
+  if (action is Settings) {
+    newState.settings = action.payload;
+  } else if (action is Workbooks) {
     newState.workbooks = action.payload;
   } else if (action is CurrentWorkbook) {
     newState.currentWorkbook = action.payload;

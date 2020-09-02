@@ -8,6 +8,7 @@ import 'package:sangyaw_app/model/person.dart';
 
 @immutable
 class AppState {
+  List<dynamic> settings = [];
   List<String> workbooks;
   String currentWorkbook;
   List<Person> masterList;
@@ -24,13 +25,15 @@ class AppState {
   String queryTerm;
 
   AppState(){
-    this.workbooks = SANGYAW_SHEET_IDS.keys.toList(); // ['Pamutan', 'Tuong', 'Error Test'];
+    this.settings = [];
+    this.workbooks = []; // SANGYAW_SHEET_IDS.keys.toList(); // ['Pamutan', 'Tuong', 'Error Test'];
     this.masterList = [];
     this.loading = false;
     this.appError = false;
 //    {@required this.workbooks, @required this.masterList, @required this.loading, @required this.appError }
   }
   AppState.fromAppState(AppState another) {
+    settings = another.settings;
     workbooks = another.workbooks;
     currentWorkbook = another.currentWorkbook;
     masterList = another.masterList;
@@ -43,6 +46,7 @@ class AppState {
     appErrorMessage = another.appErrorMessage;
     queryTerm = another.queryTerm;
   }
+  dynamic get viewSettings => settings;
   List<String> get viewWorkbooks => workbooks;
   String get viewCurrentWorkbook => currentWorkbook;
   List<Person> get viewMasterList => masterList;
@@ -59,6 +63,7 @@ class AppState {
   String get viewQueryTerm => queryTerm;
 
   dynamic toJson() => {
+    'settings': settings,
     'workbooks': workbooks,
     'currentWorkbook': currentWorkbook,
     'masterList': masterList.hashCode,

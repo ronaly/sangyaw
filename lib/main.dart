@@ -13,6 +13,7 @@ import 'package:sangyaw_app/pages/about.dart';
 import 'package:sangyaw_app/pages/person_details.dart';
 import 'package:sangyaw_app/pages/template.dart';
 import 'package:sangyaw_app/model/app_state.dart';
+import 'package:sangyaw_app/redux/actions.dart';
 import 'package:sangyaw_app/redux/reducers.dart';
 import 'package:sangyaw_app/pages/search_by_facebook.dart';
 import 'package:sangyaw_app/pages/search_by_assigned_to.dart';
@@ -28,6 +29,7 @@ void main() {
       new LoggingMiddleware.printer(),
     ],
   );
+  _store.dispatch(loadAPISettings(_store));
 
   runApp(MyApp(store: _store));
 }
