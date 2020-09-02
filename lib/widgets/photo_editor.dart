@@ -16,26 +16,44 @@ class PhotoEditor extends StatefulWidget {
 
 class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
-  final String netWorkImagePath = "https://drive.google.com/uc?export=view&id=1tuXRwIIBmPxJfv0ApLoptmdsZtzS9rpK";
   int _counter = 0;
 
   File _image;
   final picker = ImagePicker();
+  Widget uploadButton;
+  Widget cameraButton;
+  Widget galleryButton;
 
   Future getImageFromGallery() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    final f = File(pickedFile.path);
 
     setState(() {
-      _image = File(pickedFile.path);
+      this.dc.currentPerson.imageFile = f;
+      _image = f;
     });
   }
 
-
   Future getImageFromCamera() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final f = File(pickedFile.path);
 
     setState(() {
-      _image = File(pickedFile.path);
+      this.dc.currentPerson.imageFile = f;
+      _image = f;
+    });
+  }
+
+  Future uploadImage() async {
+    setState(() {
+      this.dc.currentPerson.tempImageUploading = true;
+    });
+
+    await Duration(milliseconds: 5000);
+
+    setState(() {
+      this.dc.currentPerson.googleDriveImageId = '1tuXRwIIBmPxJfv0ApLoptmdsZtzS9rpK';
+      print(dc.currentPerson);
     });
   }
 
@@ -52,12 +70,27 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
   @override
   Widget buildBody(BuildContext context) {
+    galleryButton = FloatingActionButton(
+      heroTag: null,
+      onPressed: getImageFromGallery,
+      tooltip: 'Get Image from photo gallery',
+      child: Icon(Icons.photo_library ),
+    );
 
-//     ImageProvider img = NetworkImage(netWorkImagePath);
-     ImageProvider img = AssetImage('assets/images/notyetuploaded.png');
-     if (_image != null) {
-       img = new FileImage(_image);
-     }
+    cameraButton = FloatingActionButton(
+      heroTag: null,
+      onPressed: getImageFromCamera,
+      tooltip: 'Get Image by taking a picture',
+      child: Icon(Icons.camera_alt),
+    );
+
+    uploadButton = FloatingActionButton(
+
+      heroTag: null,
+      onPressed: uploadImage,
+      tooltip: 'Upload Image',
+      child: Icon(Icons.cloud_upload),
+    );
 
 
       Widget photo = SizedBox(
@@ -68,7 +101,7 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
               child: Align (
                 heightFactor: 0.5,
                 child: PhotoView(
-                  imageProvider: img,
+                  imageProvider: this.dc.currentPerson.image,
                   minScale: PhotoViewComputedScale.contained * 0.8,
                   maxScale: PhotoViewComputedScale.contained * 5.8,
                   basePosition: Alignment.center,
@@ -86,19 +119,11 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
                 textDirection: TextDirection.rtl,
                 children: [
                   Divider(endIndent: 12.0,),
-                  FloatingActionButton(
-                    heroTag: null,
-                    onPressed: getImageFromGallery,
-                    tooltip: 'Increment',
-                    child: Icon(Icons.photo_library ),
-                  ),
+                  galleryButton,
                   Divider(endIndent: 15.0,),
-                  FloatingActionButton(
-                    heroTag: null,
-                    onPressed: getImageFromCamera,
-                    tooltip: 'Increment',
-                    child: Icon(Icons.camera_alt),
-                  ),
+                  cameraButton,
+                  Divider(endIndent: 15.0,),
+                  uploadButton,
                 ],
               );
 

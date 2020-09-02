@@ -21,7 +21,7 @@ class PersonList extends AppStatelessWidget {
 
       arr.add(personTile(person, onTap: () {
         this.dc.currentPerson = person;
-        print(person.toParams());
+        print(person);
         Navigator.pushNamed(context, '/person_details');
       }));
       arr.add(getLine());

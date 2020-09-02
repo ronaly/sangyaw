@@ -1,3 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
+const GOOGLE_DRIVE_SHOW_IMAGE_PATH = 'https://drive.google.com/uc?export=view&id=';
+
 class Person {
 
   String facebookName;
@@ -12,6 +19,8 @@ class Person {
   String dateContacted;
   String remarks;
   String progressStatus;
+  File tempImageFile;
+  bool tempImageUploading;
 
 
   Person(
@@ -27,9 +36,45 @@ class Person {
       this.preachedBy,
       this.dateContacted,
       this.remarks,
-      this.progressStatus
+      this.progressStatus,
 
-      );
+      ) {
+    this.tempImageFile = null;
+    this.tempImageUploading = false;
+  }
+
+  ImageProvider get image {
+
+    if (tempImageFile != null) {
+      return new FileImage(tempImageFile);
+    }
+
+    if(this.profileImage != null && this.profileImage.length > 0) {
+      return new NetworkImage('${GOOGLE_DRIVE_SHOW_IMAGE_PATH}${this.profileImage}');
+    }
+
+    return AssetImage('assets/images/notyetuploaded.png');
+
+  }
+
+  set imageFile(File file) {
+    this.tempImageFile = file;
+    this.tempImageUploading = false;
+  }
+
+  bool get needsUploading {
+    if(this.tempImageFile != null && !this.tempImageUploading) {
+      return true;
+    }
+    return false;
+  }
+
+  set googleDriveImageId(String id) {
+    this.profileImage = id;
+    this.tempImageUploading = false;
+    this.tempImageFile = null;
+  }
+
 
   factory Person.fromJson(Map<String, dynamic> json) {
     return Person(
