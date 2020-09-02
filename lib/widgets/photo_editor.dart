@@ -87,7 +87,7 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
                     heroTag: null,
                     onPressed: getImageFromGallery,
                     tooltip: 'Increment',
-                    child: Icon(Icons.image_rounded),
+                    child: Icon(Icons.photo_library ),
                   ),
 //                  Spacer(flex: 1,),
                   FloatingActionButton(
