@@ -6,19 +6,22 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/actions.dart';
 
-// class LocalState extends StatefulWidget {
-//   BottomMenu createState() {
-//     return BottomMenu();
-//   }
-// }
+import 'app_stateful_widget.dart';
 
-class BottomMenu extends StatelessWidget {
+
+class BottomMenu extends StatefulWidget {
+  _BottomMenu createState() {
+    return _BottomMenu();
+  }
+}
+
+class _BottomMenu extends AppStatefulWidget<BottomMenu> {
 
   int _currentIndex = 1;
   BuildContext localContext;
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     localContext = context;
     return BottomNavigationBar(
       items: [
@@ -55,9 +58,9 @@ class BottomMenu extends StatelessWidget {
         break;
     } //end switch
 
-     // setState(() {
-     //   _currentIndex = index;
-     // });
+     setState(() {
+       _currentIndex = index;
+     });
      print('Current Index $_currentIndex');
   } //onTabTapped
 

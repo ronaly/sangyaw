@@ -4,7 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/controller/data_controller.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 
-abstract class AppStatelessWidget<T extends StatefulWidget> extends State<T> {
+abstract class AppStatefulWidget<T extends StatefulWidget> extends State<T> {
   Widget buildBody(BuildContext context);
 
   DataController dataController;
