@@ -63,7 +63,7 @@ class AppState {
   String get viewQueryTerm => queryTerm;
 
   dynamic toJson() => {
-    'settings': settings,
+    'settings': settings.hashCode,
     'workbooks': workbooks,
     'currentWorkbook': currentWorkbook,
     'masterList': masterList.hashCode,
