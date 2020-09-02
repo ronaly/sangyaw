@@ -28,6 +28,7 @@ class PersonDetails extends AppLayoutContainer {
 
 
   Widget listView(BuildContext context) {
+
     return ListView (
           children: ListTile.divideTiles(
             context: context,
