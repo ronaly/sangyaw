@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:sangyaw_app/widgets/show_photo_view.dart';
 import 'package:sangyaw_app/widgets/custom_text_form_field.dart';
 import 'package:sangyaw_app/model/person.dart';
+import 'package:sangyaw_app/widgets/custom_drop_down_button.dart';
 
 
 
@@ -44,7 +45,6 @@ class EditPerson extends AppLayoutContainer {
               padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: CustomTextFormField(
-                      hintText: 'Facebook Name:',
                       initialValue: this.dc.currentPerson.facebookName,
                       validator: (String value) {
                         if (value.isEmpty) {
@@ -57,7 +57,6 @@ class EditPerson extends AppLayoutContainer {
                 padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: CustomTextFormField(
-                  hintText: 'Address:',
                   initialValue: this.dc.currentPerson.address ,
                   onSaved: (String value) { this.dc.currentPerson.address = value;},
                 ),
@@ -66,7 +65,6 @@ class EditPerson extends AppLayoutContainer {
                 padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: CustomTextFormField(
-                  hintText: 'Gender:',
                   initialValue: this.dc.currentPerson.gender ,
                   onSaved: (String value) { this.dc.currentPerson.gender = value;},
                 ),
@@ -75,7 +73,6 @@ class EditPerson extends AppLayoutContainer {
                 padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: CustomTextFormField(
-                  hintText: 'Age Group:',
                   initialValue: this.dc.currentPerson.ageGroup ,
                   onSaved: (String value) { this.dc.currentPerson.ageGroup = value;},
                 ),
@@ -84,16 +81,16 @@ class EditPerson extends AppLayoutContainer {
                 padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: CustomTextFormField(
-                  hintText: 'Messenger Status:',
                   initialValue: this.dc.currentPerson.messengerStatus ,
                   onSaved: (String value) { this.dc.currentPerson.messengerStatus = value;},
                 ),
+                //title: CustomDropDownButton(),
+
               ) ,
               Padding( child: Text('Reference Details:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: CustomTextFormField(
-                  hintText: 'Reference Details:',
                   initialValue: this.dc.currentPerson.referenceDetails ,
                   onSaved: (String value) { this.dc.currentPerson.referenceDetails = value;},
                 ),
@@ -102,7 +99,6 @@ class EditPerson extends AppLayoutContainer {
                 padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: CustomTextFormField(
-                  hintText: 'Assigned To:',
                   initialValue: this.dc.currentPerson.assignedTo ,
                   onSaved: (String value) { this.dc.currentPerson.assignedTo = value;},
                 ),
@@ -111,7 +107,6 @@ class EditPerson extends AppLayoutContainer {
                 padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: CustomTextFormField(
-                  hintText: 'Preached By:',
                   initialValue: this.dc.currentPerson.preachedBy ,
                   onSaved: (String value) { this.dc.currentPerson.preachedBy = value;},
                 ),
@@ -120,7 +115,6 @@ class EditPerson extends AppLayoutContainer {
                 padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: CustomTextFormField(
-                  hintText: 'Date Contacted:',
                   initialValue: this.dc.currentPerson.dateContacted ,
                   onSaved: (String value) { this.dc.currentPerson.dateContacted = value;},
                 ),
@@ -129,7 +123,6 @@ class EditPerson extends AppLayoutContainer {
                 padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: CustomTextFormField(
-                  hintText: 'Remarks:',
                   initialValue: this.dc.currentPerson.remarks ,
                   onSaved: (String value) { this.dc.currentPerson.remarks = value;},
                 ),
@@ -138,7 +131,6 @@ class EditPerson extends AppLayoutContainer {
                 padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: CustomTextFormField(
-                  hintText: 'Progress Status:',
                   initialValue: this.dc.currentPerson.progressStatus ,
                   onSaved: (String value) { this.dc.currentPerson.progressStatus = value;},
                 ),
