@@ -21,7 +21,7 @@ class Assignments extends AppLayoutContainer {
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
             this.dc.currentAssigned = preacher;
-            Navigator.pushNamedAndRemoveUntil(context, '/assigned_persons', (route) => false);
+            Navigator.pushNamed(context, '/assigned_persons');
           },
       ));
       arr.add(SizedBox(
