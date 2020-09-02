@@ -17,7 +17,7 @@ class BottomMenu extends StatefulWidget {
 
 class _BottomMenu extends AppStatefulWidget<BottomMenu> {
 
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   BuildContext localContext;
 
   @override
