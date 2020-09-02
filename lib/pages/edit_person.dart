@@ -18,6 +18,8 @@ class EditPerson extends AppStatelessLayoutContainer {
   final _formKey = GlobalKey<FormState>();
 
 
+
+
   @override
   String getTitle(context, AppState state) {
     String personName = this.dc.currentPerson.facebookName;
@@ -81,11 +83,11 @@ class EditPerson extends AppStatelessLayoutContainer {
               Padding( child: Text('Messenger Status:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
-                  initialValue: this.dc.currentPerson.messengerStatus ,
-                  onSaved: (String value) { this.dc.currentPerson.messengerStatus = value;},
-                ),
-                //title: CustomDropDownButton(),
+                // title: CustomTextFormField(
+                //   initialValue: this.dc.currentPerson.messengerStatus ,
+                //   onSaved: (String value) { this.dc.currentPerson.messengerStatus = value;},
+                // ),
+                title: CustomDropDownButton(),
 
               ) ,
               Padding( child: Text('Reference Details:'),

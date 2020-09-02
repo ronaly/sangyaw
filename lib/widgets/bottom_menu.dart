@@ -9,15 +9,18 @@ import 'package:sangyaw_app/redux/actions.dart';
 import 'app_stateful_widget.dart';
 
 
+
+
 class BottomMenu extends StatefulWidget {
   _BottomMenu createState() {
     return _BottomMenu();
   }
 }
 
-class _BottomMenu extends AppStatefulWidget<BottomMenu> {
 
-  int _currentIndex = 1;
+class _BottomMenu extends AppStatefulWidget<BottomMenu> {
+  int _currentIndex = 0;
+
   BuildContext localContext;
 
   @override
@@ -25,43 +28,64 @@ class _BottomMenu extends AppStatefulWidget<BottomMenu> {
     localContext = context;
     return BottomNavigationBar(
       items: [
-        BottomNavigationBarItem(icon: new Icon(Icons.search),
-            title: new Text('Search Facebook Name')),
-        BottomNavigationBarItem(icon: new Icon(Icons.assignment_ind),
-            title: new Text('Assignments')),
+        BottomNavigationBarItem(
+            icon: Icon(
+                Icons.search,
+                size: 30,
+                color: Colors.white,
+            ),
+            title: Text('Search Facebook Name',
+                 style: TextStyle(fontSize: 15,
+                   color: Colors.white),
+            ),
+            activeIcon: Icon(
+              Icons.search,
+              size: 30,
+              color: Colors.white,
+            )),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.assignment_ind,
+              size: 30,
+              color: Colors.white,
+            ),
+            title: Text('Assignment',
+              style: TextStyle(fontSize: 20,
+                  color: Colors.white),
+            ),
+            activeIcon: Icon(
+              Icons.assignment_ind,
+              size: 30,
+              color: Colors.white,
+            )),
       ], //items
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.blueAccent,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white.withOpacity(.60),
       onTap: onTabTapped,
       currentIndex: _currentIndex,
-
     );
   } //widget build
 
 
   void onTabTapped(int index) {
 
+    setState(() {
+      _currentIndex = index;
+    });
+
 
     switch (index) {
       case 0:
         Navigator.pushNamed(localContext, '/search_facebook');
         //Navigator.pushNamedAndRemoveUntil(localContext, '/search_facebook', (route) => false);
-        _currentIndex = index;
-
         break;
       case 1:
         Navigator.pushNamed(localContext, '/assignments');
         //Navigator.pushNamedAndRemoveUntil(localContext, '/assignments', (route) => false);
-
         break;
     } //end switch
 
-     setState(() {
-       _currentIndex = index;
-     });
-     print('Current Index $_currentIndex');
+
   } //onTabTapped
 
 
