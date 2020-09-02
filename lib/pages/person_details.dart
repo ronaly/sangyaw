@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:sangyaw_app/widgets/show_photo_view.dart';
 
 
-class PersonDetails extends AppStateLessLayoutContainer {
+class PersonDetails extends AppStatelessLayoutContainer {
 
    final String netWorkImagePath = "https://drive.google.com/uc?export=view&id=1tuXRwIIBmPxJfv0ApLoptmdsZtzS9rpK";
 

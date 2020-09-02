@@ -5,12 +5,8 @@ import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/widgets/app_stateful_layout_container.dart';
 
 
-class Assignments extends StatefulWidget {
-  @override
-  _Assignments createState() => new _Assignments();
-}
 
-class _Assignments extends AppStatefulLayoutContainer<Assignments> {
+class Assignments extends AppStatelessLayoutContainer {
 
   @override
   String getTitle(context, AppState state) {

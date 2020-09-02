@@ -3,7 +3,7 @@ import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/widgets/search_assigned_form.dart';
 
-class SearchByAssignedTo extends AppStateLessLayoutContainer {
+class SearchByAssignedTo extends AppStatelessLayoutContainer {
   String theText = 'Search by Assigned Name :)';
 
   @override

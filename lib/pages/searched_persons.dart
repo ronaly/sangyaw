@@ -3,7 +3,7 @@ import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/widgets/person_list.dart';
 
-class SearchedPersons extends AppStateLessLayoutContainer {
+class SearchedPersons extends AppStatelessLayoutContainer {
 
   @override
   String getTitle(context, AppState state) {

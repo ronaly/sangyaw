@@ -13,7 +13,7 @@ import 'package:sangyaw_app/widgets/custom_drop_down_button.dart';
 
 
 
-class EditPerson extends AppStateLessLayoutContainer {
+class EditPerson extends AppStatelessLayoutContainer {
   final _formKey = GlobalKey<FormState>();
 
 
