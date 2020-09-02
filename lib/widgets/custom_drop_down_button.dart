@@ -15,11 +15,11 @@ class CustomDropDownButton extends StatefulWidget {
 }
 
 class _CustomDropDownButton extends AppStatefulWidget<CustomDropDownButton> {
-
+  int dropdownValue = 1;
 
     @override
     Widget buildBody(BuildContext context) {
-      int dropdownValue = 1;
+
       return DropdownButton(
           value: dropdownValue,
           icon: Icon(Icons.arrow_downward),
