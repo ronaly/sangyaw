@@ -28,7 +28,7 @@ class AppState {
     this.settings = [];
     this.workbooks = []; // SANGYAW_SHEET_IDS.keys.toList(); // ['Pamutan', 'Tuong', 'Error Test'];
     this.masterList = [];
-    this.loading = false;
+    this.loading = true;
     this.appError = false;
 //    {@required this.workbooks, @required this.masterList, @required this.loading, @required this.appError }
   }
