@@ -4,11 +4,34 @@ import 'package:sangyaw_app/redux/actions.dart';
 import '../model/person.dart';
 import "dart:collection";
 
+class SangyawSettings {
+  String folderId;
+  String folderName;
+  String sheetId;
+  String sheetName;
+  String imageFolderId;
+  String imageFolderName;
+  SangyawSettings(this.folderId, this.folderName, this.sheetId, this.sheetName, this.imageFolderId, this.imageFolderName);
+}
+
 class DataController {
   Store<AppState> store;
 
   DataController(Store<AppState> store) {
     this.store = store;
+  }
+
+  SangyawSettings get currentSettings {
+    dynamic settings = getSangyawSettingstMap(store);
+    dynamic sheet = (settings['sheets'] as List).firstWhere((e) => e['fileName'] == this.currentDirectory);
+    return new SangyawSettings(
+        settings['folderId'],
+        settings['folderName'],
+        sheet['fileId'],
+        sheet['fileName'],
+        sheet['imageFolderId'],
+        sheet['imageFolderName']
+    );
   }
 
   List<Person> get masterList =>  store.state.viewMasterList;

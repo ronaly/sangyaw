@@ -45,6 +45,7 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
   }
 
   Future uploadImage() async {
+    print(dc.currentSettings);
     setState(() {
       this.dc.currentPerson.tempImageUploading = true;
     });

@@ -23,6 +23,15 @@ String getGoogleSheetId(Store<AppState> store) {
   return getSangyawSheetMap(store)[current];
 }
 
+dynamic getSangyawSettingstMap(Store<AppState> store) {
+
+  List settings = store.state.viewSettings;
+  String instance = getSangyawAppFolderInstance();
+  dynamic setting = settings.firstWhere((element) => element['folderName'] == instance);
+
+  return setting;
+}
+
 Map<String, String> getSangyawSheetMap(Store<AppState> store) {
   Map<String, String> map = {};
 
