@@ -53,10 +53,12 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
   @override
   Widget buildBody(BuildContext context) {
 
-     ImageProvider img = NetworkImage(netWorkImagePath);
+//     ImageProvider img = NetworkImage(netWorkImagePath);
+     ImageProvider img = AssetImage('assets/images/notyetuploaded.png');
      if (_image != null) {
        img = new FileImage(_image);
      }
+
 
       Widget photo = SizedBox(
           height: 400.0,
@@ -83,13 +85,14 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
       Widget buttons = Row(
                 textDirection: TextDirection.rtl,
                 children: [
+                  Divider(endIndent: 12.0,),
                   FloatingActionButton(
                     heroTag: null,
                     onPressed: getImageFromGallery,
                     tooltip: 'Increment',
                     child: Icon(Icons.photo_library ),
                   ),
-//                  Spacer(flex: 1,),
+                  Divider(endIndent: 15.0,),
                   FloatingActionButton(
                     heroTag: null,
                     onPressed: getImageFromCamera,
