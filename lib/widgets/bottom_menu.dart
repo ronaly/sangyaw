@@ -43,14 +43,14 @@ class BottomMenu extends StatelessWidget {
 
     switch (index) {
       case 0:
-       // Navigator.pushReplacementNamed(localContext, '/search_facebook');
-        Navigator.pushNamedAndRemoveUntil(localContext, '/search_facebook', (route) => false);
+        Navigator.pushNamed(localContext, '/search_facebook');
+        //Navigator.pushNamedAndRemoveUntil(localContext, '/search_facebook', (route) => false);
         _currentIndex = index;
 
         break;
       case 1:
-        //Navigator.pushReplacementNamed(localContext, '/search_assigned_to');
-        Navigator.pushNamedAndRemoveUntil(localContext, '/assignments', (route) => false);
+        Navigator.pushNamed(localContext, '/assignments');
+        //Navigator.pushNamedAndRemoveUntil(localContext, '/assignments', (route) => false);
 
         break;
     } //end switch

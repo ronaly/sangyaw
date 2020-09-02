@@ -10,6 +10,7 @@ class Template extends AppLayoutContainer {
     return 'This is template, TODO change this';
   }
 
+
   Widget buildBody(context, AppState state) {
 
     // START BODY HERE

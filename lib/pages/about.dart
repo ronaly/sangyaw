@@ -9,6 +9,7 @@ class About extends AppLayoutContainer {
     return 'This is an About Page';
   }
 
+
   Widget buildBody(context, AppState state) {
     String str = this.dc.assignToList.join(', ');
     // START BODY HERE

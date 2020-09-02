@@ -22,7 +22,7 @@ class PersonList extends AppStatelessWidget {
       arr.add(personTile(person, onTap: () {
         this.dc.currentPerson = person;
         print(person.toParams());
-        Navigator.pushReplacementNamed(context, '/person_details');
+        Navigator.pushNamed(context, '/person_details');
       }));
       arr.add(getLine());
     });

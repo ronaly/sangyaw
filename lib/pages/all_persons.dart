@@ -10,6 +10,7 @@ class AllPersons extends AppLayoutContainer {
     return 'Found ${this.dc.totalPersons} in ${this.dc.currentDirectory}';
   }
 
+
   Widget buildBody(context, AppState state) {
 
     // START BODY HERE

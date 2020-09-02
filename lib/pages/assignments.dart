@@ -10,6 +10,7 @@ class Assignments extends AppLayoutContainer {
     return 'Assignments:';
   }
 
+
   Widget buildBody(context, AppState state) {
     List<Widget> arr =  <Widget>[];
     this.dc.assignToList.forEach((preacher) {

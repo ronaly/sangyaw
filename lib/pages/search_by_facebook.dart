@@ -12,7 +12,6 @@ class SearchByFacebook extends AppLayoutContainer {
   final _textController = TextEditingController();
 
 
-
   @override
   String getTitle(context, AppState state) {
     return 'My Sangyawan App';
@@ -91,7 +90,7 @@ class SearchByFacebook extends AppLayoutContainer {
     //List<Person> _personList = this.dc.findPersonsFBStartsWith(searchString);
    // this.dc.findPersonsFBContains(searchString);
     this.dc.queryTerm = searchString;
-    Navigator.pushNamedAndRemoveUntil(context, '/searched_persons', (route) => false);
+    Navigator.pushNamed(context, '/searched_persons');
 
   }
 

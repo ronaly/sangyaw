@@ -16,6 +16,7 @@ class PersonDetails extends AppLayoutContainer {
     return 'Person Details:';
   }
 
+
   Widget buildBody(context, AppState state) {
 
     return Container (
@@ -66,7 +67,6 @@ class PersonDetails extends AppLayoutContainer {
               ListTile (
                 leading:  rowField("Date Contacted: "),
                 title: rowValue(formatDate(this.dc.currentPerson.dateContacted)),
-                //title: rowValue(this.dc.currentPerson.dateContacted),
               ) ,
               ListTile (
                 leading:  rowField("Remarks: "),

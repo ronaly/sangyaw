@@ -15,6 +15,7 @@ abstract class AppLayoutContainer extends StatelessWidget {
   String getTitle(context, AppState state);
   Widget buildBody(context, AppState state);
 
+
   DataController dataController;
   DataController getDataControler() {
     return dataController;
@@ -30,6 +31,7 @@ abstract class AppLayoutContainer extends StatelessWidget {
           this.dataController = new DataController(StoreProvider.of<AppState>(context));
           Widget renderMe;
           String strTitle;
+
           if(this.dc.error) {
             strTitle = this.dc.errorTitle;
             renderMe = Text(this.dc.errorMessage);

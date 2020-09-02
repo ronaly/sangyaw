@@ -10,6 +10,7 @@ class SearchedPersons extends AppLayoutContainer {
     return 'Found results in ${this.dc.currentDirectory}';
   }
 
+
   Widget buildBody(context, AppState state) {
 
     // START BODY HERE
