@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sangyaw_app/widgets/app_layout_container.dart';
+import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 
-class About extends AppLayoutContainer {
+class About extends AppStateLessLayoutContainer {
 
   @override
   String getTitle(context, AppState state) {
