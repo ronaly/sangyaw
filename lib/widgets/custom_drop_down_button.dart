@@ -5,7 +5,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/actions.dart';
 
+
 import 'app_stateful_widget.dart';
+
 
 
 class CustomDropDownButton extends StatefulWidget {
@@ -15,10 +17,14 @@ class CustomDropDownButton extends StatefulWidget {
 }
 
 class _CustomDropDownButton extends AppStatefulWidget<CustomDropDownButton> {
-  int dropdownValue = 1;
+
 
     @override
     Widget buildBody(BuildContext context) {
+    int dropdownValue = 1;
+
+    if (this.dc.currentPerson.messengerStatus == "Active") { dropdownValue = 2;}
+    if (this.dc.currentPerson.messengerStatus == "Inactive") { dropdownValue = 3;}
 
       return DropdownButton(
           value: dropdownValue,
@@ -28,12 +34,17 @@ class _CustomDropDownButton extends AppStatefulWidget<CustomDropDownButton> {
           style: TextStyle(color: Colors.blueAccent),
           items:[
             DropdownMenuItem(
-              child: Text('Active'),
+              child: Text(""),
               value:1,
             ),
             DropdownMenuItem(
-              child: Text('Inactive'),
+              child: Text('Active'),
               value:2,
+            ),
+
+            DropdownMenuItem(
+              child: Text('Inactive'),
+              value:3,
             ),
           ],
            onChanged:
@@ -46,9 +57,6 @@ class _CustomDropDownButton extends AppStatefulWidget<CustomDropDownButton> {
       ); //DropdownButton
 
     }  //widget build
-
-
-
 
 
 } //class

@@ -17,6 +17,8 @@ class EditPerson extends AppStatelessLayoutContainer {
   final _formKey = GlobalKey<FormState>();
 
 
+
+
   @override
   String getTitle(context, AppState state) {
     String personName = this.dc.currentPerson.facebookName;

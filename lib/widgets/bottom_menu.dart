@@ -32,7 +32,7 @@ class _BottomMenu extends AppStatefulWidget<BottomMenu> {
             icon: Icon(
                 Icons.search,
                 size: 30,
-                color: Colors.white.withOpacity(.60),
+                color: Colors.white,
             ),
             title: Text('Search Facebook Name',
                  style: TextStyle(fontSize: 15,
@@ -50,7 +50,7 @@ class _BottomMenu extends AppStatefulWidget<BottomMenu> {
               color: Colors.white,
             ),
             title: Text('Assignment',
-              style: TextStyle(fontSize: 15,
+              style: TextStyle(fontSize: 20,
                   color: Colors.white),
             ),
             activeIcon: Icon(
