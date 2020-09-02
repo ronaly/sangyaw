@@ -30,11 +30,12 @@ class SearchByFacebook extends AppStatelessLayoutContainer {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget> [
-                      textForm(),
+                      Container (child: textForm(), alignment: Alignment.center,),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: buttonWidget(context),
-                      )
+                      ),
+
                     ],
                   )
               )
@@ -54,29 +55,32 @@ class SearchByFacebook extends AppStatelessLayoutContainer {
         return null;
       },
       decoration: InputDecoration(labelText: 'Enter Facebook Name:'),
+
     );
   }
+
+
 
 
   Widget buttonWidget(BuildContext context) {
     return Builder (
          builder: (context) =>
          Center(
-           child: RaisedButton(
+           child: FloatingActionButton.extended(
+             tooltip: 'Search',
+             icon: Icon(Icons.search),
+             label: Text("Search"),
              shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0),
                  side: BorderSide(color: Colors.blueAccent)),
              onPressed: () {
                //Validate() returns true if the form is valid or false otherwise
                if(_formKey.currentState.validate()) {
                  //if the form is valid, display a snackbar.
+                 // Scaffold.of(context).showSnackBar(SnackBar(content: Text('Searching ....',),
+                 //     duration: Duration(seconds: 2)));
                  performSearch(_textController.text, context);
                }
-               else {
-                 Scaffold.of(context).showSnackBar(SnackBar(content: Text('Searching ....',),
-                     duration: Duration(seconds: 2)));
-               }
              },
-             child: Text('Search'),
            ),
          ),
     ); //Builder
