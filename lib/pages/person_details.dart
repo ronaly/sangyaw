@@ -21,6 +21,7 @@ class PersonDetails extends AppLayoutContainer {
 
     return Container (
          child: listView(context),
+
       );
 
   }  //build widget
@@ -31,6 +32,8 @@ class PersonDetails extends AppLayoutContainer {
           children: ListTile.divideTiles(
             context: context,
             tiles: [
+              editButton(context),
+              Divider(),
               ShowPhotoView(),
               ListTile (
                 leading: rowField("Facebook Name: "),
@@ -113,6 +116,24 @@ class PersonDetails extends AppLayoutContainer {
 
     }
   } //formatDate
+
+
+   Widget editButton(BuildContext context) {
+     return new Container (
+       child: FloatingActionButton.extended (
+         onPressed: () { Navigator.pushNamed(context, '/edit_person'); },
+         tooltip: 'Edit',
+         icon: Icon(Icons.edit),
+         label: Text("Edit"),
+         shape: RoundedRectangleBorder(borderRadius: 
+                   BorderRadius.all(Radius.circular(20.0))),
+       ),
+     );
+   } //widget edit
+
+
+
+
 
 
 }  //class PersonDetails
