@@ -26,7 +26,7 @@ ThunkAction<AppState> loadAPISettings = (Store<AppState> store) {
     store.dispatch(new MasterList([]));
     store.dispatch(new Settings([]));
   });
-  
+
 };
 
 ThunkAction<AppState> getMasterList = (Store<AppState> store) {
