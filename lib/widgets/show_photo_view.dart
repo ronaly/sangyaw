@@ -5,12 +5,12 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/actions.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 
-class ShowPhotoView extends StatelessWidget {
-  final String netWorkImagePath = "https://drive.google.com/uc?export=view&id=1tuXRwIIBmPxJfv0ApLoptmdsZtzS9rpK";
+class ShowPhotoView extends AppStatelessWidget {
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
       return SizedBox(
         height: 400.0,
         child: Card (
@@ -18,12 +18,7 @@ class ShowPhotoView extends StatelessWidget {
           child: ClipRect (
             child: Align (
               heightFactor: 0.5,
-              child: PhotoView(
-                imageProvider: NetworkImage(netWorkImagePath),
-                minScale: PhotoViewComputedScale.contained * 0.8,
-                maxScale: PhotoViewComputedScale.contained * 5.8,
-                basePosition: Alignment.center,
-              ),
+              child: this.dc.currentPerson.image,
             ),
           ),
         )

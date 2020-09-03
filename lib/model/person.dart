@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:sangyaw_app/utils/spinner.dart';
+
 const GOOGLE_DRIVE_SHOW_IMAGE_PATH = 'https://drive.google.com/uc?export=view&id=';
 
 class Person {
@@ -43,17 +47,35 @@ class Person {
     this.tempImageUploading = false;
   }
 
-  ImageProvider get image {
+  Widget get image {
 
     if (tempImageFile != null) {
-      return new FileImage(tempImageFile);
+      if(tempImageUploading) {
+        return getAppSpinner();
+      }
+      return PhotoView(
+        imageProvider: new FileImage(tempImageFile),
+        minScale: PhotoViewComputedScale.contained * 0.8,
+        maxScale: PhotoViewComputedScale.contained * 5.8,
+        basePosition: Alignment.center,
+      );
     }
 
     if(this.profileImage != null && this.profileImage.length > 0) {
-      return new NetworkImage('${GOOGLE_DRIVE_SHOW_IMAGE_PATH}${this.profileImage}');
+      String url = '${GOOGLE_DRIVE_SHOW_IMAGE_PATH}${this.profileImage}';
+      return CachedNetworkImage(
+        imageUrl: url,
+        placeholder: (context, url) => CircularProgressIndicator(),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+      );
     }
 
-    return AssetImage('assets/images/notyetuploaded.png');
+    return PhotoView(
+      imageProvider: AssetImage('assets/images/notyetuploaded.png'),
+      minScale: PhotoViewComputedScale.contained * 0.8,
+      maxScale: PhotoViewComputedScale.contained * 5.8,
+      basePosition: Alignment.center,
+    );
 
   }
 

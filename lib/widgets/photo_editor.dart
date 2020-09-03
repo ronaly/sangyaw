@@ -110,12 +110,7 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
             child: ClipRect (
               child: Align (
                 heightFactor: 0.5,
-                child: PhotoView(
-                  imageProvider: this.dc.currentPerson.image,
-                  minScale: PhotoViewComputedScale.contained * 0.8,
-                  maxScale: PhotoViewComputedScale.contained * 5.8,
-                  basePosition: Alignment.center,
-                ),
+                child: this.dc.currentPerson.image,
               ),
             ),
           )
