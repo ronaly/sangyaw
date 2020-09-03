@@ -83,6 +83,22 @@ class DataController {
     store.dispatch(QueryTerm(queryTerm));
   }
 
+  savePerson(Person person) {
+    String sheetId = AppScriptUtils.getGoogleSheetId(store);
+    return AppScriptUtils.savePerson(sheetId, person).then((value){
+      print('===========================');
+      print('Save Person Success!!!!');
+      print('===========================');
+      return value;
+    }).catchError((err) {
+      print('===========================');
+      print('Save Person Error:');
+      print(err);
+      print('===========================');
+    });
+
+  }
+
 
   loadMasterList(String directory) {
     store.dispatch(CurrentWorkbook(directory));
