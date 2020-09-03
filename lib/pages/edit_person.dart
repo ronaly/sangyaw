@@ -77,10 +77,13 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               Padding( child: Text('Gender:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
-                  initialValue: this.dc.currentPerson.gender ,
-                  onSaved: (String value) { this.dc.currentPerson.gender = value;},
-                ),
+                // title: CustomTextFormField(
+                //   initialValue: this.dc.currentPerson.gender ,
+                //   onSaved: (String value) { this.dc.currentPerson.gender = value;},
+                // ),
+                  title: CustomDropDownButton(0),
+
+
               ) ,
               Padding( child: Text('Age Group:'),
                 padding: EdgeInsets.all(5.0),),
@@ -97,7 +100,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                 //   initialValue: this.dc.currentPerson.messengerStatus ,
                 //   onSaved: (String value) { this.dc.currentPerson.messengerStatus = value;},
                 // ),
-                title: CustomDropDownButton(),
+                title: CustomDropDownButton(2),
 
               ) ,
               Padding( child: Text('Reference Details:'),
@@ -143,10 +146,13 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               Padding( child: Text('Progress Status:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
-                  initialValue: this.dc.currentPerson.progressStatus ,
-                  onSaved: (String value) { this.dc.currentPerson.progressStatus = value;},
-                ),
+                // title: CustomTextFormField(
+                //   initialValue: this.dc.currentPerson.progressStatus ,
+                //   onSaved: (String value) { this.dc.currentPerson.progressStatus = value;},
+                //),
+
+                title: CustomDropDownButton(3),
+
               ) ,
               Container(child: saveButton(context)),
               Padding(padding: EdgeInsets.all(10.0)),
