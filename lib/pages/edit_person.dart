@@ -82,32 +82,17 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               Padding( child: Text('Gender:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                // title: CustomTextFormField(
-                //   initialValue: this.dc.currentPerson.gender ,
-                //   onSaved: (String value) { this.dc.currentPerson.gender = value;},
-                // ),
                   title: CustomDropDownButton(gender),
-
-
               ) ,
               Padding( child: Text('Age Group:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                // title: CustomTextFormField(
-                //   initialValue: this.dc.currentPerson.ageGroup ,
-                //   onSaved: (String value) { this.dc.currentPerson.ageGroup = value;},
-                // ),
                 title: CustomDropDownButton(ageGroup),
               ) ,
               Padding( child: Text('Messenger Status:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                // title: CustomTextFormField(
-                //   initialValue: this.dc.currentPerson.messengerStatus ,
-                //   onSaved: (String value) { this.dc.currentPerson.messengerStatus = value;},
-                // ),
                 title: CustomDropDownButton(messengerStatus),
-
               ) ,
               Padding( child: Text('Reference Details:'),
                 padding: EdgeInsets.all(5.0),),
@@ -150,10 +135,6 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               Padding( child: Text('Progress Status:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                // title: CustomTextFormField(
-                //   initialValue: this.dc.currentPerson.progressStatus ,
-                //   onSaved: (String value) { this.dc.currentPerson.progressStatus = value;},
-                //),
 
                 title: CustomDropDownButton(progressStatus),
 
