@@ -11,6 +11,7 @@ const GOOGLE_DRIVE_SHOW_IMAGE_PATH = 'https://drive.google.com/uc?export=view&id
 
 class Person {
 
+  int id;
   String facebookName;
   String gender;
   String address;
@@ -28,7 +29,7 @@ class Person {
 
 
   Person(
-
+      this.id,
       this.facebookName,
       this.gender,
       this.address,
@@ -100,7 +101,7 @@ class Person {
 
   factory Person.fromJson(Map<String, dynamic> json) {
     return Person(
-
+        json['id'],
         "${json["Facebook Name"]}",
         "${json["Gender"]}",
         "${json["Address"]}",
@@ -121,7 +122,7 @@ class Person {
     String toParams() => "?Facebook Name=$facebookName&Gender=$gender&Address=$address&Age Group=$ageGroup&Messenger Status=$messengerStatus&"
         "Profile Image=$profileImage&Reference Details=$referenceDetails&Assigned To=$assignedTo&Preached By=$preachedBy&"
         "Date Contacted=$dateContacted&Remarks=$remarks&Progress Status=$progressStatus";
-    String toString() => "Facebook Name: $facebookName \n Gender: $gender\n Address: $address\n Age Group: $ageGroup\n Messenger Status: $messengerStatus\n "
+    String toString() => "Id: ${id} \n Facebook Name: $facebookName \n Gender: $gender\n Address: $address\n Age Group: $ageGroup\n Messenger Status: $messengerStatus\n "
         "Profile Image: $profileImage\n Reference Details: $referenceDetails\n Assigned To: $assignedTo\n Preached By: $preachedBy\n "
         "Date Contacted: $dateContacted\n Remarks: $remarks\n Progress Status: $progressStatus";
 
