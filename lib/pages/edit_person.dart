@@ -172,7 +172,9 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
     return new Container (
       child: FloatingActionButton.extended (
         heroTag: null,
-        onPressed: null, //() { Navigator.pushNamed(context, '/edit_person'); },
+        onPressed: () {
+          this.dc.savePerson(this.dc.currentPerson);
+        }, //() { Navigator.pushNamed(context, '/edit_person'); },
         tooltip: 'Save',
         icon: Icon(Icons.save),
         label: Text("Save"),

@@ -88,6 +88,7 @@ class DataController {
     return AppScriptUtils.savePerson(sheetId, person).then((value){
       print('===========================');
       print('Save Person Success!!!!');
+      print(value);
       print('===========================');
       return value;
     }).catchError((err) {

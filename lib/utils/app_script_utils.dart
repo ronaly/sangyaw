@@ -95,8 +95,9 @@ class AppScriptUtils {
     print("$sent $total");
   }
 
-  static Future<dynamic> savePerson(String sheetId, Person person) {
-    dynamic data = {};
+  static Future<Person> savePerson(String sheetId, Person person) {
+    Map<String, dynamic> data = {};
+    data['id'] = person.id;
     data['action'] = 'savePerson';
     data['sheetId'] = sheetId;
     data['Facebook Name'] = person.facebookName;
@@ -129,17 +130,12 @@ class AppScriptUtils {
         String url = res.headers['location'].first;
         return dio.get(url).then((res){
           print(res.data);
-          return {
-            'completed': res.data['completed'],
-            'row': res.data['row'],
-          };
+          return new Person.fromJson(res.data);
         });
       }
+      print(res.data);
 
-      return {
-        'completed': res.data['completed'],
-        'row': res.data['imageId'],
-      };
+      return new Person.fromJson(res.data);
 
     });
 
@@ -211,6 +207,45 @@ class AppScriptUtils {
 /**
  *
  *
+ *
+
+    curl sample savePersons
+
+
+
+
+
+    curl -L \
+    -F 'action=savePerson' \
+    -F 'Facebook Name' \
+    -F 'Gender' \
+    -F 'Address' \
+    -F 'Age Group' \
+    -F 'Messenger Status' \
+    -F 'Profile Image' \
+    -F 'Reference Details' \
+    -F 'Assigned To' \
+    -F 'Preached By' \
+    -F 'Date Contacted' \
+    -F 'Remarks' \
+    -F 'Progress Status"]}" \
+    'https://script.google.com/macros/s/AKfycbxMqHh-lcYmNinrydajF-oKDiHREcg1313jbi6JsfDVliXSNiA/exec'
+
+
+
+
+
+
+
+
+
+
+    ===========================================================
+
+
+
+
+
     curl sample for file upload
 
     curl -L \

@@ -102,18 +102,18 @@ class Person {
   factory Person.fromJson(Map<String, dynamic> json) {
     return Person(
         json['id'],
-        "${json["Facebook Name"]}",
-        "${json["Gender"]}",
-        "${json["Address"]}",
-        "${json["Age Group"]}",
-        "${json["Messenger Status"]}",
-        "${json["Profile Image"]}",
-        "${json["Reference Details"]}",
-        "${json["Assigned To"]}",
-        "${json["Preached By"]}",
-        "${json["Date Contacted"]}",
-        "${json["Remarks"]}",
-        "${json["Progress Status"]}"
+        "${json["facebookName"]}",
+        "${json["gender"]}",
+        "${json["address"]}",
+        "${json["ageGroup"]}",
+        "${json["messengerStatus"]}",
+        "${json["profileImage"]}",
+        "${json["referenceDetails"]}",
+        "${json["assignedTo"]}",
+        "${json["preachedBy"]}",
+        "${json["dateContacted"]}",
+        "${json["remarks"]}",
+        "${json["progressStatus"]}"
 
     );
   } //factory
