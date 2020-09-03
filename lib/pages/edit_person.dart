@@ -2,6 +2,8 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sangyaw_app/widgets/app_stateful_layout_container.dart';
+import 'package:sangyaw_app/widgets/app_stateful_widget.dart';
 import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:photo_view/photo_view.dart';
@@ -12,8 +14,16 @@ import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/widgets/custom_drop_down_button.dart';
 
 
+class EditPerson extends StatefulWidget {
+  _EditPerson createState() {
+    return _EditPerson();
+  }
+}
 
-class EditPerson extends AppStatelessLayoutContainer {
+//class _EditPerson extends AppStatefulLayoutContainer {
+
+class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
+
   final _formKey = GlobalKey<FormState>();
 
 
@@ -25,8 +35,8 @@ class EditPerson extends AppStatelessLayoutContainer {
     return 'Edit $personName';
   }
 
-
-  Widget buildBody (context, AppState appState) {
+  @override
+  Widget buildBody (context, AppState state) {
     return Container (
       child: editForm(context),
 

@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/actions.dart';
+//import 'package:sangyaw_app/utils/custom_dropdown_items.dart';
 
 
 import 'app_stateful_widget.dart';
+
+final int whichWidget = 0;   // 0=gender, 1=ageGroup, 2=messengerstatus, 3=progresstatus
 
 
 
@@ -17,47 +20,81 @@ class CustomDropDownButton extends StatefulWidget {
 }
 
 class _CustomDropDownButton extends AppStatefulWidget<CustomDropDownButton> {
+   int _dropdownValue;
+
+   @override
+   void initState() {
+     super.initState();
+     _dropdownValue = 1;
+     if (this.dc.currentPerson.messengerStatus == "Active") { _dropdownValue = 2;}
+     if (this.dc.currentPerson.messengerStatus == "Inactive") { _dropdownValue = 3;}
+   }
+
+
 
 
     @override
     Widget buildBody(BuildContext context) {
-    int dropdownValue = 1;
 
-    if (this.dc.currentPerson.messengerStatus == "Active") { dropdownValue = 2;}
-    if (this.dc.currentPerson.messengerStatus == "Inactive") { dropdownValue = 3;}
 
       return DropdownButton(
-          value: dropdownValue,
+          value: _dropdownValue,
           icon: Icon(Icons.arrow_downward),
           iconSize: 18,
           elevation: 16,
-          style: TextStyle(color: Colors.blueAccent),
-          items:[
-            DropdownMenuItem(
-              child: Text(""),
-              value:1,
-            ),
-            DropdownMenuItem(
-              child: Text('Active'),
-              value:2,
-            ),
+          style: TextStyle(color: Colors.black),
+          items:
+          messengerDropdownItems(),
 
-            DropdownMenuItem(
-              child: Text('Inactive'),
-              value:3,
-            ),
-          ],
-           onChanged:
+          // [
+          //   DropdownMenuItem(
+          //     child: Text(""),
+          //     value:1,
+          //   ),
+          //   DropdownMenuItem(
+          //     child: Text('Active'),
+          //     value:2,
+          //   ),
+          //
+          //   DropdownMenuItem(
+          //     child: Text('Inactive'),
+          //     value:3,
+          //   ),
+          // ],
+          onChanged:
                (int newValue) {
              setState((){
-                dropdownValue = newValue;
+               _dropdownValue = newValue;
+                print("dropdownValue = $_dropdownValue");
               });
-           },
+
+            },
 
       ); //DropdownButton
 
     }  //widget build
 
+   List<DropdownMenuItem<int>> messengerDropdownItems() {
+     return (
+         [
+           DropdownMenuItem(
+             child: Text(""),
+             value:1,
+           ),
+           DropdownMenuItem(
+             child: Text('Active'),
+             value:2,
+           ),
+           DropdownMenuItem(
+             child: Text('Inactive'),
+             value:3,
+           ),
+
+         ]
+     ).toList();
+   }
+
 
 } //class
+
 
