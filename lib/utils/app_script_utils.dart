@@ -96,8 +96,9 @@ class AppScriptUtils {
   }
 
   static Future<dynamic> savePerson(String sheetId, Person person) {
-    var url = ''
     dynamic data = {};
+    data['action'] = 'savePerson';
+    data['sheetId'] = sheetId;
     data['Facebook Name'] = person.facebookName;
     data['Gender'] = person.gender;
     data['Address'] = person.address;
@@ -111,8 +112,6 @@ class AppScriptUtils {
     data['Remarks'] = person.remarks;
     data['Progress Status'] = person.progressStatus;
 
-
-
     dynamic options = Options(
       followRedirects: true,
       validateStatus: (status) { return status < 500; },
@@ -125,7 +124,23 @@ class AppScriptUtils {
       options: options,
       data: formData,
     ).then((res) {
-      
+
+      if (res.statusCode == 302) {
+        String url = res.headers['location'].first;
+        return dio.get(url).then((res){
+          print(res.data);
+          return {
+            'completed': res.data['completed'],
+            'row': res.data['row'],
+          };
+        });
+      }
+
+      return {
+        'completed': res.data['completed'],
+        'row': res.data['imageId'],
+      };
+
     });
 
   }
@@ -136,11 +151,6 @@ class AppScriptUtils {
     final bytes = file.readAsBytesSync();
     String img64 = base64Encode(bytes);
 
-    print('Uploading File: ${file}');
-    print('parentDirId: ${parentDirId}');
-    print('imageDirName: ${imageDirName}');
-    print('faceBookName: ${faceBookName}');
-    print('format: ${format}');
     Dio dio = Dio();
 
     // set progress function
@@ -172,10 +182,6 @@ class AppScriptUtils {
       onSendProgress: progressFunction,
     ).then((res){
 
-      print('HTTP response status code: ${res.statusCode}');
-      print('HTTP response status message: ${res.statusMessage}');
-      print('HTTP Redirect URL: ${res.redirects}');
-      print('HTTP Redirect Location: ${res.headers['location']}');
       if (res.statusCode == 302) {
         String url = res.headers['location'].first;
         return dio.get(url).then((res){
