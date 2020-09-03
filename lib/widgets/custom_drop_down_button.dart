@@ -12,7 +12,6 @@ import 'app_stateful_widget.dart';
 //selected  // 0=gender, 1=ageGroup, 2=messengerstatus, 3=progresstatus
 
 
-
 class CustomDropDownButton extends StatefulWidget {
 
     int selected;
@@ -25,6 +24,12 @@ class CustomDropDownButton extends StatefulWidget {
 
 class _CustomDropDownButton extends AppStatefulWidget<CustomDropDownButton> {
 
+   static var genderMap = {1:" ",2:"Male",3:"Female" };
+   static var messengerStatusMap = {1:" ",2:"Active",3:"Inactive" };
+   static var progressStatusMap = {1:" ",2:"RV",3:"BS" };
+   static var ageGroupMap = {1:" ",2:"< 12",3:"12 to 16",4:"17 to 25",
+     5:"26 to 35",6:"36 to 50",7:"> 50" };
+
     int selected;
     _CustomDropDownButton(this.selected);
 
@@ -35,61 +40,77 @@ class _CustomDropDownButton extends AppStatefulWidget<CustomDropDownButton> {
 
 
       switch (selected) {
-
         case 0:  //Gender
-          int val = 1;
-          if (this.dc.currentPerson.gender == "Male") {
-            val = 2;
-          }
-          if (this.dc.currentPerson.gender == "Female") {
-            val = 3;
-          }
+          int val;
+          val = genderMap.keys.firstWhere((k) => genderMap[k] == this.dc.currentPerson.gender, orElse: () => 1);
           customDropdown = genderDropdown(val);
-
           break;
         case 1:   //AgeGroup
-
-
-
+          int val;
+          val = ageGroupMap.keys.firstWhere((k) => ageGroupMap[k] == this.dc.currentPerson.ageGroup, orElse: () => 1);
+          customDropdown = ageGroupDropdown(val);
           break;
         case 2:   //Messenger Status
-
-          int val = 1;
-          if (this.dc.currentPerson.messengerStatus == "Active") {
-            val = 2;
-          }
-          if (this.dc.currentPerson.messengerStatus == "Inactive") {
-              val = 3;
-          }
-           customDropdown = messengerDropdown(val);
+          int val;
+          val = messengerStatusMap.keys.firstWhere((k) => messengerStatusMap[k] == this.dc.currentPerson.messengerStatus, orElse: () => 1);
+          customDropdown = messengerDropdown(val);
             break;
-
         case 3:  //Progress Status
-
-          int val = 1;
-          if (this.dc.currentPerson.progressStatus == "RV") {
-            val = 2;
-          }
-          if (this.dc.currentPerson.progressStatus == "BS") {
-            val = 3;
-          }
+          int val;
+          val = progressStatusMap.keys.firstWhere((k) => progressStatusMap[k] == this.dc.currentPerson.progressStatus, orElse: () => 1);
           customDropdown = progressDropdown(val);
-
-
-
           break;
 
         default:
           customDropdown = messengerDropdown(2);
-
       }
-
 
       return customDropdown;
 
-
-
     }  //widget build
+
+
+
+   Widget ageGroupDropdown(int val) {
+     return DropdownButton(
+       value: val,
+       icon: Icon(Icons.arrow_downward),
+       iconSize: 18,
+       elevation: 16,
+       style: TextStyle(color: Colors.black),
+       items:
+       ageGroupDropdownItems(),
+       onChanged:
+           (int newValue) {
+         setState((){
+           this.dc.currentPerson.ageGroup = ageGroupMap[newValue];
+         });
+       },
+     );
+   } //genderDropdown
+
+
+
+  Widget genderDropdown(int val) {
+    return DropdownButton(
+      value: val,
+      icon: Icon(Icons.arrow_downward),
+      iconSize: 18,
+      elevation: 16,
+      style: TextStyle(color: Colors.black),
+      items:
+      genderDropdownItems(),
+      onChanged:
+          (int newValue) {
+        setState((){
+          this.dc.currentPerson.gender = genderMap[newValue];
+        });
+      },
+    );
+  } //genderDropdown
+
+
+
 
   Widget messengerDropdown(int val) {
     return DropdownButton(
@@ -103,47 +124,12 @@ class _CustomDropDownButton extends AppStatefulWidget<CustomDropDownButton> {
       onChanged:
           (int newValue) {
           setState((){
-            switch(newValue) {
-              case 2 :
-                this.dc.currentPerson.messengerStatus = "Active";
-                break;
-              case 3 :
-                this.dc.currentPerson.messengerStatus = "Inactive";
-                break;
-              default :
-                this.dc.currentPerson.messengerStatus = "";
-            }
+            this.dc.currentPerson.messengerStatus = messengerStatusMap[newValue];
           });
        },
      ); //DropdownButton
     } //messengerDropdown
 
-    Widget genderDropdown(int val) {
-      return DropdownButton(
-        value: val,
-        icon: Icon(Icons.arrow_downward),
-        iconSize: 18,
-        elevation: 16,
-        style: TextStyle(color: Colors.black),
-        items:
-        genderDropdownItems(),
-        onChanged:
-            (int newValue) {
-          setState((){
-            switch(newValue) {
-              case 2 :
-                this.dc.currentPerson.gender = "Male";
-                break;
-              case 3 :
-                this.dc.currentPerson.gender = "Female";
-                break;
-              default :
-                this.dc.currentPerson.gender = "";
-            }
-          });
-        },
-      );
-    } //genderDropdown
 
     Widget progressDropdown(int val) {
       return DropdownButton(
@@ -157,16 +143,7 @@ class _CustomDropDownButton extends AppStatefulWidget<CustomDropDownButton> {
         onChanged:
             (int newValue) {
           setState((){
-            switch(newValue) {
-              case 2 :
-                this.dc.currentPerson.progressStatus = "RV";
-                break;
-              case 3 :
-                this.dc.currentPerson.progressStatus = "BS";
-                break;
-              default :
-                this.dc.currentPerson.gender = "";
-            }
+            this.dc.currentPerson.progressStatus = progressStatusMap[newValue];
           });
         },
       );
