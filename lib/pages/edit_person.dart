@@ -2,6 +2,8 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sangyaw_app/widgets/app_stateful_layout_container.dart';
+import 'package:sangyaw_app/widgets/app_stateful_widget.dart';
 import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:photo_view/photo_view.dart';
@@ -13,8 +15,16 @@ import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/widgets/custom_drop_down_button.dart';
 
 
+class EditPerson extends StatefulWidget {
+  _EditPerson createState() {
+    return _EditPerson();
+  }
+}
 
-class EditPerson extends AppStatelessLayoutContainer {
+//class _EditPerson extends AppStatefulLayoutContainer {
+
+class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
+
   final _formKey = GlobalKey<FormState>();
 
 
@@ -26,8 +36,8 @@ class EditPerson extends AppStatelessLayoutContainer {
     return 'Edit $personName';
   }
 
-
-  Widget buildBody (context, AppState appState) {
+  @override
+  Widget buildBody (context, AppState state) {
     return Container (
       child: editForm(context),
 
@@ -67,10 +77,13 @@ class EditPerson extends AppStatelessLayoutContainer {
               Padding( child: Text('Gender:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
-                  initialValue: this.dc.currentPerson.gender ,
-                  onSaved: (String value) { this.dc.currentPerson.gender = value;},
-                ),
+                // title: CustomTextFormField(
+                //   initialValue: this.dc.currentPerson.gender ,
+                //   onSaved: (String value) { this.dc.currentPerson.gender = value;},
+                // ),
+                  title: CustomDropDownButton(0),
+
+
               ) ,
               Padding( child: Text('Age Group:'),
                 padding: EdgeInsets.all(5.0),),
@@ -87,7 +100,7 @@ class EditPerson extends AppStatelessLayoutContainer {
                 //   initialValue: this.dc.currentPerson.messengerStatus ,
                 //   onSaved: (String value) { this.dc.currentPerson.messengerStatus = value;},
                 // ),
-                title: CustomDropDownButton(),
+                title: CustomDropDownButton(2),
 
               ) ,
               Padding( child: Text('Reference Details:'),
@@ -133,10 +146,13 @@ class EditPerson extends AppStatelessLayoutContainer {
               Padding( child: Text('Progress Status:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
-                  initialValue: this.dc.currentPerson.progressStatus ,
-                  onSaved: (String value) { this.dc.currentPerson.progressStatus = value;},
-                ),
+                // title: CustomTextFormField(
+                //   initialValue: this.dc.currentPerson.progressStatus ,
+                //   onSaved: (String value) { this.dc.currentPerson.progressStatus = value;},
+                //),
+
+                title: CustomDropDownButton(3),
+
               ) ,
               Container(child: saveButton(context)),
               Padding(padding: EdgeInsets.all(10.0)),
