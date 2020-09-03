@@ -95,6 +95,41 @@ class AppScriptUtils {
     print("$sent $total");
   }
 
+  static Future<dynamic> savePerson(String sheetId, Person person) {
+    var url = ''
+    dynamic data = {};
+    data['Facebook Name'] = person.facebookName;
+    data['Gender'] = person.gender;
+    data['Address'] = person.address;
+    data['Age Group'] = person.ageGroup;
+    data['Messenger Status'] = person.messengerStatus;
+    data['Profile Image'] = person.profileImage;
+    data['Reference Details'] = person.referenceDetails;
+    data['Assigned To'] = person.assignedTo;
+    data['Preached By'] = person.preachedBy;
+    data['Date Contacted'] = person.dateContacted;
+    data['Remarks'] = person.remarks;
+    data['Progress Status'] = person.progressStatus;
+
+
+
+    dynamic options = Options(
+      followRedirects: true,
+      validateStatus: (status) { return status < 500; },
+    );
+    dynamic formData = FormData.fromMap(data);
+
+    Dio dio = Dio();
+
+    return dio.post(APP_SCRIPT_URL,
+      options: options,
+      data: formData,
+    ).then((res) {
+      
+    });
+
+  }
+
   static Future<dynamic> imageUpload(String parentDirId, String imageDirName, Io.File file, String faceBookName, [AppScriptUtilsUploadStatusFunc func]) {
     //create multipart request for POST or PATCH method
     var format = 'jpeg';
