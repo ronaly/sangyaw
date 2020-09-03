@@ -13,7 +13,7 @@ import 'package:sangyaw_app/widgets/show_photo_view.dart';
 import 'package:sangyaw_app/widgets/custom_text_form_field.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/widgets/custom_drop_down_button.dart';
-
+import 'package:sangyaw_app/utils/ui_utils.dart';
 
 class EditPerson extends StatefulWidget {
   _EditPerson createState() {
@@ -31,6 +31,8 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
   static int ageGroup = 1;
   static int messengerStatus = 2;
   static int progressStatus = 3;
+
+  DateTime selectedDate =   DateTime.now();
 
 
   @override
@@ -134,10 +136,8 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               Padding( child: Text('Date Contacted:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
-                  initialValue: this.dc.currentPerson.dateContacted ,
-                  onSaved: (String value) { this.dc.currentPerson.dateContacted = value;},
-                ),
+                title:  Text(formatDate(this.dc.currentPerson.dateContacted)),
+                onTap: () =>  customShowDatePicker(context),
               ) ,
               Padding( child: Text('Remarks:'),
                 padding: EdgeInsets.all(5.0),),
@@ -195,5 +195,25 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
       ),
     );
   } //widget edit
+
+
+
+  Future<void> customShowDatePicker(BuildContext context) async {
+
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2015, 1),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        this.dc.currentPerson.dateContacted = selectedDate.toString();
+      });
+    }
+  }
+
+
 
 } // class
