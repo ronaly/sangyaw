@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:sangyaw_app/utils/app_script_utils.dart';
 import 'app_stateful_widget.dart';
 
 import 'package:image_picker/image_picker.dart';
@@ -26,7 +27,7 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
   Future getImageFromGallery() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    final f = File(pickedFile.path);
+    File f = File(pickedFile.path);
 
     setState(() {
       this.dc.currentPerson.imageFile = f;
@@ -36,7 +37,7 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
   Future getImageFromCamera() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
-    final f = File(pickedFile.path);
+    File f = File(pickedFile.path);
 
     setState(() {
       this.dc.currentPerson.imageFile = f;
@@ -49,11 +50,17 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
     setState(() {
       this.dc.currentPerson.tempImageUploading = true;
     });
-
-    await Duration(milliseconds: 5000);
+    String parentDirId = this.dc.currentSettings.folderId;
+    String imageDirName = this.dc.currentSettings.imageFolderName;
+    File file = this.dc.currentPerson.tempImageFile;
+    String faceBookName = this.dc.currentPerson.facebookName;
+    dynamic res = await AppScriptUtils.imageUpload(parentDirId, imageDirName, file, faceBookName);
+    print('===========================');
+    print(res);
+    print('===========================');
 
     setState(() {
-      this.dc.currentPerson.googleDriveImageId = '1tuXRwIIBmPxJfv0ApLoptmdsZtzS9rpK';
+//      this.dc.currentPerson.googleDriveImageId = '1tuXRwIIBmPxJfv0ApLoptmdsZtzS9rpK';
       print(dc.currentPerson);
     });
   }
