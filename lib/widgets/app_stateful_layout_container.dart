@@ -31,6 +31,8 @@ abstract class AppStatefulLayoutContainer<T extends StatefulWidget> extends Stat
           this.dataController = new DataController(StoreProvider.of<AppState>(context));
           Widget renderMe;
           String strTitle;
+          Widget drawer;
+          Widget bottomMenu;
 
           if(this.dc.error) {
             strTitle = this.dc.errorTitle;
@@ -41,14 +43,16 @@ abstract class AppStatefulLayoutContainer<T extends StatefulWidget> extends Stat
           } else {
             renderMe = this.buildBody(context, state);
             strTitle = this.getTitle(context, state);
+            drawer = DrawerMenu();
+            bottomMenu = BottomMenu();
           }
           return Scaffold(
             appBar: AppBar(
               title: Text(strTitle),
               backgroundColor: Colors.blueAccent,
             ),
-            drawer: DrawerMenu(),
-            bottomNavigationBar: BottomMenu(),
+            drawer: drawer,
+            bottomNavigationBar: bottomMenu,
             body: Container(
                 margin: EdgeInsets.all(10.0),
                 child: renderMe
