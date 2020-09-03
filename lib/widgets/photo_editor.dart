@@ -25,27 +25,47 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
   Widget cameraButton;
   Widget galleryButton;
 
-  Future getImageFromGallery() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    File f = File(pickedFile.path);
+  getImageFromGallery() {
 
-    setState(() {
-      this.dc.currentPerson.imageFile = f;
-      _image = f;
+    picker.getImage(source: ImageSource.gallery).then((pickedFile){
+      File f = File(pickedFile.path);
+
+      setState(() {
+        this.dc.currentPerson.imageFile = f;
+        _image = f;
+      });
+
+    }).catchError((err){
+
+      print('=========================');
+      print('camera error:');
+      print('err');
+      print('=========================');
+
     });
   }
 
-  Future getImageFromCamera() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
-    File f = File(pickedFile.path);
+  getImageFromCamera() {
+    picker.getImage(source: ImageSource.camera).then((pickedFile){
+      File f = File(pickedFile.path);
 
-    setState(() {
-      this.dc.currentPerson.imageFile = f;
-      _image = f;
+      setState(() {
+        this.dc.currentPerson.imageFile = f;
+        _image = f;
+      });
+
+    }).catchError((err){
+
+      print('=========================');
+      print('camera error:');
+      print('err');
+      print('=========================');
+
     });
+
   }
 
-  Future uploadImage() async {
+  uploadImage() {
     print(dc.currentSettings);
     setState(() {
       this.dc.currentPerson.tempImageUploading = true;
@@ -54,17 +74,25 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
     String imageDirName = this.dc.currentSettings.imageFolderName;
     File file = this.dc.currentPerson.tempImageFile;
     String faceBookName = this.dc.currentPerson.facebookName;
-    dynamic res = await AppScriptUtils.imageUpload(parentDirId, imageDirName, file, faceBookName);
-    print('===========================');
-    print('ImageUpload Completed: ${res['completed']}');
-    print('ImageUpload imageId: ${res['imageId']}');
-    print('ImageUpload imageName: ${res['imageName']}');
-    print('===========================');
+    AppScriptUtils.imageUpload(parentDirId, imageDirName, file, faceBookName).then((res){
+      print('===========================');
+      print('ImageUpload Completed: ${res['completed']}');
+      print('ImageUpload imageId: ${res['imageId']}');
+      print('ImageUpload imageName: ${res['imageName']}');
+      print('===========================');
 
-    setState(() {
-      this.dc.currentPerson.googleDriveImageId = res['imageId'];
-      print(dc.currentPerson);
+      setState(() {
+        this.dc.currentPerson.googleDriveImageId = res['imageId'];
+        print(dc.currentPerson);
+      });
+
+    }).catchError((err) {
+      print('=========================');
+      print('upload error:');
+      print('err');
+      print('=========================');
     });
+
   }
 
   void _incrementCounter() {

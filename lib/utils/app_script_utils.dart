@@ -11,6 +11,8 @@ const String APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMqHh-lc
 const String SANGYAW_APP_SETTINGS_URL = '$APP_SCRIPT_URL?action=settings';
 const String SANGYAW_MASTER_LIST_URL = '$APP_SCRIPT_URL?action=listPersons&sheetId=';
 
+typedef AppScriptUtilsUploadStatusFunc = void Function(int sent, int total);
+
 class AppScriptUtils {
 
 // Google App Script Web URL.
@@ -55,40 +57,113 @@ class AppScriptUtils {
   }
 
 
-  static Future<List<Person>> getMasterList(String sheetId) async {
+  static Future<List<Person>> getMasterList(String sheetId) {
     String url = '$SANGYAW_MASTER_LIST_URL$sheetId';
     print(url);
-    http.Response response = await http.get(
+    return http.get(
       Uri.encodeFull(url),
-    );
-
-    List result = json.decode(response.body) as List;
-    List<Person> persons = result.map((json){
-      return Person.fromJson(json);
-    }).toList();
-    return persons;
+    ).then((http.Response response){
+      List result = json.decode(response.body) as List;
+      List<Person> persons = result.map((json){
+        return Person.fromJson(json);
+      }).toList();
+      return persons;
+    });
   }
 
-  static Future<List<dynamic>> getSettings() async {
-    http.Response response = await http.get(
+  static Future<List<dynamic>> getSettings() {
+    return http.get(
       Uri.encodeFull(SANGYAW_APP_SETTINGS_URL),
+    ).then((http.Response response){
+      List result = json.decode(response.body) as List;
+      List<dynamic> settings = result.map((json){
+        List sheets = json['sheets'];
+        return {
+          'folderId': json['folderId'],
+          'folderName': json['folderName'],
+          'sheets' : sheets,
+        };
+      }).toList();
+      return settings;
+
+    });
+
+
+  }
+
+  static defaultUploadFunc(int sent, int total) {
+    print("$sent $total");
+  }
+
+  static Future<dynamic> imageUpload(String parentDirId, String imageDirName, Io.File file, String faceBookName, [AppScriptUtilsUploadStatusFunc func]) {
+    //create multipart request for POST or PATCH method
+    var format = 'jpeg';
+    final bytes = file.readAsBytesSync();
+    String img64 = base64Encode(bytes);
+
+    print('Uploading File: ${file}');
+    print('parentDirId: ${parentDirId}');
+    print('imageDirName: ${imageDirName}');
+    print('faceBookName: ${faceBookName}');
+    print('format: ${format}');
+    Dio dio = Dio();
+
+    // set progress function
+    AppScriptUtilsUploadStatusFunc progressFunction = func;
+    if(func == null) {
+      progressFunction = defaultUploadFunc;
+    }
+
+    dynamic options = Options(
+      followRedirects: true,
+      validateStatus: (status) { return status < 500; },
     );
 
-    List result = json.decode(response.body) as List;
-    List<dynamic> settings = result.map((json){
-      List sheets = json['sheets'];
-      return {
-        'folderId': json['folderId'],
-        'folderName': json['folderName'],
-        'sheets' : sheets,
-      };
-    }).toList();
 
-    return settings;
+    dynamic formData = FormData.fromMap({
+      'action': 'uploadImage',
+      'parentDirId': parentDirId,
+      'imageDirName': imageDirName,
+      'imageformat': format,
+      'filename': faceBookName,
+      "file": img64,
+    });
+    
+
+    
+    return dio.post(APP_SCRIPT_URL,
+      options: options,
+      data: formData,
+      onSendProgress: progressFunction,
+    ).then((res){
+
+      print('HTTP response status code: ${res.statusCode}');
+      print('HTTP response status message: ${res.statusMessage}');
+      print('HTTP Redirect URL: ${res.redirects}');
+      print('HTTP Redirect Location: ${res.headers['location']}');
+      if (res.statusCode == 302) {
+        String url = res.headers['location'].first;
+        return dio.get(url).then((res){
+          print(res.data);
+          return {
+            'completed': res.data['completed'],
+            'imageId': res.data['imageId'],
+            'imageName': res.data['imageName'],
+          };
+        });
+      }
+
+      return {
+        'completed': res.data['completed'],
+        'imageId': res.data['imageId'],
+        'imageName': res.data['imageName'],
+      };
+
+    });
   }
 
 
-  static dynamic imageUpload(String parentDirId, String imageDirName, Io.File file, String faceBookName) async{
+  static dynamic imageUploadAsync(String parentDirId, String imageDirName, Io.File file, String faceBookName) async{
     //create multipart request for POST or PATCH method
     var format = 'jpeg';
     final bytes = await file.readAsBytes();

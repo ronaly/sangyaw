@@ -11,44 +11,35 @@ import 'package:sangyaw_app/utils/app_script_utils.dart';
 
 
 
-ThunkAction<AppState> loadAPISettings = (Store<AppState> store) async {
+ThunkAction<AppState> loadAPISettings = (Store<AppState> store) {
 
   store.dispatch(new ClearAppErrors());
-
-
-  try {
-    store.dispatch(new Loading(true));
-
-    List<dynamic> settings = await AppScriptUtils.getSettings();
+  store.dispatch(new Loading(true));
+  AppScriptUtils.getSettings().then((List<dynamic> settings){
 
     store.dispatch(new Settings(settings));
     store.dispatch(new Workbooks(AppScriptUtils.getGoogleSheetNames(store)));
-
     store.dispatch(new Loading(false));
 
-  } catch (err) {
+  }).catchError((err) {
     store.dispatch(new CreateAppError('Internet Connection Failed', err.toString()));
     store.dispatch(new MasterList([]));
     store.dispatch(new Settings([]));
-  }
+  });
+  
 };
 
-ThunkAction<AppState> getMasterList = (Store<AppState> store) async {
+ThunkAction<AppState> getMasterList = (Store<AppState> store) {
 
   store.dispatch(new ClearAppErrors());
-
-  try {
-    store.dispatch(new Loading(true));
-
-    List<Person> persons = await AppScriptUtils.getMasterList(AppScriptUtils.getGoogleSheetId(store));
-
+  store.dispatch(new Loading(true));
+  return AppScriptUtils.getMasterList(AppScriptUtils.getGoogleSheetId(store)).then((List<Person> persons){
     store.dispatch(new MasterList(persons));
     store.dispatch(new Loading(false));
-
-  } catch (err) {
+  }).catchError((err) {
     store.dispatch(new CreateAppError('Internet Connection Failed', err.toString()));
     store.dispatch(new MasterList([]));
-  }
+  });
 };
 
 class Settings {
