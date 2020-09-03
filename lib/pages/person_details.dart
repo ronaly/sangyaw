@@ -11,13 +11,14 @@ class PersonDetails extends AppStatelessLayoutContainer {
 
    final String netWorkImagePath = "https://drive.google.com/uc?export=view&id=1tuXRwIIBmPxJfv0ApLoptmdsZtzS9rpK";
 
-  @override
+   @override
   String getTitle(context, AppState state) {
     return 'Person Details:';
   }
 
 
   Widget buildBody(context, AppState state) {
+
 
     return Container (
          child: listView(context),
@@ -34,6 +35,7 @@ class PersonDetails extends AppStatelessLayoutContainer {
             context: context,
             tiles: [
               ShowPhotoView(),
+              Divider(),
               ListTile (
                 leading: rowField("Facebook Name: "),
                 title: rowValue(this.dc.currentPerson.facebookName),
@@ -68,7 +70,7 @@ class PersonDetails extends AppStatelessLayoutContainer {
               ) ,
               ListTile (
                 leading:  rowField("Date Contacted: "),
-                title: rowValue(formatDate(this.dc.currentPerson.dateContacted)),
+                title: rowValue(formatDate(this.dc.currentPerson.dateContacted.toString())),
               ) ,
               ListTile (
                 leading:  rowField("Remarks: "),

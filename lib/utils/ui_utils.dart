@@ -90,17 +90,3 @@ formatDate (var strDate) {
   }
 } //formatDate
 
-
-// Future<void> customShowDatePicker(BuildContext context) async {
-//   final picked = await showDatePicker(
-//     context: context,
-//     initialDate: DateTime.now(),
-//     firstDate: DateTime(2015, 1),
-//     lastDate: DateTime(2100),
-//   );
-//   // if (picked != null && picked != _fromDate) {
-//   //   setState(() {
-//   //     _fromDate = picked;
-//   //   });
-//   // }
-// }
