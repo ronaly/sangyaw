@@ -46,7 +46,7 @@ class AppScriptUtils {
    */
 
 
-  static imageUpload(String parentDirId, String imageDirName, Io.File file, String faceBookName) async{
+  static dynamic imageUpload(String parentDirId, String imageDirName, Io.File file, String faceBookName) async{
     //create multipart request for POST or PATCH method
     var format = 'jpeg';
     final bytes = await file.readAsBytes();
@@ -67,7 +67,7 @@ class AppScriptUtils {
       'filename': faceBookName,
       "file": img64,
     });
-    var res = await dio.post(APP_SCRIPT_URL,
+    dynamic res = await dio.post(APP_SCRIPT_URL,
         options: Options(
             followRedirects: true,
             validateStatus: (status) { return status < 500; },
@@ -85,7 +85,11 @@ class AppScriptUtils {
       String url = res.headers['location'].first;
       res = await dio.get(url);
     }
-    print(res.data);
-    return res.data;
+
+    return {
+      'completed': res.data['completed'],
+      'imageId': res.data['imageId'],
+      'imageName': res.data['imageName'],
+    };
   }
 }

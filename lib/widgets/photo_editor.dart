@@ -56,11 +56,13 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
     String faceBookName = this.dc.currentPerson.facebookName;
     dynamic res = await AppScriptUtils.imageUpload(parentDirId, imageDirName, file, faceBookName);
     print('===========================');
-    print(res);
+    print('ImageUpload Completed: ${res['completed']}');
+    print('ImageUpload imageId: ${res['imageId']}');
+    print('ImageUpload imageName: ${res['imageName']}');
     print('===========================');
 
     setState(() {
-//      this.dc.currentPerson.googleDriveImageId = '1tuXRwIIBmPxJfv0ApLoptmdsZtzS9rpK';
+      this.dc.currentPerson.googleDriveImageId = res['imageId'];
       print(dc.currentPerson);
     });
   }
