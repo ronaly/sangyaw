@@ -1,6 +1,7 @@
 import 'package:redux/redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/actions.dart';
+import 'package:sangyaw_app/utils/app_script_utils.dart';
 import '../model/person.dart';
 import "dart:collection";
 
@@ -22,7 +23,7 @@ class DataController {
   }
 
   SangyawSettings get currentSettings {
-    dynamic settings = getSangyawSettingstMap(store);
+    dynamic settings = AppScriptUtils.getSangyawSettingstMap(store);
     dynamic sheet = (settings['sheets'] as List).firstWhere((e) => e['fileName'] == this.currentDirectory);
     return new SangyawSettings(
         settings['folderId'],
