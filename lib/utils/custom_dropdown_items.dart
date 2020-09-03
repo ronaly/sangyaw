@@ -2,62 +2,74 @@ import 'package:flutter/material.dart';
 
 //List<DropdownMenuItem<int>>
 //List<Widget>
-List<DropdownMenuItem<int>> messengerDropdownItems() {
-  return (
-        [
-          DropdownMenuItem(
-            child: Text(""),
-            value:1,
-          ),
-          DropdownMenuItem(
-            child: Text('Active'),
-            value:2,
-          ),
-          DropdownMenuItem(
-            child: Text('Inactive'),
-            value:3,
-          ),
 
-        ]
-   ).toList();
+List<DropdownMenuItem<int>> ageGroupDropdownItems() {
+  var value = {1:" ",2:"< 12",3:"12 to 16",4:"17 to 25",
+               5:"26 to 35",6:"36 to 50",7:"> 50" };
+
+  List<DropdownMenuItem<int>> listItem = new List();
+
+  value.forEach((key, value) {
+    listItem.add(
+        DropdownMenuItem(
+          child: Text(value),
+          value:key,
+        ));
+  });
+
+  return listItem.toList();
+
+}
+
+
+
+List<DropdownMenuItem<int>> messengerDropdownItems() {
+  var value = {1:" ",2:"Active",3:"Inactive" };
+  List<DropdownMenuItem<int>> listItem = new List();
+
+  value.forEach((key, value) {
+    listItem.add(
+        DropdownMenuItem(
+          child: Text(value),
+          value:key,
+        ));
+  });
+
+  return listItem.toList();
 }
 
 List<DropdownMenuItem<int>> genderDropdownItems() {
-  return (
-      [
-        DropdownMenuItem(
-          child: Text(""),
-          value:1,
-        ),
-        DropdownMenuItem(
-          child: Text('Male'),
-          value:2,
-        ),
-        DropdownMenuItem(
-          child: Text('Female'),
-          value:3,
-        ),
 
-      ]
-  ).toList();
+  var value = {1:" ",2:"Male",3:"Female" };
+
+  List<DropdownMenuItem<int>> listItem = new List();
+
+  value.forEach((key, value) {
+    listItem.add(
+        DropdownMenuItem(
+          child: Text(value),
+          value:key,
+        ));
+  });
+
+  return listItem.toList();
+
 }
 
 List<DropdownMenuItem<int>> progressDropdownItems() {
-  return (
-      [
-        DropdownMenuItem(
-          child: Text(""),
-          value:1,
-        ),
-        DropdownMenuItem(
-          child: Text('RV'),
-          value:2,
-        ),
-        DropdownMenuItem(
-          child: Text('BS'),
-          value:3,
-        ),
 
-      ]
-  ).toList();
+  var value = {1:" ",2:"RV",3:"BS" };
+
+  List<DropdownMenuItem<int>> listItem = new List();
+
+  value.forEach((key, value) {
+    listItem.add(
+        DropdownMenuItem(
+          child: Text(value),
+          value:key,
+        ));
+  });
+
+  return listItem.toList();
+
 }

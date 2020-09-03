@@ -27,7 +27,10 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
 
   final _formKey = GlobalKey<FormState>();
 
-
+  static int gender = 0;
+  static int ageGroup = 1;
+  static int messengerStatus = 2;
+  static int progressStatus = 3;
 
 
   @override
@@ -81,17 +84,18 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                 //   initialValue: this.dc.currentPerson.gender ,
                 //   onSaved: (String value) { this.dc.currentPerson.gender = value;},
                 // ),
-                  title: CustomDropDownButton(0),
+                  title: CustomDropDownButton(gender),
 
 
               ) ,
               Padding( child: Text('Age Group:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
-                  initialValue: this.dc.currentPerson.ageGroup ,
-                  onSaved: (String value) { this.dc.currentPerson.ageGroup = value;},
-                ),
+                // title: CustomTextFormField(
+                //   initialValue: this.dc.currentPerson.ageGroup ,
+                //   onSaved: (String value) { this.dc.currentPerson.ageGroup = value;},
+                // ),
+                title: CustomDropDownButton(ageGroup),
               ) ,
               Padding( child: Text('Messenger Status:'),
                 padding: EdgeInsets.all(5.0),),
@@ -100,7 +104,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                 //   initialValue: this.dc.currentPerson.messengerStatus ,
                 //   onSaved: (String value) { this.dc.currentPerson.messengerStatus = value;},
                 // ),
-                title: CustomDropDownButton(2),
+                title: CustomDropDownButton(messengerStatus),
 
               ) ,
               Padding( child: Text('Reference Details:'),
@@ -151,7 +155,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                 //   onSaved: (String value) { this.dc.currentPerson.progressStatus = value;},
                 //),
 
-                title: CustomDropDownButton(3),
+                title: CustomDropDownButton(progressStatus),
 
               ) ,
               Container(child: saveButton(context)),
