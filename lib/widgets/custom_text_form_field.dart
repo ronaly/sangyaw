@@ -13,6 +13,8 @@ class CustomTextFormField extends StatelessWidget {
     final String initialValue;
     final Function validator;
     final Function onSaved;
+    final Function onTap;
+    final Function onChanged;
 
 
   CustomTextFormField( {
@@ -20,6 +22,8 @@ class CustomTextFormField extends StatelessWidget {
     this.initialValue,
     this.validator,
     this.onSaved,
+    this.onTap,
+    this.onChanged,
   });
 
   @override
@@ -37,6 +41,8 @@ class CustomTextFormField extends StatelessWidget {
           initialValue: initialValue,
           validator: validator,
           onSaved: onSaved,
+          onTap: onTap,
+          onChanged: onChanged,
         ),
       );
   } //widget build

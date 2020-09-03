@@ -5,7 +5,7 @@ import 'package:sangyaw_app/model/app_state.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:intl/intl.dart';
 import 'package:sangyaw_app/widgets/show_photo_view.dart';
-
+import 'package:sangyaw_app/utils/ui_utils.dart';
 
 class PersonDetails extends AppStatelessLayoutContainer {
 
@@ -33,8 +33,6 @@ class PersonDetails extends AppStatelessLayoutContainer {
           children: ListTile.divideTiles(
             context: context,
             tiles: [
-              editButton(context),
-              Divider(),
               ShowPhotoView(),
               ListTile (
                 leading: rowField("Facebook Name: "),
@@ -80,6 +78,8 @@ class PersonDetails extends AppStatelessLayoutContainer {
                 leading:   rowField("Progress Status: "),
                 title:  rowValue(this.dc.currentPerson.progressStatus),
               ) ,
+              Divider(),
+              editButton(context),
             ], //tiles []
           ).toList(), //ListTiles
         ); //ListView
@@ -101,23 +101,6 @@ class PersonDetails extends AppStatelessLayoutContainer {
       );
   } //rowValue
 
-   formatDate (var strDate) {
-    try {
-      var formatter = new DateFormat('MM-dd-yyyy');
-      var parDate;
-      parDate = DateTime.parse(strDate);
-      var newDate;
-      if (strDate != null ) newDate = formatter.format(parDate);
-      return newDate;
-
-
-    } catch (err) {
-      print (err);
-      return 'Invalid Date';
-
-    }
-  } //formatDate
-
 
    Widget editButton(BuildContext context) {
      return new Container (
@@ -131,9 +114,6 @@ class PersonDetails extends AppStatelessLayoutContainer {
        ),
      );
    } //widget edit
-
-
-
 
 
 
