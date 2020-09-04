@@ -88,7 +88,11 @@ class DataController {
   }
 
   updatePersonToLocalList(Person p) {
-    this.persons[p.id - 2].mutate(p);
+    if(this.persons[p.id - 2] != null) {
+      this.persons[p.id - 2].mutate(p);
+    } else {
+      this.persons[p.id - 2] = p.clone();
+    }
   }
 
   savePerson(Person person) {
