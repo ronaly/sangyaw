@@ -93,6 +93,7 @@ class DataController {
     } else {
       this.persons[p.id - 2] = p.clone();
     }
+    store.dispatch(MasterList(this.persons));
   }
 
   Future<Person> savePerson(Person person) {
