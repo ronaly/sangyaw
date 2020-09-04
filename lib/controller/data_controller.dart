@@ -95,7 +95,7 @@ class DataController {
     }
   }
 
-  savePerson(Person person) {
+  Future<Person> savePerson(Person person) {
     String sheetId = AppScriptUtils.getGoogleSheetId(store);
     return AppScriptUtils.savePerson(sheetId, person).then((value){
       print('===========================');
@@ -105,11 +105,6 @@ class DataController {
       this.currentPerson = value;
       print('===========================');
       return value;
-    }).catchError((err) {
-      print('===========================');
-      print('Save Person Error:');
-      print(err);
-      print('===========================');
     });
 
   }

@@ -159,15 +159,27 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
 
   } //listView
 
+  bool get hideActionButtons {
+    if (this.dc.currentPerson.tempImageUploading) {
+      return true;
+    }
+    return false;
+  }
+
+
   Widget saveButton(BuildContext context) {
+    if (this.hideActionButtons) {
+      return Container();
+    }
     return new Container (
       child: FloatingActionButton.extended (
         heroTag: null,
         onPressed: () {
           if (_formKey.currentState.validate() ) {
             _formKey.currentState.save();
-            this.dc.savePerson(this.dc.currentPerson);
-            Navigator.of(context).pop();
+            this.dc.savePerson(this.dc.currentPerson).then((value){
+              Navigator.of(context).pop();
+            });
           }
         }, //() { Navigator.pushNamed(context, '/edit_person'); },
         tooltip: 'Save',
@@ -180,6 +192,9 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
   } //widget edit
 
   Widget cancelButton(BuildContext context) {
+    if (this.hideActionButtons) {
+      return Container();
+    }
     return new Container (
       child: FloatingActionButton.extended (
         heroTag: null,
