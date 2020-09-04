@@ -68,7 +68,9 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                         if (value.isEmpty) {
                           return 'Facebook name cannot be empty.';}
                         return null; },
-                      onSaved: (String value) { this.dc.currentPerson.facebookName = value;},
+                      onSaved: (String value) {
+                       setState(() { this.dc.currentPerson.facebookName = value;});
+                        },
                   ),
                 ),
               Padding( child: Text('Address:'),
@@ -76,7 +78,9 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               ListTile (
                 title: CustomTextFormField(
                   initialValue: this.dc.currentPerson.address ,
-                  onSaved: (String value) { this.dc.currentPerson.address = value;},
+                  onSaved: (String value) {
+                    setState(() { this.dc.currentPerson.address = value;});
+                    },
                 ),
               ) ,
               Padding( child: Text('Gender:'),
@@ -99,7 +103,9 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               ListTile (
                 title: CustomTextFormField(
                   initialValue: this.dc.currentPerson.referenceDetails ,
-                  onSaved: (String value) { this.dc.currentPerson.referenceDetails = value;},
+                  onSaved: (String value) {
+                    setState(() { this.dc.currentPerson.referenceDetails = value;});
+                    },
                 ),
               ) ,
               Padding( child: Text('Assigned To:'),
@@ -107,7 +113,9 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               ListTile (
                 title: CustomTextFormField(
                   initialValue: this.dc.currentPerson.assignedTo ,
-                  onSaved: (String value) { this.dc.currentPerson.assignedTo = value;},
+                  onSaved: (String value) {
+                    setState(() { this.dc.currentPerson.assignedTo = value;});
+                    },
                 ),
               ) ,
               Padding( child: Text('Preached By:'),
@@ -115,7 +123,9 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               ListTile (
                 title: CustomTextFormField(
                   initialValue: this.dc.currentPerson.preachedBy ,
-                  onSaved: (String value) { this.dc.currentPerson.preachedBy = value;},
+                  onSaved: (String value) {
+                    setState(() { this.dc.currentPerson.preachedBy = value;});
+                    },
                 ),
               ) ,
               Padding( child: Text('Date Contacted:'),
@@ -127,17 +137,17 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               Padding( child: Text('Remarks:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
+                title: TextFormField(
                   initialValue: this.dc.currentPerson.remarks ,
-                  onSaved: (String value) { this.dc.currentPerson.remarks = value;},
+                  onSaved: (String value) {
+                    setState(() { this.dc.currentPerson.remarks = value;});
+                    },
                 ),
               ) ,
               Padding( child: Text('Progress Status:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-
                 title: CustomDropDownButton(progressStatus),
-
               ) ,
               Container(child: saveButton(context)),
               Padding(padding: EdgeInsets.all(10.0)),
@@ -154,7 +164,11 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
       child: FloatingActionButton.extended (
         heroTag: null,
         onPressed: () {
-          this.dc.savePerson(this.dc.currentPerson);
+          if (_formKey.currentState.validate() ) {
+            _formKey.currentState.save();
+            this.dc.savePerson(this.dc.currentPerson);
+            Navigator.of(context).pop();
+          }
         }, //() { Navigator.pushNamed(context, '/edit_person'); },
         tooltip: 'Save',
         icon: Icon(Icons.save),
@@ -169,7 +183,10 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
     return new Container (
       child: FloatingActionButton.extended (
         heroTag: null,
-        onPressed: () async { Navigator.of(context).pop(); },
+        onPressed: ()  {
+          this.dc.cancelCurrentPersonChanges();
+          Navigator.of(context).pop();
+          },
         tooltip: 'Cancel',
         icon: Icon(Icons.cancel),
         label: Text("Cancel"),
