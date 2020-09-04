@@ -100,18 +100,18 @@ class AppScriptUtils {
     data['id'] = person.id;
     data['action'] = 'savePerson';
     data['sheetId'] = sheetId;
-    data['Facebook Name'] = person.facebookName;
-    data['Gender'] = person.gender;
-    data['Address'] = person.address;
-    data['Age Group'] = person.ageGroup;
-    data['Messenger Status'] = person.messengerStatus;
-    data['Profile Image'] = person.profileImage;
-    data['Reference Details'] = person.referenceDetails;
-    data['Assigned To'] = person.assignedTo;
-    data['Preached By'] = person.preachedBy;
-    data['Date Contacted'] = person.dateContacted;
-    data['Remarks'] = person.remarks;
-    data['Progress Status'] = person.progressStatus;
+    data['facebookName'] = person.facebookName;
+    data['gender'] = person.gender;
+    data['address'] = person.address;
+    data['ageGroup'] = person.ageGroup;
+    data['messengerStatus'] = person.messengerStatus;
+    data['profileImage'] = person.profileImage;
+    data['referenceDetails'] = person.referenceDetails;
+    data['assignedTo'] = person.assignedTo;
+    data['preachedBy'] = person.preachedBy;
+    data['dateContacted'] = person.dateContacted;
+    data['remarks'] = person.remarks;
+    data['progressStatus'] = person.progressStatus;
 
     dynamic options = Options(
       followRedirects: true,

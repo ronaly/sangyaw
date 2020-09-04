@@ -21,7 +21,9 @@ class PersonList extends AppStatelessWidget {
 
       arr.add(personTile(person, onTap: () {
         this.dc.currentPerson = person;
+        print('===========================');
         print(person);
+        print('===========================');
         Navigator.pushNamed(context, '/person_details');
       }));
       arr.add(getLine());
@@ -50,7 +52,7 @@ class PersonList extends AppStatelessWidget {
          ),
       title: Text(person.facebookName),
       trailing: Icon(Icons.keyboard_arrow_right),
-      subtitle: Text('Address: ${person.address}, Assigned To: ${person.assignedTo}, Gender: ${person.gender}'),
+      subtitle: Text('ID: ${person.id} Address: ${person.address}, Assigned To: ${person.assignedTo}, Gender: ${person.gender}'),
       onTap: onTap,
     );
   }

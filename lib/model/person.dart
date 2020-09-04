@@ -101,7 +101,7 @@ class Person {
 
   factory Person.fromJson(Map<String, dynamic> json) {
     return Person(
-        json['id'],
+        int.parse('${json['id']}'),
         "${json["facebookName"]}",
         "${json["gender"]}",
         "${json["address"]}",
