@@ -9,7 +9,9 @@ import 'package:sangyaw_app/utils/ui_utils.dart';
 
 class PersonDetails extends AppStatelessLayoutContainer {
 
-   final String netWorkImagePath = "https://drive.google.com/uc?export=view&id=1tuXRwIIBmPxJfv0ApLoptmdsZtzS9rpK";
+
+   var tilesInput = new Map();
+
 
    @override
   String getTitle(context, AppState state) {
@@ -19,73 +21,59 @@ class PersonDetails extends AppStatelessLayoutContainer {
 
   Widget buildBody(context, AppState state) {
 
+    tilesInput = {
+      "Facebook Name: ":this.dc.currentPerson.facebookName,
+      "Address: ":this.dc.currentPerson.address,
+      "Gender: ":this.dc.currentPerson.gender,
+      "Age Group: ":this.dc.currentPerson.ageGroup,
+      "Messenger Status: ":this.dc.currentPerson.messengerStatus,
+      "Reference Details: ":this.dc.currentPerson.referenceDetails,
+      "Assigned To: ":this.dc.currentPerson.assignedTo,
+      "Preached By: ":this.dc.currentPerson.preachedBy,
+      "Date Contacted: ":this.dc.currentPerson.dateContacted.toString(),
+      "Remarks: ":this.dc.currentPerson.remarks,
+      "Progress Status: ":this.dc.currentPerson.progressStatus
+    };
 
-    return Container (
-         child: listView(context),
+
+      return ListView(
+        children: groupAllWidgets(tilesInput, context),
 
       );
+
 
   }  //build widget
 
 
-  Widget listView(BuildContext context) {
 
-    return ListView (
-          children: ListTile.divideTiles(
-            context: context,
-            tiles: [
-              ShowPhotoView(),
-              Divider(),
-              ListTile (
-                leading: rowField("Facebook Name: "),
-                title: rowValue(this.dc.currentPerson.facebookName),
-              ) ,
-              ListTile (
-                leading: rowField("Address: "),
-                title: rowValue(this.dc.currentPerson.address),
-              ) ,
-              ListTile (
-                leading: rowField("Gender: "),
-                title: rowValue(this.dc.currentPerson.gender),
-              ) ,
-              ListTile (
-                leading: rowField("Age Group: "),
-                title: rowValue(this.dc.currentPerson.ageGroup),
-              ) ,
-              ListTile (
-                leading:  rowField("Messenger Status: "),
-                title: rowValue(this.dc.currentPerson.messengerStatus),
-              ) ,
-              ListTile (
-                leading:  rowField("Reference Details: "),
-                title: rowValue(this.dc.currentPerson.referenceDetails),
-              ) ,
-              ListTile (
-                leading:  rowField("Assigned To: "),
-                title: rowValue(this.dc.currentPerson.assignedTo),
-              ) ,
-              ListTile (
-                leading:  rowField("Preached By: "),
-                title: rowValue(this.dc.currentPerson.preachedBy ),
-              ) ,
-              ListTile (
-                leading:  rowField("Date Contacted: "),
-                title: rowValue(formatDate(this.dc.currentPerson.dateContacted.toString())),
-              ) ,
-              ListTile (
-                leading:  rowField("Remarks: "),
-                title:  rowValue(this.dc.currentPerson.remarks),
-              ) ,
-              ListTile (
-                leading:   rowField("Progress Status: "),
-                title:  rowValue(this.dc.currentPerson.progressStatus),
-              ) ,
-              Divider(),
-              editButton(context),
-            ], //tiles []
-          ).toList(), //ListTiles
-        ); //ListView
-  } //listView
+
+  List<Widget> groupAllWidgets(Map list, context) {
+     List<Widget> items = <Widget>[];
+     items.add(ShowPhotoView());
+     items.add(Divider());
+
+     list.forEach((key, value) {
+       if (key.toString().contains("Date")) {
+          value = formatDate(value.toString());
+       }
+
+       if (value.toString().isNotEmpty)
+        items.add(getEachTile(key, value));
+
+     });
+    items.add(Divider());
+    items.add(editButton(context));
+    return items;
+  }
+
+  Widget getEachTile(String field, String value)
+  {
+    return ListTile(
+      leading: rowField(field),
+      title: rowValue(value),
+    );
+
+  }
 
 
   Widget rowField(String fieldName) {
@@ -116,7 +104,6 @@ class PersonDetails extends AppStatelessLayoutContainer {
        ),
      );
    } //widget edit
-
 
 
 }  //class PersonDetails
