@@ -30,6 +30,21 @@ class _BottomMenu extends AppStatefulWidget<BottomMenu> {
       items: [
         BottomNavigationBarItem(
             icon: Icon(
+              Icons.home,
+              size: 30,
+              color: Colors.white,
+            ),
+            title: Text('Home',
+              style: TextStyle(fontSize: 20,
+                  color: Colors.white),
+            ),
+            activeIcon: Icon(
+              Icons.home,
+              size: 30,
+              color: Colors.white,
+            )),
+        BottomNavigationBarItem(
+            icon: Icon(
                 Icons.search,
                 size: 30,
                 color: Colors.white,
@@ -40,21 +55,6 @@ class _BottomMenu extends AppStatefulWidget<BottomMenu> {
             ),
             activeIcon: Icon(
               Icons.search,
-              size: 30,
-              color: Colors.white,
-            )),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.assignment_ind,
-              size: 30,
-              color: Colors.white,
-            ),
-            title: Text('Assignment',
-              style: TextStyle(fontSize: 20,
-                  color: Colors.white),
-            ),
-            activeIcon: Icon(
-              Icons.assignment_ind,
               size: 30,
               color: Colors.white,
             )),
@@ -76,12 +76,10 @@ class _BottomMenu extends AppStatefulWidget<BottomMenu> {
 
     switch (index) {
       case 0:
-        Navigator.pushNamed(localContext, '/search_facebook');
-        //Navigator.pushNamedAndRemoveUntil(localContext, '/search_facebook', (route) => false);
+        Navigator.pushNamed(localContext, '/');
         break;
       case 1:
-        Navigator.pushNamed(localContext, '/assignments');
-        //Navigator.pushNamedAndRemoveUntil(localContext, '/assignments', (route) => false);
+        Navigator.pushNamed(localContext, '/search_facebook');
         break;
     } //end switch
 

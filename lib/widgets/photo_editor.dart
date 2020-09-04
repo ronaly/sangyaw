@@ -26,9 +26,9 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
     picker.getImage(source: ImageSource.gallery).then((pickedFile){
       File f = File(pickedFile.path);
+      this.dc.currentPerson.imageFile = f;
 
       setState(() {
-        this.dc.currentPerson.imageFile = f;
         _image = f;
       });
 
@@ -45,9 +45,8 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
   getImageFromCamera() {
     picker.getImage(source: ImageSource.camera).then((pickedFile){
       File f = File(pickedFile.path);
-
+      this.dc.currentPerson.imageFile = f;
       setState(() {
-        this.dc.currentPerson.imageFile = f;
         _image = f;
       });
 
@@ -77,11 +76,9 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
       print('ImageUpload imageId: ${res['imageId']}');
       print('ImageUpload imageName: ${res['imageName']}');
       print('===========================');
+      this.dc.currentPerson.googleDriveImageId = res['imageId'];
+      print(dc.currentPerson);
 
-      setState(() {
-        this.dc.currentPerson.googleDriveImageId = res['imageId'];
-        print(dc.currentPerson);
-      });
 
     }).catchError((err) {
       print('=========================');
@@ -106,45 +103,6 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
   @override
   Widget buildBody(BuildContext context) {
 
-
-
-
-    List<Widget> buttons = [];
-
-    if(this.dc.currentPerson.tempImageUploading) {
-      // TODO: Uploading
-      buttons = [Divider(endIndent: 12.0,)];
-
-    } else if(this.dc.currentPerson.needsUploading) {
-      buttons = [Divider(endIndent: 12.0,), FloatingActionButton(
-
-        heroTag: null,
-        onPressed: uploadImage,
-        tooltip: 'Upload Image',
-        child: Icon(Icons.cloud_upload),
-      )];
-    } else {
-
-      Widget galleryButton = FloatingActionButton(
-        heroTag: null,
-        onPressed: getImageFromGallery,
-        tooltip: 'Get Image from photo gallery',
-        child: Icon(Icons.photo_library ),
-      );
-
-      Widget cameraButton = FloatingActionButton(
-        heroTag: null,
-        onPressed: getImageFromCamera,
-        tooltip: 'Get Image by taking a picture',
-        child: Icon(Icons.camera_alt),
-      );
-
-      buttons = [Divider(endIndent: 12.0,), galleryButton, Divider(endIndent: 15.0,), cameraButton];
-
-    }
-
-
-
     Widget photo = SizedBox(
         height: 400.0,
         child: Card (
@@ -158,15 +116,76 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
         )
     );
 
+    return Column(children: [photo, getButtonsArea()],);
+
+  }
+
+  Widget getProgressIndicator() {
+    // TODO: Uploading
+    return Row(
+      textDirection: TextDirection.rtl,
+      children: [],
+    );
+
+  }
+
+  Widget getButtonsArea() {
+
+
+    List<Widget> buttons = [];
+    buttons.add(Divider(endIndent: 12.0,));
+
+    if(this.dc.currentPerson.tempImageUploading) {
+      return getProgressIndicator();
+    }
+
+
+
+
+    Widget galleryButton = FloatingActionButton(
+      heroTag: null,
+      onPressed: getImageFromGallery,
+      tooltip: 'Get Image from photo gallery',
+      child: Icon(Icons.photo_library ),
+    );
+
+    Widget cameraButton = FloatingActionButton(
+      heroTag: null,
+      onPressed: getImageFromCamera,
+      tooltip: 'Get Image by taking a picture',
+      child: Icon(Icons.camera_alt),
+    );
+
+    buttons.add(galleryButton);
+    buttons.add(Divider(endIndent: 15.0,));
+    buttons.add(cameraButton);
+    buttons.add(Divider(endIndent: 15.0,));
+
+
+
+
+    if(this.dc.currentPerson.needsUploading) {
+      Widget uploadButton = FloatingActionButton(
+
+        heroTag: null,
+        onPressed: uploadImage,
+        tooltip: 'Upload Image',
+        child: Icon(Icons.cloud_upload),
+      );
+
+      buttons.add(uploadButton);
+      buttons.add(Divider(endIndent: 15.0,));
+    }
+
 
     Widget buttonsHolder = Row(
-                textDirection: TextDirection.rtl,
-                children: buttons,
-              );
+      textDirection: TextDirection.rtl,
+      children: buttons,
+    );
 
-      return Column(children: [photo, buttonsHolder],);
+    return buttonsHolder;
 
-  } //widget build
+  }
 
 
 } //class

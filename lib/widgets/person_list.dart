@@ -51,9 +51,9 @@ class PersonList extends AppStatelessWidget {
               person.image,
 //             Image.asset(setImagePath(person), fit: BoxFit.fitHeight),
          ),
-      title: Text(person.facebookName),
+      title: Text('${person.id} - ${person.facebookName}'),
       trailing: Icon(Icons.keyboard_arrow_right),
-      subtitle: Text('ID: ${person.id} Address: ${person.address}, Assigned To: ${person.assignedTo}, Gender: ${person.gender}'),
+      subtitle: Text('Address: ${person.address}, Assigned To: ${person.assignedTo}, Gender: ${person.gender}'),
       onTap: onTap,
     );
   }
