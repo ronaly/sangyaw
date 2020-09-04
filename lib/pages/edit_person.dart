@@ -178,7 +178,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
           if (_formKey.currentState.validate() ) {
             _formKey.currentState.save();
             this.dc.savePerson(this.dc.currentPerson).then((value){
-              Navigator.of(context).pop();
+              Navigator.popAndPushNamed(context, '/person_details');
             });
           }
         }, //() { Navigator.pushNamed(context, '/edit_person'); },
