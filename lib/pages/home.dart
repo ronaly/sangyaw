@@ -32,6 +32,7 @@ class Home extends AppStatelessLayoutContainer {
       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
       child: Wrap(
         children: <Widget> [
+          this.buttonWidget(Icon(Icons.refresh), 'Refresh Data', () => this.dc.reloadMasterList()),
           this.buttonWidget(Icon(Icons.list_alt), 'All Persons', () => Navigator.pushNamed(context, '/all')),
           this.buttonWidget(Icon(Icons.assignment_ind), 'Assignments', () => Navigator.pushNamed(context, '/assignments')),
           this.buttonWidget(Icon(Icons.terrain_rounded), 'Territories', () => Navigator.pushNamed(context, '/territories')),

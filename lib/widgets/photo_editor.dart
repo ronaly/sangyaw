@@ -76,8 +76,10 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
       print('ImageUpload imageId: ${res['imageId']}');
       print('ImageUpload imageName: ${res['imageName']}');
       print('===========================');
-      this.dc.currentPerson.googleDriveImageId = res['imageId'];
-      print(dc.currentPerson);
+      print(this.dc.currentPerson);
+      setState(() {
+        this.dc.currentPerson.googleDriveImageId = res['imageId'];
+      });
 
 
     }).catchError((err) {
