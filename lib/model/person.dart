@@ -48,6 +48,41 @@ class Person {
     this.tempImageUploading = false;
   }
 
+  clone() {
+    return new Person(
+      this.id,
+      this.facebookName,
+      this.gender,
+      this.address,
+      this.ageGroup,
+      this.messengerStatus,
+      this.profileImage,
+      this.referenceDetails,
+      this.assignedTo,
+      this.preachedBy,
+      this.dateContacted,
+      this.remarks,
+      this.progressStatus,
+
+    );
+  }
+
+  mutate(Person p) {
+    this.id = p.id;
+    this.facebookName = p.facebookName;
+    this.gender = p.gender;
+    this.address = p.address;
+    this.ageGroup = p.ageGroup;
+    this.messengerStatus = p.messengerStatus;
+    this.profileImage = p.profileImage;
+    this.referenceDetails = p.referenceDetails;
+    this.assignedTo = p.assignedTo;
+    this.preachedBy = p.preachedBy;
+    this.dateContacted = p.dateContacted;
+    this.remarks = p.remarks;
+    this.progressStatus = p.progressStatus;
+  }
+
   Widget get image {
 
     if (tempImageFile != null) {

@@ -56,7 +56,7 @@ class DataController {
   String get queryTerm => store.state.queryTerm;
 
   set currentPerson(Person person) {
-    store.dispatch(CurrentPerson(person));
+    store.dispatch(CurrentPerson(person.clone()));
   }
 
   set newPerson(Person person) {
@@ -83,12 +83,21 @@ class DataController {
     store.dispatch(QueryTerm(queryTerm));
   }
 
+  cancelCurrentPersonChanges() {
+    this.currentPerson = this.persons[this.currentPerson.id - 2];
+  }
+
+  updatePersonToLocalList(Person p) {
+    this.persons[p.id - 2].mutate(p);
+  }
+
   savePerson(Person person) {
     String sheetId = AppScriptUtils.getGoogleSheetId(store);
     return AppScriptUtils.savePerson(sheetId, person).then((value){
       print('===========================');
       print('Save Person Success!!!!');
       print(value);
+      updatePersonToLocalList(value);
       print('===========================');
       return value;
     }).catchError((err) {
