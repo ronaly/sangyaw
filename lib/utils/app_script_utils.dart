@@ -215,21 +215,49 @@ class AppScriptUtils {
 
 
 
+
     curl -L \
-    -F 'action=savePerson' \
-    -F 'Facebook Name' \
-    -F 'Gender' \
-    -F 'Address' \
-    -F 'Age Group' \
-    -F 'Messenger Status' \
-    -F 'Profile Image' \
-    -F 'Reference Details' \
-    -F 'Assigned To' \
-    -F 'Preached By' \
-    -F 'Date Contacted' \
-    -F 'Remarks' \
-    -F 'Progress Status"]}" \
-    'https://script.google.com/macros/s/AKfycbxMqHh-lcYmNinrydajF-oKDiHREcg1313jbi6JsfDVliXSNiA/exec'
+    -F "action=savePerson" \
+    -F "sheetId=11O-DdnPkUTfGmUsZ0jpPNE9GXHuGTFJQu7TKakr8IzE" \
+    -F "id=2" \
+    -F "facebookName='Adriana Sanchez'" \
+    -F "gender='Female'" \
+    -F "address='Akasya'" \
+    -F "ageGroup=''" \
+    -F "messengerStatus='Active'" \
+    -F "profileImage='Akasya_Images/Adriana Sanchez.Profile Image.073906.png'" \
+    -F "referenceDetails='classmate ni Kate'" \
+    -F "assignedTo='ann rowen'" \
+    -F "preachedBy='Aya'" \
+    -F "dateContacted='7/11/2020'" \
+    -F "remarks='seenzoned'" \
+    -F "progressStatus=''" \
+    "https://script.google.com/macros/s/AKfycbxMqHh-lcYmNinrydajF-oKDiHREcg1313jbi6JsfDVliXSNiA/exec"
+
+
+
+
+    curl -L \
+    -F "action=savePerson" \
+    -F "sheetId=11O-DdnPkUTfGmUsZ0jpPNE9GXHuGTFJQu7TKakr8IzE" \
+    -F "id=2" \
+    -F "facebookName='Adriana Sanchez111'" \
+    -F "gender='Female'" \
+    -F "address='Akasya111'" \
+    -F "ageGroup=''" \
+    -F "messengerStatus='Active'" \
+    -F "profileImage='Akasya_Images/Adriana Sanchez.Profile Image.073906.png'" \
+    -F "referenceDetails='classmate ni Kate111'" \
+    -F "assignedTo='ann rowen111'" \
+    -F "preachedBy='Aya111'" \
+    -F "dateContacted='7/12/2020'" \
+    -F "remarks='seenzoned'" \
+    -F "progressStatus=''" \
+    "https://script.google.com/macros/s/AKfycbxMqHh-lcYmNinrydajF-oKDiHREcg1313jbi6JsfDVliXSNiA/exec"
+
+
+
+
 
 
 
