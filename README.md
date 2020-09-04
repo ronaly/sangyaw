@@ -12,25 +12,34 @@ to change build version
 
 # build
 # from  1.0.0+42 to 1.0.0+43
-flutter pubver bump build
+pubver bump build
 
 # patch
 # from 1.0.0 to 1.0.1
-flutter pubver bump patch
+pubver bump patch
 
 # minor
 # from 1.0.0 to 1.1.0
-flutter pubver bump minor
+pubver bump minor
 
 # major
 # from 1.0.0 to 2.0.0
-flutter pubver bump major
+pubver bump major
 
 ## the usual use
-flutter pubver bump minor
+pubver bump patch
 
 
 
 2) run command in sangyaw app base directory
+flutter build apk --split-per-abi
+
+
+3) upload to google drive, releases
+
+
+- Summary of deployment commands
+
+pubver bump patch
 flutter build apk --split-per-abi
 
