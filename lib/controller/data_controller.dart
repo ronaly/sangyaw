@@ -114,6 +114,9 @@ class DataController {
 
   }
 
+  reloadMasterList() {
+    store.dispatch(getMasterList(store));
+  }
 
   loadMasterList(String directory) {
     store.dispatch(CurrentWorkbook(directory));
