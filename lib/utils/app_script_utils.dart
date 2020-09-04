@@ -1,4 +1,5 @@
 import 'dart:io' as Io;
+import 'package:date_time_format/date_time_format.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:redux/redux.dart';
@@ -6,6 +7,7 @@ import 'package:sangyaw_app/model/app_state.dart';
 import 'dart:convert';
 
 import 'package:sangyaw_app/model/person.dart';
+import 'package:mime_type/mime_type.dart';
 
 const String APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMqHh-lcYmNinrydajF-oKDiHREcg1313jbi6JsfDVliXSNiA/exec';
 const String SANGYAW_APP_SETTINGS_URL = '$APP_SCRIPT_URL?action=settings';
@@ -141,11 +143,42 @@ class AppScriptUtils {
 
   }
 
+  static String getImageFormat(Io.File file) {
+    String mimeType = mime(file.toString());
+    // supported formats
+    // BMP, GIF, JPEG, PNG, SVG
+    switch(mimeType) {
+      case 'image/bmp':
+        return 'BMP';
+      case 'image/gif':
+        return 'GIF';
+      case 'image/jpeg':
+        return 'JPEG';
+      case 'image/png':
+        return 'PNG';
+      case 'image/svg+xml':
+        return 'SVG';
+      default:
+        return null;
+    }
+  }
+
+
   static Future<dynamic> imageUpload(String parentDirId, String imageDirName, Io.File file, String faceBookName, [AppScriptUtilsUploadStatusFunc func]) {
+
     //create multipart request for POST or PATCH method
-    var format = 'jpeg';
+    var format = getImageFormat(file);
+    if(format ==  null) {
+      throw new Exception('Image format is not supported for ${file}');
+    }
+
+
     final bytes = file.readAsBytesSync();
     String img64 = base64Encode(bytes);
+    String name = DateTimeFormat.format(DateTime.now(), format: DateTimeFormats.commonLogFormat);
+    if(faceBookName != null && faceBookName.length > 0) {
+      name = faceBookName;
+    }
 
     Dio dio = Dio();
 
@@ -166,7 +199,7 @@ class AppScriptUtils {
       'parentDirId': parentDirId,
       'imageDirName': imageDirName,
       'imageformat': format,
-      'filename': faceBookName,
+      'filename': name,
       "file": img64,
     });
     
