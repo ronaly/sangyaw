@@ -27,12 +27,15 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
 
   final _formKey = GlobalKey<FormState>();
 
+
   static int gender = 0;
   static int ageGroup = 1;
   static int messengerStatus = 2;
   static int progressStatus = 3;
 
   DateTime selectedDate =   DateTime.now();
+
+
 
 
   @override
@@ -62,7 +65,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               Padding( child: Text('Facebook Name:'),
               padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
+                title: TextFormField(
                       initialValue: this.dc.currentPerson.facebookName,
                       validator: (String value) {
                         if (value.isEmpty) {
@@ -76,12 +79,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               Padding( child: Text('Address:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
-                  initialValue: this.dc.currentPerson.address ,
-                  onSaved: (String value) {
-                    setState(() { this.dc.currentPerson.address = value;});
-                    },
-                ),
+                title: CustomDropDownButton(4),
               ) ,
               Padding( child: Text('Gender:'),
                 padding: EdgeInsets.all(5.0),),
@@ -101,7 +99,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               Padding( child: Text('Reference Details:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
+                title: TextFormField(
                   initialValue: this.dc.currentPerson.referenceDetails ,
                   onSaved: (String value) {
                     setState(() { this.dc.currentPerson.referenceDetails = value;});
@@ -111,7 +109,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               Padding( child: Text('Assigned To:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
+                title: TextFormField(
                   initialValue: this.dc.currentPerson.assignedTo ,
                   onSaved: (String value) {
                     setState(() { this.dc.currentPerson.assignedTo = value;});
@@ -121,7 +119,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               Padding( child: Text('Preached By:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
-                title: CustomTextFormField(
+                title: TextFormField(
                   initialValue: this.dc.currentPerson.preachedBy ,
                   onSaved: (String value) {
                     setState(() { this.dc.currentPerson.preachedBy = value;});
