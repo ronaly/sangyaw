@@ -125,20 +125,37 @@ class DataController {
     this.errorMessage = '';
   }
 
-  List<String> get assignToList {
-    List<String> arr = [];
-    arr = this.persons.map((e) => e.assignedTo.toLowerCase() ).toList();
-    List<String> result = LinkedHashSet<String>.from(arr).toList();
+  List<String> reduceThisElement(List<String> arrHolder, List<String> tobeAdded) {
+    List<String> lowered = arrHolder.map((e) => '$e'.toLowerCase()).toList();
+    List<String> newVal = arrHolder.map((e) => e).toList();
+    if(!lowered.contains('${tobeAdded[0]}'.toLowerCase())) {
+      // add its not yet in the list
+      newVal.add(tobeAdded[0]);
+    }
+    return newVal;
+  }
+
+  List<String> getUnique(List<String> list) {
+    if (list == null || list.length == 0) {
+      return [];
+    }
+    List<List<String>> raw = list.map((e) => ['${e}'] ).toList();
+
+    List<String> result = raw.reduce(this.reduceThisElement);
     result.sort();
+
     return result;
+
+  }
+
+  List<String> get assignToList {
+    List<String> raw = this.persons.map((e) => '${e.assignedTo}' ).toList();
+    return this.getUnique(raw);
   }
 
   List<String> get addressList {
-    List<String> arr = [];
-    arr = this.persons.map((e) => e.address.toLowerCase() ).toList();
-    List<String> result = LinkedHashSet<String>.from(arr).toList();
-    result.sort();
-    return result;
+    List<String> raw = this.persons.map((e) => '${e.address}' ).toList();
+    return this.getUnique(raw);
   }
 
   Person findPerson(facebookName) {
