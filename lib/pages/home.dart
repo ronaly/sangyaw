@@ -7,52 +7,39 @@ class Home extends AppStatelessLayoutContainer {
 
   @override
   String getTitle(context, AppState state) {
-    return 'My Sangyawan App';
+    return '${this.dc.currentDirectory} Home:';
   }
 
 
+
+  Widget buttonWidget(Icon icon, String caption, VoidCallback callback) {
+    return Column(children: [
+      IconButton(
+        color: Colors.blueAccent,
+        iconSize: 100.0,
+        onPressed: callback,
+        icon: icon,
+        tooltip: caption,
+      ),
+      Text(caption),
+    ]);
+  }
+
+  @override
   Widget buildBody(context, AppState state) {
 
-    // START BODY HERE
-    // Widget body = RichText(
-    //   text: TextSpan(
-    //     text: theText,
-    //     style: TextStyle(
-    //       fontSize: 20,
-    //       color: Colors.lightBlue,
-    //     ),
-    //   ),
-    // );
-
-Widget body =    Container (
-      alignment: Alignment.center,
-      child: Text('Manangyaw Na Ta',
-      style: TextStyle(
-          fontSize: 40,
-          foreground: Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2
-          ..color = Colors.blue[700],
-      ),),
+    return new Container (
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+      child: Wrap(
+        children: <Widget> [
+          this.buttonWidget(Icon(Icons.list_alt), 'All Persons', () => Navigator.pushNamed(context, '/all')),
+          this.buttonWidget(Icon(Icons.assignment_ind), 'Assignments', () => Navigator.pushNamed(context, '/assignments')),
+          this.buttonWidget(Icon(Icons.terrain_rounded), 'Territories', () => Navigator.pushNamed(context, '/territories')),
+        ],
+      ),
     );
+  } //widget button
 
 
-
-    //   Widget body = AnimatedDefaultTextStyle(
-    //   duration: const Duration(milliseconds: 300),
-    //   style: TextStyle(
-    //     fontSize: 40,
-    //     color: Colors.blueAccent,
-    //     fontWeight: FontWeight.bold,
-    //     fontFamily: "Canterbury",
-    //   ),
-    //   child: Text('Manangyaw  na  ta!'),
-    // );
-
-
-
-    // END/RETURN The body
-    return body;
-  }
 
 }

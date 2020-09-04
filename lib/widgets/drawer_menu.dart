@@ -53,7 +53,7 @@ class DrawerMenu extends StatelessWidget {
 //        StoreProvider.of<AppState>(context).dispatch(getMasterList( StoreProvider.of<AppState>(context)));
 
         this.dataController.loadMasterList(workbook);
-        Navigator.pushNamed(context, '/all');
+        Navigator.pushNamed(context, '/');
       }));
       arr.add(getLine());
 
