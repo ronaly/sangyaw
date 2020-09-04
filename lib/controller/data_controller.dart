@@ -176,6 +176,15 @@ class DataController {
     }).toList();
   }
 
+  List<Person> findPersonsByTerritory(String territory) {
+    return this.persons.where((p) {
+      if (p != null && p.address != null && territory != null) {
+        return territory.toLowerCase() == p.address.toLowerCase();
+      }
+      return false;
+    }).toList();
+  }
+
   List<Person> findPersonsFBStartsWith(String startswith) {
     return this.persons.where((p) {
       if (p != null && p.facebookName != null && startswith != null) {

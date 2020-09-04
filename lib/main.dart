@@ -14,6 +14,7 @@ import 'package:sangyaw_app/pages/person_details.dart';
 import 'package:sangyaw_app/pages/template.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/pages/territories.dart';
+import 'package:sangyaw_app/pages/territory_persons.dart';
 import 'package:sangyaw_app/redux/actions.dart';
 import 'package:sangyaw_app/redux/reducers.dart';
 import 'package:sangyaw_app/pages/search_by_facebook.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
           '/searched_persons': (context) => SearchedPersons(),
           '/edit_person': (context) => EditPerson(),
           '/territories': (context) => Territories(),
+          '/territory_persons': (context) => TerritoryPersons(),
 
         },
       ),
