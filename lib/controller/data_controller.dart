@@ -98,6 +98,7 @@ class DataController {
       print('Save Person Success!!!!');
       print(value);
       updatePersonToLocalList(value);
+      this.currentPerson = value;
       print('===========================');
       return value;
     }).catchError((err) {
