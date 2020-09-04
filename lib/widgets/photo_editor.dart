@@ -21,9 +21,6 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
   File _image;
   final picker = ImagePicker();
-  Widget uploadButton;
-  Widget cameraButton;
-  Widget galleryButton;
 
   getImageFromGallery() {
 
@@ -108,59 +105,66 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
   @override
   Widget buildBody(BuildContext context) {
-    galleryButton = FloatingActionButton(
-      heroTag: null,
-      onPressed: getImageFromGallery,
-      tooltip: 'Get Image from photo gallery',
-      child: Icon(Icons.photo_library ),
-    );
-
-    cameraButton = FloatingActionButton(
-      heroTag: null,
-      onPressed: getImageFromCamera,
-      tooltip: 'Get Image by taking a picture',
-      child: Icon(Icons.camera_alt),
-    );
-
-    uploadButton = FloatingActionButton(
-
-      heroTag: null,
-      onPressed: uploadImage,
-      tooltip: 'Upload Image',
-      child: Icon(Icons.cloud_upload),
-    );
 
 
-      Widget photo = SizedBox(
-          height: 400.0,
-          child: Card (
-            elevation: 5,
-            child: ClipRect (
-              child: Align (
-                heightFactor: 0.5,
-                child: this.dc.currentPerson.image,
-              ),
-            ),
-          )
+
+
+    List<Widget> buttons = [];
+
+    if(this.dc.currentPerson.tempImageUploading) {
+      // TODO: Uploading
+      buttons = [Divider(endIndent: 12.0,)];
+
+    } else if(this.dc.currentPerson.needsUploading) {
+      buttons = [Divider(endIndent: 12.0,), FloatingActionButton(
+
+        heroTag: null,
+        onPressed: uploadImage,
+        tooltip: 'Upload Image',
+        child: Icon(Icons.cloud_upload),
+      )];
+    } else {
+
+      Widget galleryButton = FloatingActionButton(
+        heroTag: null,
+        onPressed: getImageFromGallery,
+        tooltip: 'Get Image from photo gallery',
+        child: Icon(Icons.photo_library ),
       );
 
+      Widget cameraButton = FloatingActionButton(
+        heroTag: null,
+        onPressed: getImageFromCamera,
+        tooltip: 'Get Image by taking a picture',
+        child: Icon(Icons.camera_alt),
+      );
+
+      buttons = [Divider(endIndent: 12.0,), galleryButton, Divider(endIndent: 15.0,), cameraButton];
+
+    }
 
 
 
+    Widget photo = SizedBox(
+        height: 400.0,
+        child: Card (
+          elevation: 5,
+          child: ClipRect (
+            child: Align (
+              heightFactor: 0.5,
+              child: this.dc.currentPerson.image,
+            ),
+          ),
+        )
+    );
 
-      Widget buttons = Row(
+
+    Widget buttonsHolder = Row(
                 textDirection: TextDirection.rtl,
-                children: [
-                  Divider(endIndent: 12.0,),
-                  galleryButton,
-                  Divider(endIndent: 15.0,),
-                  cameraButton,
-                  Divider(endIndent: 15.0,),
-                  uploadButton,
-                ],
+                children: buttons,
               );
 
-      return Column(children: [photo, buttons],);
+      return Column(children: [photo, buttonsHolder],);
 
   } //widget build
 

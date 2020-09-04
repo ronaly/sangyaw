@@ -48,7 +48,8 @@ class PersonList extends AppStatelessWidget {
             width: 120,
             height: 120,
             child:
-             Image.asset(setImagePath(person), fit: BoxFit.fitHeight),
+              person.image,
+//             Image.asset(setImagePath(person), fit: BoxFit.fitHeight),
          ),
       title: Text(person.facebookName),
       trailing: Icon(Icons.keyboard_arrow_right),

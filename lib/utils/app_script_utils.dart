@@ -144,7 +144,10 @@ class AppScriptUtils {
   }
 
   static String getImageFormat(Io.File file) {
-    String mimeType = mime(file.toString());
+    String mimeType = mime(file.path);
+    print('File Mime type for:');
+    print('File: ${file}');
+    print('Mime: ${mimeType}');
     // supported formats
     // BMP, GIF, JPEG, PNG, SVG
     switch(mimeType) {
