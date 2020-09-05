@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
+
+import 'package:sangyaw_app/widgets/app_stateful_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
-import 'package:sangyaw_app/widgets/search_facebook_form.dart';
 import 'package:sangyaw_app/model/person.dart';
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
+import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 
 
 class SearchByFacebook extends AppStatelessLayoutContainer {
@@ -11,11 +13,14 @@ class SearchByFacebook extends AppStatelessLayoutContainer {
   final _formKey = GlobalKey<FormState>();
   final _textController = TextEditingController();
 
+  GlobalKey<AutoCompleteTextFieldState<String>> facebookGlobalKey = new GlobalKey();
 
   @override
   String getTitle(context, AppState state) {
     return 'My Sangyawan App';
   }
+
+
 
   Widget buildBody(context, AppState state) {
     return new Container (
@@ -36,8 +41,6 @@ class SearchByFacebook extends AppStatelessLayoutContainer {
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: buttonWidget(context),
                       ),
-
-
                     ],
                   )
               )
@@ -48,19 +51,16 @@ class SearchByFacebook extends AppStatelessLayoutContainer {
   } //widget build
 
   Widget textForm() {
-    return TextFormField(
-      controller: _textController,
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Textfield is Empty';
-        }
-        return null;
-      },
+
+    return SimpleAutoCompleteTextField(
+      key: facebookGlobalKey,
       decoration: InputDecoration(labelText: 'Enter Facebook Name:',),
+      controller: _textController,
+      suggestions: this.dc.fbNameList,
+      clearOnSubmit: true,
     );
+
   }
-
-
 
 
   Widget buttonWidget(BuildContext context) {
