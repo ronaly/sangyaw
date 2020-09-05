@@ -10,6 +10,9 @@ class Home extends AppStatelessLayoutContainer {
 
   @override
   String getTitle(context, AppState state) {
+    if(this.dc.currentDirectory == null) {
+      return 'Home';
+    }
     return '${this.dc.currentDirectory} Home:';
   }
 
@@ -28,29 +31,44 @@ class Home extends AppStatelessLayoutContainer {
     ]);
   }
 
+  Widget getButtons(context) {
+    return Wrap(
+        children: <Widget> [
+            this.buttonWidget(Icon(Icons.refresh), 'Refresh Data', () => this.dc.reloadMasterList()),
+    //          this.buttonWidget(Icon(Icons.delete_sweep), 'Clear Image Cache', () => manager.emptyCache()),
+            this.buttonWidget(Icon(Icons.list), 'All Persons', () => Navigator.pushNamed(context, '/all')),
+            this.buttonWidget(Icon(Icons.assignment), 'Assignments', () => Navigator.pushNamed(context, '/assignments')),
+
+            this.buttonWidget(Icon(Icons.terrain), 'Territories', () => Navigator.pushNamed(context, '/territories')),
+            this.buttonWidget(Icon(Icons.person_add ), 'Add Person', (){
+                this.dc.currentPerson = Person.createEmpty();
+                Navigator.pushNamed(context, '/edit_person');
+            })
+          ]
+        );
+
+  }
+
   @override
   Widget buildBody(context, AppState state) {
 
+    Widget empty = new Container(padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+      child: RichText(
+        text: TextSpan(
+          text: 'Please select Directory!',
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.lightBlue,
+          ),
+        ),
+      ),
 
+    );
 
 
     return new Container (
       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-      child: Wrap(
-        children: <Widget> [
-          this.buttonWidget(Icon(Icons.refresh), 'Refresh Data', () => this.dc.reloadMasterList()),
-          this.buttonWidget(Icon(Icons.clear_all), 'Clear Image Cache', () => manager.emptyCache()),
-          this.buttonWidget(Icon(Icons.list), 'All Persons', () => Navigator.pushNamed(context, '/all')),
-          this.buttonWidget(Icon(Icons.assignment), 'Assignments', () => Navigator.pushNamed(context, '/assignments')),
-
-          this.buttonWidget(Icon(Icons.terrain), 'Territories', () => Navigator.pushNamed(context, '/territories')),
-          this.buttonWidget(Icon(Icons.add_a_photo), 'Territories', (){
-            this.dc.currentPerson = Person.createEmpty();
-            Navigator.pushNamed(context, '/edit_person');
-          }),
-
-        ],
-      ),
+      child: this.dc.currentDirectory != null ? getButtons(context) : empty
     );
   } //widget button
 
