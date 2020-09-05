@@ -84,7 +84,7 @@ class DataController {
   }
 
   cancelCurrentPersonChanges() {
-    this.currentPerson = this.persons[this.currentPerson.id];
+    this.currentPerson = this.masterList[this.currentPerson.id];
   }
 
   updatePersonToLocalList(Person p) {
