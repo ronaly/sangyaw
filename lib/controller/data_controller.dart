@@ -158,6 +158,11 @@ class DataController {
     return this.getUnique(raw);
   }
 
+  List<String> get fbNameList {
+    List<String> raw = this.persons.map((e) => '${e.facebookName}' ).toList();
+    return this.getUnique(raw);
+  }
+
   Person findPerson(facebookName) {
     return this.persons.firstWhere((p) {
       if (p != null && p.facebookName != null && facebookName != null) {
