@@ -47,7 +47,11 @@ class Person {
     this.tempImageFile = null;
     this.tempImageUploading = false;
   }
-
+  static Person createEmpty() {
+    return new Person(
+      null, '', '', '', '', '', '', '', '', '', '', '', ''
+    );
+  }
   clone() {
     return new Person(
       this.id,

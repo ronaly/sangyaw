@@ -40,8 +40,11 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
 
   @override
   String getTitle(context, AppState state) {
+    if(this.dc.currentPerson.id == null) {
+      return '${this.dc.currentDirectory} > Add New Person';
+    }
     String personName = this.dc.currentPerson.facebookName;
-    return 'Edit $personName';
+    return '${this.dc.currentDirectory} > Edit $personName';
   }
 
   @override
