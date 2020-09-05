@@ -164,28 +164,17 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
 
   String validateFacebookName(String value) {
 
+    Person person = this.dc.findPerson(value);
+
       if (value.isEmpty) {
         return 'Facebook name cannot be empty.';}
-      else if(checkNameDuplicate(value) == true) {
+      else if( person != null && this.dc.currentPerson.id != person.id) {
         return 'Duplicate Error. Please change another name.';
       }
       else {
         return null;
       }
   }
-
-  //this will be run under onChange function of Facebook Name
-  bool checkNameDuplicate (String name) {
-    bool result = false;
-
-     this.dc.fbNameList.forEach((element) {
-      if (element.toLowerCase() == name.toLowerCase()) {
-        result = true;  // if there is duplicate
-      }
-    });
-       return result;
-  }
-
 
 
   bool get hideActionButtons {
