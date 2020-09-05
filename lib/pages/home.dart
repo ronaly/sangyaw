@@ -33,9 +33,9 @@ class Home extends AppStatelessLayoutContainer {
       child: Wrap(
         children: <Widget> [
           this.buttonWidget(Icon(Icons.refresh), 'Refresh Data', () => this.dc.reloadMasterList()),
-          this.buttonWidget(Icon(Icons.list_alt), 'All Persons', () => Navigator.pushNamed(context, '/all')),
+          this.buttonWidget(Icon(Icons.list), 'All Persons', () => Navigator.pushNamed(context, '/all')),
           this.buttonWidget(Icon(Icons.assignment_ind), 'Assignments', () => Navigator.pushNamed(context, '/assignments')),
-          this.buttonWidget(Icon(Icons.terrain_rounded), 'Territories', () => Navigator.pushNamed(context, '/territories')),
+          this.buttonWidget(Icon(Icons.terrain), 'Territories', () => Navigator.pushNamed(context, '/territories')),
         ],
       ),
     );

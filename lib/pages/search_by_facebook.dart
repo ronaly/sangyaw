@@ -19,7 +19,8 @@ class SearchByFacebook extends AppStatelessLayoutContainer {
 
   Widget buildBody(context, AppState state) {
     return new Container (
-      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+      alignment: Alignment.center,
+    //  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget> [
@@ -30,11 +31,12 @@ class SearchByFacebook extends AppStatelessLayoutContainer {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget> [
-                      Container (child: textForm(), alignment: Alignment.center,),
+                      textForm(),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: buttonWidget(context),
                       ),
+
 
                     ],
                   )
@@ -54,8 +56,7 @@ class SearchByFacebook extends AppStatelessLayoutContainer {
         }
         return null;
       },
-      decoration: InputDecoration(labelText: 'Enter Facebook Name:'),
-
+      decoration: InputDecoration(labelText: 'Enter Facebook Name:',),
     );
   }
 
