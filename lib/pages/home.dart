@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 
 class Home extends AppStatelessLayoutContainer {
   String theText = 'Manangyaw ta tanan atong sangyawan :)';
+  DefaultCacheManager manager = new DefaultCacheManager();
 
   @override
   String getTitle(context, AppState state) {
@@ -29,11 +31,15 @@ class Home extends AppStatelessLayoutContainer {
   @override
   Widget buildBody(context, AppState state) {
 
+
+
+
     return new Container (
       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
       child: Wrap(
         children: <Widget> [
           this.buttonWidget(Icon(Icons.refresh), 'Refresh Data', () => this.dc.reloadMasterList()),
+          this.buttonWidget(Icon(Icons.clear_all), 'Clear Image Cache', () => manager.emptyCache()),
           this.buttonWidget(Icon(Icons.list), 'All Persons', () => Navigator.pushNamed(context, '/all')),
           this.buttonWidget(Icon(Icons.assignment), 'Assignments', () => Navigator.pushNamed(context, '/assignments')),
 
