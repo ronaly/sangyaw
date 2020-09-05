@@ -36,8 +36,8 @@ class DataController {
   }
 
   SplayTreeMap<int, Person> get masterList =>  store.state.viewMasterList;
-  List<Person> get persons =>  store.state.viewMasterList.values.toList();
-  int get totalPersons => store.state.viewMasterList.length;
+  List<Person> get persons =>  store.state.viewPersons;
+  int get totalPersons => store.state.viewTotalPersons;
 
   List<String> get directories => store.state.viewWorkbooks;
 
@@ -87,23 +87,20 @@ class DataController {
     this.currentPerson = this.masterList[this.currentPerson.id];
   }
 
-  updatePersonToLocalList(Person p) {
-    if(this.masterList[p.id] != null) {
-      this.masterList[p.id].mutate(p);
-    } else {
-      this.masterList[p.id] = p.clone();
-    }
-    store.dispatch(MasterList(this.masterList));
-  }
-
   Future<Person> savePerson(Person person) {
+
+    print('===========================');
+    print('Saving Person Person!!!!');
+    print(person);
+    print('===========================');
+
+
     String sheetId = AppScriptUtils.getGoogleSheetId(store);
     return AppScriptUtils.savePerson(sheetId, person).then((value){
       print('===========================');
       print('Save Person Success!!!!');
       print(value);
-      updatePersonToLocalList(value);
-      this.currentPerson = value;
+      store.dispatch(UpdatePersonToMasterList(person));
       print('===========================');
       return value;
     });
@@ -125,43 +122,11 @@ class DataController {
     this.errorMessage = '';
   }
 
-  List<String> reduceThisElement(List<String> arrHolder, List<String> tobeAdded) {
-    List<String> lowered = arrHolder.map((e) => '$e'.toLowerCase()).toList();
-    List<String> newVal = arrHolder.map((e) => e).toList();
-    if(!lowered.contains('${tobeAdded[0]}'.toLowerCase())) {
-      // add its not yet in the list
-      newVal.add(tobeAdded[0]);
-    }
-    return newVal;
-  }
+  List<String> get assignToList => store.state.viewAssignToList;
 
-  List<String> getUnique(List<String> list) {
-    if (list == null || list.length == 0) {
-      return [];
-    }
-    List<List<String>> raw = list.map((e) => ['${e}'] ).toList();
+  List<String> get addressList => store.state.viewAddressList;
 
-    List<String> result = raw.reduce(this.reduceThisElement);
-    result.sort();
-
-    return result;
-
-  }
-
-  List<String> get assignToList {
-    List<String> raw = this.persons.map((e) => '${e.assignedTo}' ).toList();
-    return this.getUnique(raw);
-  }
-
-  List<String> get addressList {
-    List<String> raw = this.persons.map((e) => '${e.address}' ).toList();
-    return this.getUnique(raw);
-  }
-
-  List<String> get fbNameList {
-    List<String> raw = this.persons.map((e) => '${e.facebookName}' ).toList();
-    return this.getUnique(raw);
-  }
+  List<String> get fbNameList => store.state.viewFbNameList;
 
   Person findPerson(facebookName) {
     return this.persons.firstWhere((p) {

@@ -70,9 +70,9 @@ AppState reducer(AppState prevState, dynamic action) {
     newState.loading = false;
   } else if (action is QueryTerm) {
     newState.queryTerm = action.payload;
-  } else {
-    print('Unknow Redux Reduce Action!!!');
-    return prevState;
+  } else if (action is UpdatePersonToMasterList) {
+    newState.masterList[action.payload.id] = action.payload;
+    newState.currentPerson = action.payload;
   }
 
   return newState;

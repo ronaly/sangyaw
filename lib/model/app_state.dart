@@ -51,6 +51,8 @@ class AppState {
   List<String> get viewWorkbooks => workbooks;
   String get viewCurrentWorkbook => currentWorkbook;
   SplayTreeMap<int, Person> get viewMasterList => masterList;
+  List<Person> get viewPersons => masterList.values.toList();
+  int get viewTotalPersons => masterList.length;
   bool get viewLoading => loading;
 
   Person get viewCurrentPerson => currentPerson;
@@ -62,6 +64,47 @@ class AppState {
   String get viewAppErrorMessage => appErrorMessage;
 
   String get viewQueryTerm => queryTerm;
+
+
+
+
+  List<String> reduceThisElement(List<String> arrHolder, List<String> tobeAdded) {
+    List<String> lowered = arrHolder.map((e) => '$e'.toLowerCase()).toList();
+    List<String> newVal = arrHolder.map((e) => e).toList();
+    if(!lowered.contains('${tobeAdded[0]}'.toLowerCase())) {
+      // add its not yet in the list
+      newVal.add(tobeAdded[0]);
+    }
+    return newVal;
+  }
+
+  List<String> getUnique(List<String> list) {
+    if (list == null || list.length == 0) {
+      return [];
+    }
+    List<List<String>> raw = list.map((e) => ['${e}'] ).toList();
+
+    List<String> result = raw.reduce(this.reduceThisElement);
+    result.sort();
+
+    return result;
+
+  }
+
+  List<String> get viewAssignToList {
+    List<String> raw = this.masterList.values.map((e) => '${e.assignedTo}' ).toList();
+    return this.getUnique(raw);
+  }
+
+  List<String> get viewAddressList {
+    List<String> raw = this.masterList.values.map((e) => '${e.address}' ).toList();
+    return this.getUnique(raw);
+  }
+
+  List<String> get viewFbNameList {
+    List<String> raw = this.masterList.values.map((e) => '${e.facebookName}' ).toList();
+    return this.getUnique(raw);
+  }
 
   dynamic toJson() => {
     'settings': settings.hashCode,

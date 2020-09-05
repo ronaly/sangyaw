@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:sangyaw_app/config/config.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/model/person.dart';
@@ -115,4 +116,10 @@ class QueryTerm {
   final String payload;
   QueryTerm(this.payload);
 }
+
+class UpdatePersonToMasterList {
+  final Person payload;
+  UpdatePersonToMasterList(this.payload);
+}
+
 
