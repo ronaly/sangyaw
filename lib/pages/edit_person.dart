@@ -21,7 +21,6 @@ class EditPerson extends StatefulWidget {
   }
 }
 
-//class _EditPerson extends AppStatefulLayoutContainer {
 
 class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
 
@@ -70,13 +69,11 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               ListTile (
                 title: TextFormField(
                       initialValue: this.dc.currentPerson.facebookName,
-                      validator: (String value) {
-                        if (value.isEmpty) {
-                          return 'Facebook name cannot be empty.';}
-                        return null; },
+                      validator: validateFacebookName,
                       onSaved: (String value) {
                        setState(() { this.dc.currentPerson.facebookName = value;});
                         },
+                       textInputAction: TextInputAction.next,
                   ),
                 ),
               Padding( child: Text('Address:'),
@@ -107,6 +104,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                   onSaved: (String value) {
                     setState(() { this.dc.currentPerson.referenceDetails = value;});
                     },
+                  textInputAction: TextInputAction.next,
                 ),
               ) ,
               Padding( child: Text('Assigned To:'),
@@ -117,6 +115,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                   onSaved: (String value) {
                     setState(() { this.dc.currentPerson.assignedTo = value;});
                     },
+                  textInputAction: TextInputAction.next,
                 ),
               ) ,
               Padding( child: Text('Preached By:'),
@@ -127,6 +126,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                   onSaved: (String value) {
                     setState(() { this.dc.currentPerson.preachedBy = value;});
                     },
+                  textInputAction: TextInputAction.next,
                 ),
               ) ,
               Padding( child: Text('Date Contacted:'),
@@ -143,6 +143,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                   onSaved: (String value) {
                     setState(() { this.dc.currentPerson.remarks = value;});
                     },
+                  textInputAction: TextInputAction.done,
                 ),
               ) ,
               Padding( child: Text('Progress Status:'),
@@ -159,6 +160,33 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
     ); // Form
 
   } //listView
+
+
+  String validateFacebookName(String value) {
+
+      if (value.isEmpty) {
+        return 'Facebook name cannot be empty.';}
+      else if(checkNameDuplicate(value) == true) {
+        return 'Duplicate Error. Please change another name.';
+      }
+      else {
+        return null;
+      }
+  }
+
+  //this will be run under onChange function of Facebook Name
+  bool checkNameDuplicate (String name) {
+    bool result = false;
+
+     this.dc.fbNameList.forEach((element) {
+      if (element.toLowerCase() == name.toLowerCase()) {
+        result = true;  // if there is duplicate
+      }
+    });
+       return result;
+  }
+
+
 
   bool get hideActionButtons {
     if (this.dc.currentPerson.tempImageUploading) {
