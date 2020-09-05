@@ -88,12 +88,12 @@ class DataController {
   }
 
   updatePersonToLocalList(Person p) {
-    if(this.persons[p.id] != null) {
-      this.persons[p.id].mutate(p);
+    if(this.masterList[p.id] != null) {
+      this.masterList[p.id].mutate(p);
     } else {
-      this.persons[p.id] = p.clone();
+      this.masterList[p.id] = p.clone();
     }
-//    store.dispatch(MasterList(this.persons));
+    store.dispatch(MasterList(this.masterList));
   }
 
   Future<Person> savePerson(Person person) {
