@@ -6,7 +6,6 @@ import 'package:sangyaw_app/model/app_state.dart';
 
 class Home extends AppStatelessLayoutContainer {
   String theText = 'Manangyaw ta tanan atong sangyawan :)';
-  DefaultCacheManager manager = new DefaultCacheManager();
 
   @override
   String getTitle(context, AppState state) {
