@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class AppState {
   List<dynamic> settings = [];
   List<String> workbooks;
   String currentWorkbook;
-  List<Person> masterList;
+  SplayTreeMap<int, Person> masterList;
   bool loading;
 
   Person currentPerson;
@@ -27,7 +28,7 @@ class AppState {
   AppState(){
     this.settings = [];
     this.workbooks = []; // SANGYAW_SHEET_IDS.keys.toList(); // ['Pamutan', 'Tuong', 'Error Test'];
-    this.masterList = [];
+    this.masterList = new SplayTreeMap<int, Person>();
     this.loading = true;
     this.appError = false;
 //    {@required this.workbooks, @required this.masterList, @required this.loading, @required this.appError }
@@ -49,7 +50,7 @@ class AppState {
   dynamic get viewSettings => settings;
   List<String> get viewWorkbooks => workbooks;
   String get viewCurrentWorkbook => currentWorkbook;
-  List<Person> get viewMasterList => masterList;
+  SplayTreeMap<int, Person> get viewMasterList => masterList;
   bool get viewLoading => loading;
 
   Person get viewCurrentPerson => currentPerson;

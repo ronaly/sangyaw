@@ -35,8 +35,8 @@ class DataController {
     );
   }
 
-  List<Person> get masterList =>  store.state.viewMasterList;
-  List<Person> get persons =>  store.state.viewMasterList;
+  SplayTreeMap<int, Person> get masterList =>  store.state.viewMasterList;
+  List<Person> get persons =>  store.state.viewMasterList.values.toList();
   int get totalPersons => store.state.viewMasterList.length;
 
   List<String> get directories => store.state.viewWorkbooks;
@@ -84,16 +84,16 @@ class DataController {
   }
 
   cancelCurrentPersonChanges() {
-    this.currentPerson = this.persons[this.currentPerson.id - 2];
+    this.currentPerson = this.persons[this.currentPerson.id];
   }
 
   updatePersonToLocalList(Person p) {
-    if(this.persons[p.id - 2] != null) {
-      this.persons[p.id - 2].mutate(p);
+    if(this.persons[p.id] != null) {
+      this.persons[p.id].mutate(p);
     } else {
-      this.persons[p.id - 2] = p.clone();
+      this.persons[p.id] = p.clone();
     }
-    store.dispatch(MasterList(this.persons));
+//    store.dispatch(MasterList(this.persons));
   }
 
   Future<Person> savePerson(Person person) {

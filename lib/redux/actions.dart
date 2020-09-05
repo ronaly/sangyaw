@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:sangyaw_app/config/config.dart';
@@ -23,7 +24,7 @@ ThunkAction<AppState> loadAPISettings = (Store<AppState> store) {
 
   }).catchError((err) {
     store.dispatch(new CreateAppError('Internet Connection Failed', err.toString()));
-    store.dispatch(new MasterList([]));
+    store.dispatch(new MasterList(new SplayTreeMap<int, Person>()));
     store.dispatch(new Settings([]));
   });
 
@@ -34,11 +35,12 @@ ThunkAction<AppState> getMasterList = (Store<AppState> store) {
   store.dispatch(new ClearAppErrors());
   store.dispatch(new Loading(true));
   return AppScriptUtils.getMasterList(AppScriptUtils.getGoogleSheetId(store)).then((List<Person> persons){
-    store.dispatch(new MasterList(persons));
+    SplayTreeMap<int, Person> personsMap = SplayTreeMap.fromIterable(persons, key: (e) => e.id, value: (e) => e);
+    store.dispatch(new MasterList(personsMap));
     store.dispatch(new Loading(false));
   }).catchError((err) {
     store.dispatch(new CreateAppError('Internet Connection Failed', err.toString()));
-    store.dispatch(new MasterList([]));
+    store.dispatch(new MasterList(new SplayTreeMap<int, Person>()));
   });
 };
 
@@ -60,7 +62,7 @@ class CurrentWorkbook {
 
 
 class MasterList {
-  final List<Person> payload;
+  final SplayTreeMap<int, Person> payload;
   MasterList(this.payload);
 }
 
