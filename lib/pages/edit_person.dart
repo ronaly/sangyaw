@@ -72,8 +72,10 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                       validator: validateFacebookName,
                       onSaved: (String value) {
                        setState(() { this.dc.currentPerson.facebookName = value;});
-                        },
-                       textInputAction: TextInputAction.next,
+                       //   this.dc.currentPerson.facebookName = value;
+                       //   print('::::::: $value');
+                      },
+                      textInputAction: TextInputAction.next,
                   ),
                 ),
               Padding( child: Text('Address:'),
@@ -103,6 +105,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                   initialValue: this.dc.currentPerson.referenceDetails ,
                   onSaved: (String value) {
                     setState(() { this.dc.currentPerson.referenceDetails = value;});
+                   // this.dc.currentPerson.referenceDetails = value;
                     },
                   textInputAction: TextInputAction.next,
                 ),
@@ -114,6 +117,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                   initialValue: this.dc.currentPerson.assignedTo ,
                   onSaved: (String value) {
                     setState(() { this.dc.currentPerson.assignedTo = value;});
+                    // this.dc.currentPerson.assignedTo = value;
                     },
                   textInputAction: TextInputAction.next,
                 ),
@@ -125,6 +129,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                   initialValue: this.dc.currentPerson.preachedBy ,
                   onSaved: (String value) {
                     setState(() { this.dc.currentPerson.preachedBy = value;});
+                    //this.dc.currentPerson.preachedBy = value;
                     },
                   textInputAction: TextInputAction.next,
                 ),
@@ -142,6 +147,7 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
                   initialValue: this.dc.currentPerson.remarks ,
                   onSaved: (String value) {
                     setState(() { this.dc.currentPerson.remarks = value;});
+                    //this.dc.currentPerson.remarks = value;
                     },
                   textInputAction: TextInputAction.done,
                 ),
@@ -164,17 +170,43 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
 
   String validateFacebookName(String value) {
 
-    Person person = this.dc.findPerson(value);
+    if (value.isEmpty) {
+      return 'Facebook name cannot be empty.';}
+    //else if( person != null && this.dc.currentPerson.id != person.id) {
+    else if( checkForFacebookDuplicate(value) == true ) {
+      return 'Duplicate Error. Please change another name.';
+    }
+    else {
+      return null;
+    }
 
-      if (value.isEmpty) {
-        return 'Facebook name cannot be empty.';}
-      else if( person != null && this.dc.currentPerson.id != person.id) {
-        return 'Duplicate Error. Please change another name.';
-      }
-      else {
-        return null;
-      }
+
+
+      // if (value.isEmpty) {
+      //   return 'Facebook name cannot be empty.';}
+      // //else if( person != null && this.dc.currentPerson.id != person.id) {
+      // else if( this.dc.findPerson(value) != null ) {
+      //   return 'Duplicate Error. Please change another name.';
+      // }
+      // else {
+      //   return null;
+      // }
+
   }
+
+  bool checkForFacebookDuplicate(String value) {
+    bool result = false;
+
+    this.dc.fbNameList.forEach((element) {
+        if (element.toLowerCase() == value.toLowerCase()) {
+          result = true;
+        }
+    });
+
+    return result;
+
+  }
+
 
 
   bool get hideActionButtons {
@@ -227,11 +259,12 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
         BorderRadius.all(Radius.circular(20.0))),
       ),
     );
-  } //widget edit
+  } //widget ed
 
 
 
   Future<void> customShowDatePicker(BuildContext context) async {
+
 
     final DateTime picked = await showDatePicker(
       context: context,
@@ -243,7 +276,10 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
       setState(() {
         selectedDate = picked;
         this.dc.currentPerson.dateContacted = selectedDate.toString();
-      });
+        print('::::::::: ${this.dc.currentPerson.dateContacted.toString()}');
+      });  //setstate
+      //   selectedDate = picked;
+      //   this.dc.currentPerson.dateContacted = selectedDate.toString();
     }
   }
 
