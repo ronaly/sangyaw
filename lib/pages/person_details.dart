@@ -87,7 +87,7 @@ class PersonDetails extends AppStatelessLayoutContainer {
     if (fieldValue.isEmpty) fieldValue = "";
 
       return Container (
-        child: Text("$fieldValue")
+        child: SelectableText("$fieldValue")
       );
   } //rowValue
 

@@ -33,7 +33,7 @@ class Assignments extends AppStatelessLayoutContainer {
           color: Colors.grey,
         ),
       ));
-    });
+    }); //end of forEach loop
     return ListView(children: arr);
   }
 }
