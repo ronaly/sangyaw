@@ -51,23 +51,10 @@ class Home extends AppStatelessLayoutContainer {
   @override
   Widget buildBody(context, AppState state) {
 
-    Widget empty = new Container(padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-      child: RichText(
-        text: TextSpan(
-          text: 'Please select Directory!',
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.lightBlue,
-          ),
-        ),
-      ),
-
-    );
-
 
     return new Container (
       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-      child: this.dc.currentDirectory != null ? getButtons(context) : empty
+      child: getButtons(context),
     );
   } //widget button
 

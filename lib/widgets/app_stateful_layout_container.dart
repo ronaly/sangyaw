@@ -38,6 +38,20 @@ abstract class AppStatefulLayoutContainer<T extends StatefulWidget> extends Stat
           } else if(this.dc.loading) {
             strTitle = _loadingTitle;
             return getAppSpinner();
+          } else if(this.dc.currentDirectory == null) {
+            renderMe = Container(padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+              child: RichText(
+                text: TextSpan(
+                  text: 'Please select a Directory!',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.lightBlue,
+                  ),
+                ),
+              ),
+
+            );
+            strTitle = 'Please select a Directory';
           } else {
             renderMe = this.buildBody(context, state);
             strTitle = this.getTitle(context, state);
