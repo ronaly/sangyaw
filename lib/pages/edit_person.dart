@@ -16,6 +16,7 @@ import 'package:sangyaw_app/widgets/custom_drop_down_button.dart';
 import 'package:sangyaw_app/utils/ui_utils.dart';
 
 class EditPerson extends StatefulWidget {
+
   _EditPerson createState() {
     return _EditPerson();
   }
@@ -68,16 +69,15 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
               padding: EdgeInsets.all(5.0),),
               ListTile (
                 title: TextFormField(
-                      initialValue: this.dc.currentPerson.facebookName,
-                      validator: validateFacebookName,
-                      onSaved: (String value) {
-                       setState(() { this.dc.currentPerson.facebookName = value;});
-                       //   this.dc.currentPerson.facebookName = value;
-                       //   print('::::::: $value');
-                      },
-                      textInputAction: TextInputAction.next,
-                  ),
+                  initialValue: this.dc.currentPerson.facebookName ,
+                  validator: validateFacebookName,
+                  onSaved: (String value) {
+                    setState(() { this.dc.currentPerson.facebookName = value;});
+                    // this.dc.currentPerson.referenceDetails = value;
+                  },
+                  textInputAction: TextInputAction.next,
                 ),
+              ) ,
               Padding( child: Text('Address:'),
                 padding: EdgeInsets.all(5.0),),
               ListTile (
@@ -225,12 +225,18 @@ class _EditPerson extends AppStatefulLayoutContainer<EditPerson> {
       child: FloatingActionButton.extended (
         heroTag: null,
         onPressed: () {
-          if (_formKey.currentState.validate() ) {
-            _formKey.currentState.save();
-            this.dc.savePerson(this.dc.currentPerson).then((value){
-              Navigator.popAndPushNamed(context, '/person_details');
-            });
-          }
+          setState(() {
+            print('>>>>>>>>>>>>>>>>>>>>>>>>');
+            print('before save value');
+            print(this.dc.currentPerson);
+            print('>>>>>>>>>>>>>>>>>>>>>>>>');
+            if (_formKey.currentState.validate() ) {
+              _formKey.currentState.save();
+              this.dc.savePerson(this.dc.currentPerson).then((value){
+                Navigator.popAndPushNamed(context, '/person_details');
+              });
+            }
+          });
         }, //() { Navigator.pushNamed(context, '/edit_person'); },
         tooltip: 'Save',
         icon: Icon(Icons.save),

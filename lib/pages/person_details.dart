@@ -54,7 +54,7 @@ class PersonDetails extends AppStatelessLayoutContainer {
 
      list.forEach((key, value) {
        if (key.toString().contains("Date")) {
-          value = formatDate(value.toString());
+          value = formatDateForDisplay(value.toString());
        }
 
        if (value.toString().isNotEmpty)

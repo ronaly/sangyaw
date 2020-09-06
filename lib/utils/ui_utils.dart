@@ -93,3 +93,43 @@ formatDate (var strDate) {
   }
 } //formatDate
 
+
+formatDateForDisplay (var strDate) {
+  if(strDate == null || strDate == '') {
+    return '--';
+  }
+  try {
+    DateTime d = toDate(strDate);
+    DateFormat formatter = DateFormat('MMMM d, yyyy');
+    return formatter.format(d);
+
+
+  } catch (err) {
+    print (err);
+    return 'Invalid Date';
+
+  }
+} //formatDate
+
+
+
+DateTime toDate(var strDate) {
+  try {
+    var formatter = new DateFormat('MM/dd/yyyy');
+    return formatter.parseUtc(strDate);
+
+  } catch (err) {
+    return null;
+  }
+} //forma
+
+String dateToString(DateTime d) {
+  if(d == null) {
+    return null;
+  }
+  DateFormat formatter = DateFormat('MM/dd/yyyy');
+  return formatter.format(d);
+}
+
+
+

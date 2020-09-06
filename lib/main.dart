@@ -11,6 +11,7 @@ import 'package:sangyaw_app/pages/assignments.dart';
 import 'package:sangyaw_app/pages/home.dart';
 import 'package:sangyaw_app/pages/about.dart';
 import 'package:sangyaw_app/pages/person_details.dart';
+import 'package:sangyaw_app/pages/person_form.dart';
 import 'package:sangyaw_app/pages/template.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/pages/territories.dart';
@@ -59,7 +60,8 @@ class MyApp extends StatelessWidget {
           '/assigned_persons': (context) => AssignedPersons(),
           '/person_details': (context) => PersonDetails(),
           '/searched_persons': (context) => SearchedPersons(),
-          '/edit_person': (context) => EditPerson(),
+//          '/edit_person': (context) => EditPerson(),
+          '/edit_person': (context) => PersonForm(),
           '/territories': (context) => Territories(),
           '/territory_persons': (context) => TerritoryPersons(),
 
