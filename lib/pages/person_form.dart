@@ -7,6 +7,7 @@ import 'package:sangyaw_app/model/app_state.dart';
 
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
+import 'package:sangyaw_app/widgets/photo_editor.dart';
 
 class PersonForm extends AppStatelessWidget {
 
@@ -36,9 +37,11 @@ class PersonForm extends AppStatelessWidget {
                 children: <Widget>[
                   FloatingActionButton.extended(
                     heroTag: null,
-                    onPressed: formBloc.addErrors,
-                    icon: Icon(Icons.error_outline),
-                    label: Text('ADD ERRORS'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(Icons.cancel),
+                    label: Text('Cancel'),
                   ),
                   SizedBox(height: 12),
                   FloatingActionButton.extended(
@@ -71,6 +74,7 @@ class PersonForm extends AppStatelessWidget {
                     padding: const EdgeInsets.all(24.0),
                     child: Column(
                       children: <Widget>[
+                        PhotoEditor(),
                         TextFieldBlocBuilder(
                           textFieldBloc: formBloc.facebookNameText,
                           decoration: InputDecoration(
@@ -271,12 +275,9 @@ class AllFieldsFormBloc extends FormBloc<String, String> {
     ]);
   }
 
-  void addErrors() {
-    facebookNameText.addFieldError('Awesome Error!');
-    addressText.addFieldError('Awesome Error!');
-    genderSelect.addFieldError('Awesome Error!');
-    ageGroupSelect.addFieldError('Awesome Error!');
-    dateContactedInput.addFieldError('Awesome Error!');
+  void cancelChanges() {
+
+
   }
 
   bool isValid() {
