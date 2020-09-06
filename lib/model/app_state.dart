@@ -106,6 +106,12 @@ class AppState {
     return this.getUnique(raw);
   }
 
+
+  List<String> get viewLowerFbNameList {
+    List<String> raw = this.masterList.values.map((e) => '${e.facebookName.toLowerCase()}' ).toList();
+    return this.getUnique(raw);
+  }
+
   dynamic toJson() => {
     'settings': settings.hashCode,
     'workbooks': workbooks,

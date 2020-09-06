@@ -280,6 +280,22 @@ class AllFieldsFormBloc extends FormBloc<String, String> {
   }
 
   bool isValid() {
+    List<String> names = this.dc.lowerCasedFbNameList;
+    String name = facebookNameText.value.toLowerCase();
+    if(name == null || name == '') {
+      facebookNameText.addFieldError('Facebook Name is required');
+      return false;
+    }
+    if(names.indexOf(name) >= 0) {
+      if (this.dc.currentPerson.id == null) {
+        // This is for add new
+        facebookNameText.addFieldError('Facebook Name already exists');
+        return false;
+      } else {
+
+      }
+    }
+
     return true;
   }
 
@@ -324,6 +340,8 @@ class AllFieldsFormBloc extends FormBloc<String, String> {
           emitSuccess(canSubmitAgain: true);
         });
 
+      } else {
+        emitFailure();
       }
 
 

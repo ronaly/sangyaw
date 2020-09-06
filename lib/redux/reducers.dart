@@ -1,4 +1,5 @@
 
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/actions.dart';
 //
@@ -72,6 +73,11 @@ AppState reducer(AppState prevState, dynamic action) {
     newState.queryTerm = action.payload;
   } else if (action is UpdatePersonToMasterList) {
     newState.masterList[action.payload.id] = action.payload;
+    newState.currentPerson = action.payload;
+  } else if (action is AddPersonToMasterList) {
+    newState.masterList.addAll({
+      action.payload.id: action.payload
+    });
     newState.currentPerson = action.payload;
   }
 

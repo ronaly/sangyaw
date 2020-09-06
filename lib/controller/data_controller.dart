@@ -100,7 +100,13 @@ class DataController {
       print('===========================');
       print('Save Person Success!!!!');
       print(value);
-      store.dispatch(UpdatePersonToMasterList(person));
+      if(person.id == null) {
+        print('Adding Person to MasterList');
+        store.dispatch(AddPersonToMasterList(value));
+      } else {
+        print('Updating Person to MasterList');
+        store.dispatch(UpdatePersonToMasterList(value));
+      }
       print('===========================');
       return value;
     });
@@ -127,6 +133,7 @@ class DataController {
   List<String> get addressList => store.state.viewAddressList;
 
   List<String> get fbNameList => store.state.viewFbNameList;
+  List<String> get lowerCasedFbNameList => store.state.viewLowerFbNameList;
 
   Person findPerson(facebookName) {
     return this.persons.firstWhere((p) {

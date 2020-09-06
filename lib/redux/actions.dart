@@ -122,4 +122,9 @@ class UpdatePersonToMasterList {
   UpdatePersonToMasterList(this.payload);
 }
 
+class AddPersonToMasterList {
+  final Person payload;
+  AddPersonToMasterList(this.payload);
+}
+
 
