@@ -98,22 +98,27 @@ class AppScriptUtils {
   }
 
   static Future<Person> savePerson(String sheetId, Person person) {
+    print('=======[Person] Data save to save ======');
+    print(person);
     Map<String, dynamic> data = {};
     data['id'] = person.id;
     data['action'] = 'savePerson';
     data['sheetId'] = sheetId;
-    data['facebookName'] = person.facebookName;
-    data['gender'] = person.gender;
-    data['address'] = person.address;
-    data['ageGroup'] = person.ageGroup;
-    data['messengerStatus'] = person.messengerStatus;
-    data['profileImage'] = person.profileImage;
-    data['referenceDetails'] = person.referenceDetails;
-    data['assignedTo'] = person.assignedTo;
-    data['preachedBy'] = person.preachedBy;
-    data['dateContacted'] = person.dateContacted;
-    data['remarks'] = person.remarks;
-    data['progressStatus'] = person.progressStatus;
+    data['facebookName'] = '${person.facebookName}';
+    data['gender'] = '${person.gender}';
+    data['address'] = '${person.address}';
+    data['ageGroup'] = '${person.ageGroup}';
+    data['messengerStatus'] = '${person.messengerStatus}';
+    data['profileImage'] = '${person.profileImage}';
+    data['referenceDetails'] = '${person.referenceDetails}';
+    data['assignedTo'] = '${person.assignedTo}';
+    data['preachedBy'] = '${person.preachedBy}';
+    data['dateContacted'] = '${person.dateContacted}';
+    data['remarks'] = '${person.remarks}';
+    data['progressStatus'] = '${person.progressStatus}';
+
+    print('=======[Person -> Data] Data save to save ======');
+    print(data);
 
     dynamic options = Options(
       followRedirects: true,
@@ -131,10 +136,13 @@ class AppScriptUtils {
       if (res.statusCode == 302) {
         String url = res.headers['location'].first;
         return dio.get(url).then((res){
+          print('=======Response Data from save======');
           print(res.data);
           return new Person.fromJson(res.data);
         });
       }
+
+      print('=======Response Data from save======');
       print(res.data);
 
       return new Person.fromJson(res.data);
