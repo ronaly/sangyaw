@@ -62,7 +62,7 @@ class SangyawAppCacheManager extends BaseCacheManager {
   }
 
   SangyawAppCacheManager._() : super(key,
-      maxAgeCacheObject: Duration(days: 7),
+      maxAgeCacheObject: Duration(days: 30),
       maxNrOfCacheObjects: 20);
 
   Future<String> getFilePath() async {
