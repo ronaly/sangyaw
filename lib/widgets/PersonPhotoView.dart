@@ -5,6 +5,10 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/utils/spinner.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'package:path/path.dart' as p;
+
 
 const GOOGLE_DRIVE_SHOW_IMAGE_PATH = 'https://drive.google.com/uc?export=view&id=';
 
@@ -44,6 +48,30 @@ class PersonPhotoView extends StatelessWidget {
   }
 }
 
+
+class SangyawAppCacheManager extends BaseCacheManager {
+  static const key = "SangyawAppCacheFiles";
+
+  static SangyawAppCacheManager _instance;
+
+  factory SangyawAppCacheManager() {
+    if (_instance == null) {
+      _instance = new SangyawAppCacheManager._();
+    }
+    return _instance;
+  }
+
+  SangyawAppCacheManager._() : super(key,
+      maxAgeCacheObject: Duration(days: 7),
+      maxNrOfCacheObjects: 20);
+
+  Future<String> getFilePath() async {
+    var directory = await getTemporaryDirectory();
+    return p.join(directory.path, key);
+  }
+}
+
+
 class CachedPersonPhotoView extends StatefulWidget {
   String url;
   bool useSmall;
@@ -69,7 +97,7 @@ class _CachedPersonPhotoViewState extends State<CachedPersonPhotoView> {
   void _downloadFile() {
     setState(() {
       print('Loading URL: $url');
-      fileStream = DefaultCacheManager().getFileStream(url, withProgress: true);
+      fileStream = SangyawAppCacheManager().getFileStream(url, withProgress: true);
     });
   }
 
@@ -89,7 +117,7 @@ class _CachedPersonPhotoViewState extends State<CachedPersonPhotoView> {
   }
 
   void _clearCache() {
-    DefaultCacheManager().emptyCache();
+    SangyawAppCacheManager().emptyCache();
     setState(() {
       fileStream = null;
     });
