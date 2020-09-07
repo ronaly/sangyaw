@@ -233,6 +233,7 @@ class AllFieldsFormBloc extends FormBloc<String, String> {
     Person cp = dc.currentPerson;
     
     facebookNameText.updateValue(cp.facebookName);
+
     addressText.updateValue(cp.address);
     addressText.updateSuggestions((pattern) => Future.delayed(Duration(seconds: 0)).then((value) => dc.addressList));
 
@@ -247,7 +248,10 @@ class AllFieldsFormBloc extends FormBloc<String, String> {
 
     referenceDetailsText.updateValue(cp.referenceDetails);
 
+    assignedToText.updateValue(cp.assignedTo);
     assignedToText.updateSuggestions((pattern) => Future.delayed(Duration(seconds: 0)).then((value) => dc.assignToList));
+
+
     preachedByText.updateValue(cp.preachedBy);
     
     
