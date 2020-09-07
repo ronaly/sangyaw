@@ -261,7 +261,7 @@ class FileInfoWidget extends StatelessWidget {
     if (fileInfo.file != null) {
 
       return PhotoView(
-        imageProvider: new FileImage(new File(fileInfo.file.path)),
+        imageProvider: FileImage(new File(fileInfo.file.path)),
         minScale: PhotoViewComputedScale.contained * 0.8,
         maxScale: PhotoViewComputedScale.contained * 5.8,
         basePosition: Alignment.center,
