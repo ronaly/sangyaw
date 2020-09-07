@@ -34,7 +34,7 @@ class Home extends AppStatelessLayoutContainer {
     return Wrap(
         children: <Widget> [
             this.buttonWidget(Icon(Icons.refresh), 'Refresh Data', () => this.dc.reloadMasterList()),
-    //          this.buttonWidget(Icon(Icons.delete_sweep), 'Clear Image Cache', () => manager.emptyCache()),
+//            this.buttonWidget(Icon(Icons.delete_sweep), 'Clear Image Cache', () => Navigator.pushNamed(context, '/clear_image_cache')),
             this.buttonWidget(Icon(Icons.list), 'All Persons', () => Navigator.pushNamed(context, '/all')),
             this.buttonWidget(Icon(Icons.assignment), 'Assignments', () => Navigator.pushNamed(context, '/assignments')),
 

@@ -48,7 +48,7 @@ class PersonList extends AppStatelessWidget {
             width: 120,
             height: 120,
             child:
-              person.image,
+              person.imageSmall,
 //             Image.asset(setImagePath(person), fit: BoxFit.fitHeight),
          ),
       title: Text('${person.id} - ${person.facebookName}'),

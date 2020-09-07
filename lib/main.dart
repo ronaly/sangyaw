@@ -7,6 +7,7 @@ import 'package:redux_thunk/redux_thunk.dart';
 import 'package:sangyaw_app/pages/all_persons.dart';
 import 'package:sangyaw_app/pages/assigned_persons.dart';
 import 'package:sangyaw_app/pages/assignments.dart';
+import 'package:sangyaw_app/pages/clear_image_cache.dart';
 
 import 'package:sangyaw_app/pages/home.dart';
 import 'package:sangyaw_app/pages/about.dart';
@@ -64,6 +65,8 @@ class MyApp extends StatelessWidget {
           '/edit_person': (context) => PersonForm(),
           '/territories': (context) => Territories(),
           '/territory_persons': (context) => TerritoryPersons(),
+          '/clear_image_cache': (context) => ClearImageCache(),
+
 
         },
       ),

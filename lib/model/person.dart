@@ -6,8 +6,9 @@ import 'package:flutter/rendering.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:sangyaw_app/utils/spinner.dart';
+import 'package:sangyaw_app/widgets/PersonPhotoView.dart';
 
-const GOOGLE_DRIVE_SHOW_IMAGE_PATH = 'https://drive.google.com/uc?export=view&id=';
+
 
 class Person {
 
@@ -88,35 +89,11 @@ class Person {
   }
 
   Widget get image {
+    return PersonPhotoView(this, false);
+  }
 
-    if (tempImageFile != null) {
-      if(tempImageUploading) {
-        return getAppSpinner();
-      }
-      return PhotoView(
-        imageProvider: new FileImage(tempImageFile),
-        minScale: PhotoViewComputedScale.contained * 0.8,
-        maxScale: PhotoViewComputedScale.contained * 5.8,
-        basePosition: Alignment.center,
-      );
-    }
-
-    if(this.profileImage != null && this.profileImage.length > 0) {
-      String url = '${GOOGLE_DRIVE_SHOW_IMAGE_PATH}${this.profileImage}';
-      return CachedNetworkImage(
-        imageUrl: url,
-        placeholder: (context, url) => CircularProgressIndicator(),
-        errorWidget: (context, url, error) => Icon(Icons.error),
-      );
-    }
-
-    return PhotoView(
-      imageProvider: AssetImage('assets/images/notyetuploaded.png'),
-      minScale: PhotoViewComputedScale.contained * 0.8,
-      maxScale: PhotoViewComputedScale.contained * 5.8,
-      basePosition: Alignment.center,
-    );
-
+  Widget get imageSmall {
+    return PersonPhotoView(this, true);
   }
 
   set imageFile(File file) {
