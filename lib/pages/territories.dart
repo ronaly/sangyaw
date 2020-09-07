@@ -18,9 +18,10 @@ class Territories extends AppStatelessLayoutContainer {
     List<Widget> arr =  <Widget>[];
     this.dc.addressList.forEach((territory) {
       String name = territory == null || territory == '' ? '- Uncategorized -' : territory;
+      String title = '$name (${this.dc.countPersonsByTerritory(territory.toLowerCase())})';
       arr.add(ListTile(
           leading: Icon(Icons.terrain),
-          title: Text(name),
+          title: Text(title),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
             this.dc.currentAssigned = territory;

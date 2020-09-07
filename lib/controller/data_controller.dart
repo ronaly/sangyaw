@@ -128,38 +128,52 @@ class DataController {
     this.errorMessage = '';
   }
 
+  // Indexes and Aggregates
   List<String> get assignToList => store.state.viewAssignToList;
-
   List<String> get addressList => store.state.viewAddressList;
-
   List<String> get fbNameList => store.state.viewFbNameList;
   List<String> get lowerCasedFbNameList => store.state.viewLowerFbNameList;
+  SplayTreeMap<String, Person> get fbNameIndex => store.state.viewFbNameIndex;
+  SplayTreeMap<String, List<Person>> get personsAssignedToIndex => store.state.viewPersonsAssignedToIndex;
+  SplayTreeMap<String, int> get personsAssignedToCountIndex => store.state.viewPersonsAssignedToCountIndex;
+  SplayTreeMap<String, List<Person>> get personsByTerritoryIndex => store.state.viewPersonsByTerritoryIndex;
+  SplayTreeMap<String, int> get personsByTerritoryCountIndex => store.state.viewPersonsByTerritoryCountIndex;
 
   Person findPerson(facebookName) {
-    return this.persons.firstWhere((p) {
-      if (p != null && p.facebookName != null && facebookName != null) {
-        return facebookName.toLowerCase() == p.facebookName.toLowerCase();
-      }
-      return false;
-    });
+    return this.fbNameIndex[facebookName.toString()];
   }
   
   List<Person> findPersonsAssignedTo(String assignedTo) {
-    return this.persons.where((p) {
-      if (p != null && p.assignedTo != null && assignedTo != null) {
-        return assignedTo.toLowerCase() == p.assignedTo.toLowerCase();
-      }
-      return false;
-    }).toList();
+    List<Person> list = this.personsAssignedToIndex[assignedTo.toLowerCase()];
+    if(list != null) {
+      return list;
+    }
+    return [];
+  }
+
+
+  int countPersonsAssignedTo(String assignedTo) {
+    int count = this.personsAssignedToCountIndex[assignedTo.toLowerCase()];
+    if(count != null) {
+      return count;
+    }
+    return 0;
   }
 
   List<Person> findPersonsByTerritory(String territory) {
-    return this.persons.where((p) {
-      if (p != null && p.address != null && territory != null) {
-        return territory.toLowerCase() == p.address.toLowerCase();
-      }
-      return false;
-    }).toList();
+    List<Person> list = this.personsByTerritoryIndex[territory.toLowerCase()];
+    if(list != null) {
+      return list;
+    }
+    return [];
+  }
+
+  int countPersonsByTerritory(String territory) {
+    int count = this.personsByTerritoryCountIndex[territory.toLowerCase()];
+    if(count != null) {
+      return count;
+    }
+    return 0;
   }
 
   List<Person> findPersonsFBStartsWith(String startswith) {

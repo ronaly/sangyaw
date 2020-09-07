@@ -1,6 +1,9 @@
 
+import 'dart:collection';
+
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:sangyaw_app/model/app_state.dart';
+import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/redux/actions.dart';
 //
 //
@@ -35,6 +38,141 @@ import 'package:sangyaw_app/redux/actions.dart';
 //  return action.payload;
 //}
 
+
+
+
+List<String> reduceThisElement(List<String> arrHolder, List<String> tobeAdded) {
+  List<String> lowered = arrHolder.map((e) => '$e'.toLowerCase()).toList();
+  List<String> newVal = arrHolder.map((e) => e).toList();
+  if(!lowered.contains('${tobeAdded[0]}'.toLowerCase())) {
+    // add its not yet in the list
+    newVal.add(tobeAdded[0]);
+  }
+  return newVal;
+}
+
+List<String> getUnique(List<String> list) {
+  if (list == null || list.length == 0) {
+    return [];
+  }
+  List<List<String>> raw = list.map((e) => ['${e}'] ).toList();
+
+  List<String> result = raw.reduce(reduceThisElement);
+  result.sort();
+
+  return result;
+
+}
+
+
+
+List<String> getAssignToList(masterList) {
+  List<String> raw = masterList.values.map<String>((e) => '${e.assignedTo}' ).toList();
+  return getUnique(raw);
+}
+
+List<String> getAddressList(masterList) {
+  List<String> raw = masterList.values.map<String>((e) => '${e.address}' ).toList() as List<String>;
+  return getUnique(raw);
+}
+
+List<String> getFbNameList(masterList) {
+  List<String> raw = masterList.values.map<String>((e) => '${e.facebookName}' ).toList() as List<String>;
+  return getUnique(raw);
+}
+
+
+
+List<String> getLowerFbNameList(masterList) {
+  List<String> raw = masterList.values.map<String>((e) => '${e.facebookName}'.toLowerCase() ).toList() as List<String>;
+  return getUnique(raw);
+}
+
+// indexes and aggregates
+//List<String> assignToList;
+//List<String> addressList;
+//List<String> fbNameList;
+//List<String> lowerFbNameList;
+// set indexes and aggregates
+createIndexesAndAggregates(AppState newState) {
+  newState.assignToList = getAssignToList(newState.masterList);
+  newState.addressList = getAddressList(newState.masterList);
+  newState.fbNameList = getFbNameList(newState.masterList);
+  newState.lowerFbNameList = getLowerFbNameList(newState.masterList);
+
+  // add fbNameIndexVAlues
+  createFbNameIndex(newState);
+
+  // add personsAssignedToIndex
+  createPersonsByAssignedToIndex(newState);
+  // add personsByTerritoryIndex
+  createPersonsByTerritoryIndex(newState);
+
+
+
+}
+
+void createFbNameIndex(AppState newState) {
+   // add fbNameIndexVAlues
+  newState.fbNameIndex = new SplayTreeMap<String, Person>();
+  newState.masterList.forEach((key, value) {
+    newState.fbNameIndex.addAll({
+      value.facebookName.toLowerCase(): value,
+    });
+  });
+}
+
+void createPersonsByAssignedToIndex(AppState newState) {
+
+  // add personsAssignedToIndex
+  newState.personsAssignedToIndex = new SplayTreeMap<String, List<Person>>();
+  newState.personsAssignedToCountIndex = new SplayTreeMap<String, int>();
+  newState.assignToList.forEach((assignedTo) {
+    List<Person> persons = newState.masterList.values.where((p) {
+      if (p != null && p.assignedTo != null && assignedTo != null) {
+        return assignedTo.toLowerCase() == p.assignedTo.toLowerCase();
+      }
+      return false;
+    }).toList();
+
+    newState.personsAssignedToIndex.addAll({
+      assignedTo.toLowerCase() : persons,
+    });
+
+    newState.personsAssignedToCountIndex.addAll({
+      assignedTo.toLowerCase() : persons.length,
+    });
+
+  });
+
+
+}
+
+void createPersonsByTerritoryIndex(AppState newState) {
+
+  // add personsByTerritoryIndex
+  newState.personsByTerritoryIndex = new SplayTreeMap<String, List<Person>>();
+  newState.personsByTerritoryCountIndex = new SplayTreeMap<String, int>();
+  newState.addressList.forEach((address) {
+    List<Person> persons = newState.masterList.values.where((p) {
+      if (p != null && p.address != null && address != null) {
+        return address.toLowerCase() == p.address.toLowerCase();
+      }
+      return false;
+    }).toList();
+
+    newState.personsByTerritoryIndex.addAll({
+      address.toLowerCase() : persons,
+    });
+
+    newState.personsByTerritoryCountIndex.addAll({
+      address.toLowerCase() : persons.length,
+    });
+
+  });
+}
+
+
 AppState reducer(AppState prevState, dynamic action) {
   AppState newState = AppState.fromAppState(prevState);
   if (action is Settings) {
@@ -45,6 +183,7 @@ AppState reducer(AppState prevState, dynamic action) {
     newState.currentWorkbook = action.payload;
   } else if (action is MasterList) {
     newState.masterList = action.payload;
+    createIndexesAndAggregates(newState);
   } else if (action is Loading) {
     newState.loading = action.payload;
   } else if (action is CurrentPerson) {
@@ -74,11 +213,13 @@ AppState reducer(AppState prevState, dynamic action) {
   } else if (action is UpdatePersonToMasterList) {
     newState.masterList[action.payload.id] = action.payload;
     newState.currentPerson = action.payload;
+    createIndexesAndAggregates(newState);
   } else if (action is AddPersonToMasterList) {
     newState.masterList.addAll({
       action.payload.id: action.payload
     });
     newState.currentPerson = action.payload;
+    createIndexesAndAggregates(newState);
   }
 
   return newState;

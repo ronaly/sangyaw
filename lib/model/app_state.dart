@@ -25,12 +25,34 @@ class AppState {
 
   String queryTerm;
 
+  // indexes and aggregates
+  List<String> assignToList;
+  List<String> addressList;
+  List<String> fbNameList;
+  List<String> lowerFbNameList;
+  SplayTreeMap<String, Person> fbNameIndex;
+  SplayTreeMap<String, List<Person>> personsAssignedToIndex;
+  SplayTreeMap<String, int> personsAssignedToCountIndex;
+  SplayTreeMap<String, List<Person>> personsByTerritoryIndex;
+  SplayTreeMap<String, int> personsByTerritoryCountIndex;
+
+
+
   AppState(){
     this.settings = [];
     this.workbooks = []; // SANGYAW_SHEET_IDS.keys.toList(); // ['Pamutan', 'Tuong', 'Error Test'];
     this.masterList = new SplayTreeMap<int, Person>();
     this.loading = true;
     this.appError = false;
+    this.assignToList = [];
+    this.addressList = [];
+    this.fbNameList = [];
+    this.lowerFbNameList = [];
+    this.fbNameIndex = new SplayTreeMap<String, Person>();
+    this.personsAssignedToIndex = new SplayTreeMap<String, List<Person>>();
+    this.personsAssignedToCountIndex = new SplayTreeMap<String, int>();
+    this.personsByTerritoryIndex = new SplayTreeMap<String, List<Person>>();
+    this.personsByTerritoryCountIndex = new SplayTreeMap<String, int>();
 //    {@required this.workbooks, @required this.masterList, @required this.loading, @required this.appError }
   }
   AppState.fromAppState(AppState another) {
@@ -46,6 +68,15 @@ class AppState {
     appErrorTitle = another.appErrorTitle;
     appErrorMessage = another.appErrorMessage;
     queryTerm = another.queryTerm;
+    assignToList = another.assignToList;
+    addressList = another.addressList;
+    fbNameList = another.fbNameList;
+    lowerFbNameList = another.lowerFbNameList;
+    fbNameIndex = another.fbNameIndex;
+    personsAssignedToIndex = another.personsAssignedToIndex;
+    personsAssignedToCountIndex = another.personsAssignedToCountIndex;
+    personsByTerritoryIndex = another.personsByTerritoryIndex;
+    personsByTerritoryCountIndex = another.personsByTerritoryCountIndex;
   }
   dynamic get viewSettings => settings;
   List<String> get viewWorkbooks => workbooks;
@@ -65,52 +96,22 @@ class AppState {
 
   String get viewQueryTerm => queryTerm;
 
+  // indexes and aggregates
+  List<String> get viewAssignToList => assignToList;
+  List<String> get viewAddressList => addressList;
+  List<String> get viewFbNameList => fbNameList;
+  List<String> get viewLowerFbNameList => lowerFbNameList;
+  SplayTreeMap<String, Person> get viewFbNameIndex => fbNameIndex;
+
+
+  SplayTreeMap<String, List<Person>> get viewPersonsAssignedToIndex => personsAssignedToIndex;
+  SplayTreeMap<String, int> get viewPersonsAssignedToCountIndex => personsAssignedToCountIndex;
+  SplayTreeMap<String, List<Person>> get viewPersonsByTerritoryIndex => personsByTerritoryIndex;
+  SplayTreeMap<String, int> get viewPersonsByTerritoryCountIndex => personsByTerritoryCountIndex;
 
 
 
-  List<String> reduceThisElement(List<String> arrHolder, List<String> tobeAdded) {
-    List<String> lowered = arrHolder.map((e) => '$e'.toLowerCase()).toList();
-    List<String> newVal = arrHolder.map((e) => e).toList();
-    if(!lowered.contains('${tobeAdded[0]}'.toLowerCase())) {
-      // add its not yet in the list
-      newVal.add(tobeAdded[0]);
-    }
-    return newVal;
-  }
 
-  List<String> getUnique(List<String> list) {
-    if (list == null || list.length == 0) {
-      return [];
-    }
-    List<List<String>> raw = list.map((e) => ['${e}'] ).toList();
-
-    List<String> result = raw.reduce(this.reduceThisElement);
-    result.sort();
-
-    return result;
-
-  }
-
-  List<String> get viewAssignToList {
-    List<String> raw = this.masterList.values.map((e) => '${e.assignedTo}' ).toList();
-    return this.getUnique(raw);
-  }
-
-  List<String> get viewAddressList {
-    List<String> raw = this.masterList.values.map((e) => '${e.address}' ).toList();
-    return this.getUnique(raw);
-  }
-
-  List<String> get viewFbNameList {
-    List<String> raw = this.masterList.values.map((e) => '${e.facebookName}' ).toList();
-    return this.getUnique(raw);
-  }
-
-
-  List<String> get viewLowerFbNameList {
-    List<String> raw = this.masterList.values.map((e) => '${e.facebookName.toLowerCase()}' ).toList();
-    return this.getUnique(raw);
-  }
 
   dynamic toJson() => {
     'settings': settings.hashCode,
@@ -125,6 +126,15 @@ class AppState {
     'appErrorTitle': appErrorTitle,
     'appErrorMessage': appErrorMessage,
     'queryTerm': queryTerm,
+    'assignToList': assignToList.hashCode,
+    'addressList': addressList.hashCode,
+    'fbNameList': fbNameList.hashCode,
+    'lowerFbNameList': lowerFbNameList.hashCode,
+    'fbNameIndex': fbNameIndex.hashCode,
+    'personsAssignedToIndex': personsAssignedToIndex.hashCode,
+    'personsAssignedToCountIndex': personsAssignedToCountIndex.hashCode,
+    'personsByTerritoryIndex': personsByTerritoryIndex.hashCode,
+    'personsByTerritoryCountIndex': personsByTerritoryCountIndex.hashCode,
   };
 
   @override

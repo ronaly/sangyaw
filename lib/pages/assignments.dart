@@ -18,9 +18,10 @@ class Assignments extends AppStatelessLayoutContainer {
     List<Widget> arr =  <Widget>[];
     this.dc.assignToList.forEach((preacher) {
       String name = preacher == null || preacher == '' ? '- Not Assigned -' : preacher;
+      String title = '${name} (${this.dc.countPersonsAssignedTo(preacher.toLowerCase())})';
       arr.add(ListTile(
           leading: Icon(Icons.assignment_ind),
-          title: Text(name),
+          title: Text(title),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
             this.dc.currentAssigned = preacher;

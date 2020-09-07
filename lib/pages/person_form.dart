@@ -31,7 +31,7 @@ class PersonForm extends AppStatelessWidget {
               ),
             ),
             child: Scaffold(
-              appBar: AppBar(title: Text(this.dc.currentPerson.id == null? 'Add Person' : 'Edit Person')),
+              appBar: AppBar(title: Text(this.dc.currentPerson.id == null? '${this.dc.currentDirectory} > Add Person' : '${this.dc.currentDirectory} > Edit Person')),
               bottomNavigationBar: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -293,7 +293,11 @@ class AllFieldsFormBloc extends FormBloc<String, String> {
         facebookNameText.addFieldError('Facebook Name already exists');
         return false;
       } else {
-
+        Person p = this.dc.findPerson(name);
+        if(p != null && p.id != this.dc.currentPerson.id) {
+          facebookNameText.addFieldError('cannot update Facebook Name is used By other record with ID: ${p.id} ');
+          return false;
+        }
       }
     }
 
