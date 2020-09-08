@@ -6,6 +6,9 @@ import 'package:photo_view/photo_view.dart';
 import 'package:sangyaw_app/utils/app_script_utils.dart';
 import 'app_stateful_widget.dart';
 
+import 'dart:typed_data';
+import 'package:screenshot/screenshot.dart';
+
 import 'package:image_picker/image_picker.dart';
 
 
@@ -21,6 +24,22 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
   File _image;
   final picker = ImagePicker();
+  ScreenshotController screenshotController = ScreenshotController();
+
+  getImageFromScreenShot() {
+    screenshotController
+        .capture(delay: Duration(milliseconds: 10))
+        .then((File f) {
+            print("Capture Done");
+            setState(() {
+            _image = f;
+            });
+            this.dc.currentPerson.imageFile = f;
+        }).catchError((onError) {
+          print(onError);
+        });
+  }
+
 
   getImageFromGallery() {
 
@@ -118,7 +137,20 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
         )
     );
 
-    return Column(children: [photo, getButtonsArea()],);
+    Widget screen = Screenshot(
+      controller: screenshotController,
+      child: Column(
+        children: <Widget>[
+          Text(
+            'You have pushed the button this many times:' +
+                _counter.toString(),
+          ),
+          FlutterLogo(),
+        ],
+      ),
+    );
+
+    return Column(children: [screen, photo, getButtonsArea()],);
 
   }
 
@@ -144,6 +176,13 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
 
 
+    Widget screenShot = FloatingActionButton(
+      heroTag: null,
+      onPressed: getImageFromScreenShot,
+      tooltip: 'Get Image from Screen Capture',
+      child: Icon(Icons.add_to_home_screen  ),
+    );
+
     Widget galleryButton = FloatingActionButton(
       heroTag: null,
       onPressed: getImageFromGallery,
@@ -161,6 +200,8 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
     buttons.add(galleryButton);
     buttons.add(Divider(endIndent: 15.0,));
     buttons.add(cameraButton);
+    buttons.add(Divider(endIndent: 15.0,));
+    buttons.add(screenShot);
     buttons.add(Divider(endIndent: 15.0,));
 
 
