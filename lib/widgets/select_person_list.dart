@@ -13,17 +13,47 @@ class SelectPersonList extends AppStatelessWidget {
 
   @override
   Widget buildBody(BuildContext context) {
-    return ListView(padding: EdgeInsets.zero,
-      children: getWidgets(context)
+    Widget contents = getContents(context);
+
+
+    Container header = Container(
+      padding: const EdgeInsets.all(8.0),
+      color: Colors.blue,
+      alignment: Alignment.center,
+      child: Text("Header"),
     );
+
+    Container footer = Container(
+      padding: const EdgeInsets.all(8.0),
+      color: Colors.blue,
+      alignment: Alignment.center,
+      child: Text("Footer"),
+    );
+
+    return SafeArea( child: Column(children: [header, contents, footer],),);
   }
 
-  List<Widget> getWidgets(context) {
+  Expanded getContents(BuildContext context) {
+     SingleChildScrollView inner = SingleChildScrollView(padding: EdgeInsets.zero,
+        physics: ClampingScrollPhysics(),
+        child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              children: buildPersonListsWidgets(context),
+            ),
+
+        ),
+       );
+     Expanded contents = Expanded(child: inner);
+     return contents;
+  }
+
+  List<Widget> buildPersonListsWidgets(context) {
     List<Widget> arr =  <Widget>[];
 
     list.forEach((person) {
 
-      arr.add(personTile(person, onTap: () {
+      arr.add(getPersonCard(person, onTap: () {
         if(this.onPersonSelect != null) {
           this.onPersonSelect(person);
         }
@@ -34,16 +64,8 @@ class SelectPersonList extends AppStatelessWidget {
 
   }
 
-  Widget getLine() {
-    return SizedBox(
-      height: 0.8,
-      child: Container(
-        color: Colors.grey,
-      ),
-    );
-  }
 
-  Widget personTile(Person person, {Function onTap}) {
+  Widget getPersonCard(Person person, {Function onTap}) {
     Icon ico = Icon(this.selectedMap[person.id] != null && this.selectedMap[person.id] ? Icons.check_box : Icons.check_box_outline_blank );
     Widget tile = ListTile(
       leading: IconButton(icon: ico, onPressed: onTap,) ,
@@ -54,25 +76,10 @@ class SelectPersonList extends AppStatelessWidget {
             height: 120,
             child:
               person.imageSmall,
-//             Image.asset(setImagePath(person), fit: BoxFit.fitHeight),
          ),
       subtitle: Text('Address: ${person.address}, Assigned To: ${person.assignedTo}, Gender: ${person.gender}'),
       onTap: onTap,
     );
     return Card(child: tile, );
   }
-}
-
-String setImagePath(Person person) {
-  String path;
-  // if (person.profileImage.isNotEmpty) {
-  //   path = person.profileImage;
-  // }
-  // else {
-  //   path = "assets/images/dog.jpeg";
-  //   print('showing image here');
-  // }
-  path = "assets/images/sample.png";
-
-  return path;
 }

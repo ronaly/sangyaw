@@ -58,7 +58,14 @@ abstract class AppStatelessLayoutContainer extends StatelessWidget {
           }
           return Scaffold(
             appBar: AppBar(
-              title: Text(strTitle),
+              title: RichText(
+                text: TextSpan(
+                  text: strTitle,
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ),
               backgroundColor: Colors.blueAccent,
             ),
             drawer: DrawerMenu(),

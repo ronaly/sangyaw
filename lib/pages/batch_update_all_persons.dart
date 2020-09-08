@@ -49,6 +49,7 @@ class _BatchUpdateAllPersons extends  AppStatefulLayoutContainer<BatchUpdateAllP
     // START BODY HERE
     Widget body = SelectPersonList(list: this.dc.persons, selectedMap: this.selectedMap,onPersonSelect: this.onPersonSelect, );
 
+    return body;
     // END/RETURN The body
     return body;
   }
