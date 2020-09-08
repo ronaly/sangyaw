@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:sangyaw_app/model/person.dart';
+import 'package:sangyaw_app/utils/SangyawAppCacheManager.dart';
 import 'package:sangyaw_app/utils/spinner.dart';
-import 'package:path_provider/path_provider.dart';
-
-import 'package:path/path.dart' as p;
 
 
 const GOOGLE_DRIVE_SHOW_IMAGE_PATH = 'https://drive.google.com/uc?export=view&id=';
@@ -49,29 +47,6 @@ class PersonPhotoView extends StatelessWidget {
 }
 
 
-class SangyawAppCacheManager extends BaseCacheManager {
-  static const key = "SangyawAppCacheFiles";
-
-  static SangyawAppCacheManager _instance;
-
-  factory SangyawAppCacheManager() {
-    if (_instance == null) {
-      _instance = new SangyawAppCacheManager._();
-    }
-    return _instance;
-  }
-
-  SangyawAppCacheManager._() : super(key,
-      maxAgeCacheObject: Duration(days: 30),
-      maxNrOfCacheObjects: 20);
-
-  Future<String> getFilePath() async {
-    var directory = await getTemporaryDirectory();
-    return p.join(directory.path, key);
-  }
-}
-
-
 class CachedPersonPhotoView extends StatefulWidget {
   String url;
   bool useSmall;
@@ -104,7 +79,7 @@ class _CachedPersonPhotoViewState extends State<CachedPersonPhotoView> {
   @override
   Widget build(BuildContext context) {
     if (fileStream == null) {
-      return Fab(
+      return PhotoCacheDownload(
         downloadFile: _downloadFile,
       );
     }
@@ -143,7 +118,7 @@ class DownloadPage extends StatelessWidget {
         var loading = !snapshot.hasData || snapshot.data is DownloadProgress;
 
         if (snapshot.hasError) {
-          body = DownloadErrorPage(
+          body = PhotoCacheDownloadError(
             downloadFile: this.downloadFile,
             error: snapshot.error.toString(),
             useSmall: this.useSmall,
@@ -151,9 +126,10 @@ class DownloadPage extends StatelessWidget {
             clearCache: clearCache,
           ); // Text(snapshot.error.toString());
         } else if (loading) {
-          body = this.useSmall ? getAppSmallSpinner() : getAppSpinner();
+//          body = this.useSmall ? getAppSmallSpinner() : getAppSpinner();
+          body = CachedPhotoDownloadProgressIndicator(progress: snapshot.data as DownloadProgress, useSmall: this.useSmall,);
         } else {
-          body = FileInfoWidget(
+          body = CachedPhotoView(
             fileInfo: snapshot.data as FileInfo,
             clearCache: clearCache,
           );
@@ -165,9 +141,9 @@ class DownloadPage extends StatelessWidget {
   }
 }
 
-class Fab extends StatelessWidget {
+class PhotoCacheDownload extends StatelessWidget {
   final VoidCallback downloadFile;
-  const Fab({Key key, this.downloadFile}) : super(key: key);
+  const PhotoCacheDownload({Key key, this.downloadFile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -183,48 +159,48 @@ class Fab extends StatelessWidget {
 }
 
 
-class DownloadErrorPage extends StatelessWidget {
+class PhotoCacheDownloadError extends StatelessWidget {
   final VoidCallback downloadFile;
   final String error;
   final bool useSmall;
   final FileInfo fileInfo;
   final VoidCallback clearCache;
-  const DownloadErrorPage({Key key, this.downloadFile, this.error, this.useSmall, this.clearCache, this.fileInfo}) : super(key: key);
+  const PhotoCacheDownloadError({Key key, this.downloadFile, this.error, this.useSmall, this.clearCache, this.fileInfo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    if(this.fileInfo != null) {
-      Widget info = ListView(
-        children: <Widget>[
-          ListTile(
-            title: const Text('Original URL'),
-            subtitle: Text(fileInfo.originalUrl),
-          ),
-          if (fileInfo.file != null)
-            ListTile(
-              title: const Text('Local file path'),
-              subtitle: Text(fileInfo.file.path),
-            ),
-          ListTile(
-            title: const Text('Loaded from'),
-            subtitle: Text(fileInfo.source.toString()),
-          ),
-          ListTile(
-            title: const Text('Valid Until'),
-            subtitle: Text(fileInfo.validTill.toIso8601String()),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: RaisedButton(
-              child: const Text('CLEAR CACHE'),
-              onPressed: clearCache,
-            ),
-          ),
-        ],
-      );
-
-    }
+//    if(this.fileInfo != null) {
+//      Widget info = ListView(
+//        children: <Widget>[
+//          ListTile(
+//            title: const Text('Original URL'),
+//            subtitle: Text(fileInfo.originalUrl),
+//          ),
+//          if (fileInfo.file != null)
+//            ListTile(
+//              title: const Text('Local file path'),
+//              subtitle: Text(fileInfo.file.path),
+//            ),
+//          ListTile(
+//            title: const Text('Loaded from'),
+//            subtitle: Text(fileInfo.source.toString()),
+//          ),
+//          ListTile(
+//            title: const Text('Valid Until'),
+//            subtitle: Text(fileInfo.validTill.toIso8601String()),
+//          ),
+//          Padding(
+//            padding: const EdgeInsets.all(10.0),
+//            child: RaisedButton(
+//              child: const Text('CLEAR CACHE'),
+//              onPressed: clearCache,
+//            ),
+//          ),
+//        ],
+//      );
+//
+//    }
 
 
     return Center(
@@ -252,9 +228,10 @@ class DownloadErrorPage extends StatelessWidget {
   }
 }
 
-class ProgressIndicator extends StatelessWidget {
+class CachedPhotoDownloadProgressIndicator extends StatelessWidget {
   final DownloadProgress progress;
-  const ProgressIndicator({Key key, this.progress}) : super(key: key);
+  final bool useSmall;
+  const CachedPhotoDownloadProgressIndicator({Key key, this.progress, this.useSmall}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -263,25 +240,27 @@ class ProgressIndicator extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            width: 50.0,
-            height: 50.0,
+            width: this.useSmall ? 10.0 : 50.0,
+            height: this.useSmall ? 10.0 : 50.0,
             child: CircularProgressIndicator(
               value: progress?.progress,
             ),
           ),
-          const SizedBox(width: 20.0),
-          const Text('Downloading'),
+          if(!this.useSmall)
+            const SizedBox(width: 20.0),
+          if(!this.useSmall)
+            const Text('Downloading'),
         ],
       ),
     );
   }
 }
 
-class FileInfoWidget extends StatelessWidget {
+class CachedPhotoView extends StatelessWidget {
   final FileInfo fileInfo;
   final VoidCallback clearCache;
 
-  const FileInfoWidget({Key key, this.fileInfo, this.clearCache})
+  const CachedPhotoView({Key key, this.fileInfo, this.clearCache})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
