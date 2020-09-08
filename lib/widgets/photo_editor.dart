@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:photo_view/photo_view.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:sangyaw_app/utils/app_script_utils.dart';
 import 'app_stateful_widget.dart';
 
@@ -17,7 +17,7 @@ class PhotoEditor extends StatefulWidget {
 
 class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
-  int _counter = 0;
+  double _percent;
 
   File _image;
   final picker = ImagePicker();
@@ -61,16 +61,24 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
   }
 
+  uploadStatus(int sent, int total) {
+    setState(() {
+      this._percent = sent / total;
+    });
+
+  }
+
   uploadImage() {
     print(dc.currentSettings);
     setState(() {
+      this._percent = 0.0;
       this.dc.currentPerson.tempImageUploading = true;
     });
     String parentDirId = this.dc.currentSettings.folderId;
     String imageDirName = this.dc.currentSettings.imageFolderName;
     File file = this.dc.currentPerson.tempImageFile;
     String faceBookName = this.dc.currentPerson.facebookName;
-    AppScriptUtils.imageUpload(parentDirId, imageDirName, file, faceBookName).then((res){
+    AppScriptUtils.imageUpload(parentDirId, imageDirName, file, faceBookName, uploadStatus).then((res){
       print('===========================');
       print('ImageUpload Completed: ${res['completed']}');
       print('ImageUpload imageId: ${res['imageId']}');
@@ -89,17 +97,6 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
       print('=========================');
     });
 
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
   }
 
   @override
@@ -124,9 +121,22 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
   Widget getProgressIndicator() {
     // TODO: Uploading
+    Widget percentIndicator =  new LinearPercentIndicator(
+      width: 140.0,
+      lineHeight: 14.0,
+      percent: _percent.roundToDouble(),
+      center: Text(
+        "${_percent * 100.0} %",
+        style: new TextStyle(fontSize: 12.0),
+      ),
+      trailing: Icon(Icons.upload_file),
+      linearStrokeCap: LinearStrokeCap.roundAll,
+      backgroundColor: Colors.grey,
+      progressColor: Colors.blue,
+    );
     return Row(
       textDirection: TextDirection.rtl,
-      children: [],
+      children: [percentIndicator],
     );
 
   }
