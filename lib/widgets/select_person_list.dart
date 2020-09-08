@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 
-class PersonList extends AppStatelessWidget {
+typedef OnPersonSelectFunc = void Function(Person person);
+
+class SelectPersonList extends AppStatelessWidget {
   List<Person> list;
-  PersonList({this.list});
+  Map<int, bool> selectedMap;
+  OnPersonSelectFunc onPersonSelect;
+  SelectPersonList({this.list, this.selectedMap, this.onPersonSelect});
 
   @override
   Widget buildBody(BuildContext context) {
@@ -20,11 +24,9 @@ class PersonList extends AppStatelessWidget {
     list.forEach((person) {
 
       arr.add(personTile(person, onTap: () {
-        this.dc.currentPerson = person;
-        print('===========================');
-        print(person);
-        print('===========================');
-        Navigator.pushNamed(context, '/person_details');
+        if(this.onPersonSelect != null) {
+          this.onPersonSelect(person);
+        }
       }));
 //      arr.add(getLine());
     });
@@ -42,21 +44,22 @@ class PersonList extends AppStatelessWidget {
   }
 
   Widget personTile(Person person, {Function onTap}) {
-    ListTile tile = ListTile(
-      leading:
-      new Container(
-        width: 120,
-        height: 120,
-        child:
-        person.imageSmall,
-//             Image.asset(setImagePath(person), fit: BoxFit.fitHeight),
-      ),
+    Icon ico = Icon(this.selectedMap[person.id] != null && this.selectedMap[person.id] ? Icons.check_box : Icons.check_box_outline_blank );
+    Widget tile = ListTile(
+      leading: IconButton(icon: ico, onPressed: onTap,) ,
       title: Text('${person.id} - ${person.facebookName}'),
-      trailing: Icon(Icons.keyboard_arrow_right),
+      trailing:
+          new Container(
+            width: 120,
+            height: 120,
+            child:
+              person.imageSmall,
+//             Image.asset(setImagePath(person), fit: BoxFit.fitHeight),
+         ),
       subtitle: Text('Address: ${person.address}, Assigned To: ${person.assignedTo}, Gender: ${person.gender}'),
       onTap: onTap,
     );
-    return Card(child: tile);
+    return Card(child: tile, );
   }
 }
 

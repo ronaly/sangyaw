@@ -5,7 +5,7 @@ import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/widgets/person_list.dart';
 import 'package:sangyaw_app/widgets/select_person_list.dart';
 
-class AllPersons extends AppStatelessLayoutContainer {
+class BatchUpdateAllPersons extends AppStatelessLayoutContainer {
 
   @override
   String getTitle(context, AppState state) {
@@ -21,7 +21,7 @@ class AllPersons extends AppStatelessLayoutContainer {
   Widget buildBody(context, AppState state) {
 
     // START BODY HERE
-    Widget body = PersonList(list: this.dc.persons);
+    Widget body = SelectPersonList(list: this.dc.persons, selectedMap: {},onPersonSelect: this.onPersonSelect, );
 
     // END/RETURN The body
     return body;
