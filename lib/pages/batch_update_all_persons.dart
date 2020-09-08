@@ -17,21 +17,37 @@ class BatchUpdateAllPersons extends StatefulWidget {
 
 class _BatchUpdateAllPersons extends  AppStatefulLayoutContainer<BatchUpdateAllPersons>  {
 
+  Map<int, bool> selectedMap;
+
+  @override
+  void initState() {
+    setState(() {
+      selectedMap = {};
+    });
+  }
+
   @override
   String getTitle(context, AppState state) {
-    return 'Found ${this.dc.totalPersons} in ${this.dc.currentDirectory}';
+    return 'Batch Update ${this.dc.totalPersons} Person[s] in ${this.dc.currentDirectory}';
   }
 
   onPersonSelect(Person p) {
-    print('Person is selected');
-    print(p);
+    if(this.selectedMap[p.id] == null  || this.selectedMap[p.id] == false) {
+      setState(() {
+        this.selectedMap[p.id] = true;
+      });
+    } else {
+      setState(() {
+        this.selectedMap[p.id] = false;
+      });
+    }
   }
 
 
   Widget buildBody(context, AppState state) {
 
     // START BODY HERE
-    Widget body = SelectPersonList(list: this.dc.persons, selectedMap: {20: true},onPersonSelect: this.onPersonSelect, );
+    Widget body = SelectPersonList(list: this.dc.persons, selectedMap: this.selectedMap,onPersonSelect: this.onPersonSelect, );
 
     // END/RETURN The body
     return body;
