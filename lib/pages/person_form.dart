@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sangyaw_app/controller/data_controller.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/utils/ui_utils.dart';
-import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
-import 'package:sangyaw_app/model/app_state.dart';
 
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 import 'package:sangyaw_app/widgets/photo_editor.dart';
 
+// ignore: must_be_immutable
 class PersonForm extends AppStatelessWidget {
 
 
@@ -20,6 +19,7 @@ class PersonForm extends AppStatelessWidget {
       create: (context) => AllFieldsFormBloc(this.dc),
       child: Builder(
         builder: (context) {
+          // ignore: close_sinks
           final formBloc = BlocProvider.of<AllFieldsFormBloc>(context);
 
           return Theme(

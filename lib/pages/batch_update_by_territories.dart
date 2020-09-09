@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
-import 'package:sangyaw_app/widgets/app_stateful_layout_container.dart';
 
 
 
+// ignore: must_be_immutable
 class BatchUpdateByTerritories extends AppStatelessLayoutContainer {
 
   @override

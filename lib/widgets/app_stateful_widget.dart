@@ -1,8 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:sangyaw_app/controller/data_controller.dart';
-import 'package:sangyaw_app/model/app_state.dart';
 
 import 'app_helpers.dart';
 

@@ -10,6 +10,7 @@ import 'package:sangyaw_app/utils/spinner.dart';
 
 const GOOGLE_DRIVE_SHOW_IMAGE_PATH = 'https://drive.google.com/uc?export=view&id=';
 
+// ignore: must_be_immutable
 class PersonPhotoView extends StatelessWidget {
   Person person;
   bool useSmall;
@@ -31,7 +32,7 @@ class PersonPhotoView extends StatelessWidget {
     }
 
     if(person.profileImage != null && person.profileImage.length > 0) {
-      String url = '${GOOGLE_DRIVE_SHOW_IMAGE_PATH}${person.profileImage}';
+      String url = '$GOOGLE_DRIVE_SHOW_IMAGE_PATH${person.profileImage}';
       return CachedPersonPhotoView(url, this.useSmall);
     }
 
@@ -47,6 +48,7 @@ class PersonPhotoView extends StatelessWidget {
 }
 
 
+// ignore: must_be_immutable
 class CachedPersonPhotoView extends StatefulWidget {
   String url;
   bool useSmall;
@@ -63,6 +65,7 @@ class _CachedPersonPhotoViewState extends State<CachedPersonPhotoView> {
 
   @override
   void initState() {
+    super.initState();
     setState(() {
       this.fileStream = null;
       _downloadFile();
@@ -274,6 +277,8 @@ class CachedPhotoView extends StatelessWidget {
         basePosition: Alignment.center,
       );
 
+    } else {
+      return Container();
     }
 //
 

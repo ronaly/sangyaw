@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 
+// ignore: must_be_immutable
 class PersonList extends AppStatelessWidget {
   List<Person> list;
   PersonList({this.list});

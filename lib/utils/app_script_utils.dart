@@ -26,7 +26,6 @@ class AppScriptUtils {
   }
 
   static String getGoogleSheetId(Store<AppState> store) {
-    List settings = store.state.viewSettings;
     String current = store.state.viewCurrentWorkbook;
     return getSangyawSheetMap(store)[current];
   }
@@ -154,8 +153,8 @@ class AppScriptUtils {
   static String getImageFormat(Io.File file) {
     String mimeType = mime(file.path);
     print('File Mime type for:');
-    print('File: ${file}');
-    print('Mime: ${mimeType}');
+    print('File: $file');
+    print('Mime: $mimeType');
     // supported formats
     // BMP, GIF, JPEG, PNG, SVG
     switch(mimeType) {
@@ -180,7 +179,7 @@ class AppScriptUtils {
     //create multipart request for POST or PATCH method
     var format = getImageFormat(file);
     if(format ==  null) {
-      throw new Exception('Image format is not supported for ${file}');
+      throw new Exception('Image format is not supported for $file');
     }
 
 

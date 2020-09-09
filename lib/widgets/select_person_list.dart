@@ -5,6 +5,7 @@ import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 
 typedef OnSelectionChange = void Function(Map<int, Person> selectedChanges);
 
+// ignore: must_be_immutable
 class SelectPersonList extends AppStatelessWidget {
 
   

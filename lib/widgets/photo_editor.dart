@@ -19,7 +19,6 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
 
   double _percent;
 
-  File _image;
   final picker = ImagePicker();
 
   getImageFromGallery() {
@@ -29,7 +28,6 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
       this.dc.currentPerson.imageFile = f;
 
       setState(() {
-        _image = f;
       });
 
     }).catchError((err){
@@ -47,7 +45,6 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
       File f = File(pickedFile.path);
       this.dc.currentPerson.imageFile = f;
       setState(() {
-        _image = f;
       });
 
     }).catchError((err){
@@ -120,7 +117,6 @@ class _PhotoEditor extends AppStatefulWidget<PhotoEditor>  {
   }
 
   Widget getProgressIndicator() {
-    // TODO: Uploading
     Widget percentIndicator =  new LinearPercentIndicator(
       width: 140.0,
       lineHeight: 14.0,

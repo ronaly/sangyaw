@@ -1,9 +1,5 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:sangyaw_app/model/app_state.dart';
-import 'package:sangyaw_app/redux/actions.dart';
 import 'package:sangyaw_app/utils/ui_utils.dart';
 import 'package:dropdownfield/dropdownfield.dart';
 
@@ -14,6 +10,7 @@ import 'app_stateful_widget.dart';
 //selected  // 0=gender, 1=ageGroup, 2=messengerstatus, 3=progresstatus, 4=address
 
 
+// ignore: must_be_immutable
 class CustomDropDownButton extends StatefulWidget {
 
     int selected;

@@ -1,13 +1,11 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:sangyaw_app/config/config.dart';
 import 'package:sangyaw_app/model/person.dart';
 
 
 
-@immutable
+// ignore: must_be_immutable
 class AppState {
   List<dynamic> settings = [];
   List<String> workbooks;

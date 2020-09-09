@@ -1,10 +1,5 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:sangyaw_app/widgets/drawer_menu.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:sangyaw_app/model/app_state.dart';
-import 'package:sangyaw_app/redux/actions.dart';
 
 import 'app_stateful_widget.dart';
 
@@ -26,14 +21,13 @@ class _BottomMenu extends AppStatefulWidget<BottomMenu> {
   @override
   Widget buildBody(BuildContext context) {
     localContext = context;
-    return BottomNavigationBar(
-      items: [
-        BottomNavigationBarItem(
+    var bottomNavigationBarItem = BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
               size: 30,
               color: Colors.white,
             ),
+            // ignore: deprecated_member_use
             title: Text('Home',
               style: TextStyle(fontSize: 20,
                   color: Colors.white),
@@ -42,13 +36,17 @@ class _BottomMenu extends AppStatefulWidget<BottomMenu> {
               Icons.home,
               size: 30,
               color: Colors.white,
-            )),
+            ));
+    return BottomNavigationBar(
+      items: [
+        bottomNavigationBarItem,
         BottomNavigationBarItem(
             icon: Icon(
                 Icons.search,
                 size: 30,
                 color: Colors.white,
             ),
+            // ignore: deprecated_member_use
             title: Text('Search Facebook Name',
                  style: TextStyle(fontSize: 17,
                    color: Colors.white),

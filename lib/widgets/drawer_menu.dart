@@ -1,14 +1,12 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/controller/data_controller.dart';
-import 'package:sangyaw_app/widgets/drawer_menu.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
-import 'package:sangyaw_app/redux/actions.dart';
 
 const headerTitle = 'Directory';
 
+// ignore: must_be_immutable
 class DrawerMenu extends StatelessWidget {
   DataController dataController;
   @override
@@ -34,6 +32,7 @@ class DrawerMenu extends StatelessWidget {
           child: Text(
             headerTitle,
             style: TextStyle(
+              // ignore: deprecated_member_use
               fontSize: Theme.of(context).textTheme.title.fontSize,
               color: Colors.white,
             ),
@@ -78,7 +77,7 @@ class DrawerMenu extends StatelessWidget {
       title: Text(title),
       trailing: Icon(Icons.keyboard_arrow_right),
       selected: isSelected,
-      subtitle: Text('e-click, aron maka sangyaw sa taga ${title}'),
+      subtitle: Text('e-click, aron maka sangyaw sa taga $title'),
       onTap: onTap,
     );
   }

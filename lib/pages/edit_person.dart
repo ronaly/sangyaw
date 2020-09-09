@@ -1,17 +1,9 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sangyaw_app/widgets/app_stateful_layout_container.dart';
-import 'package:sangyaw_app/widgets/app_stateful_widget.dart';
-import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:intl/intl.dart';
 import 'package:sangyaw_app/widgets/photo_editor.dart';
-import 'package:sangyaw_app/widgets/show_photo_view.dart';
-import 'package:sangyaw_app/widgets/custom_text_form_field.dart';
-import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/widgets/custom_drop_down_button.dart';
 import 'package:sangyaw_app/utils/ui_utils.dart';
 

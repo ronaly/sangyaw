@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/widgets/app_stateful_layout_container.dart';
-import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 
 
@@ -23,7 +22,7 @@ class _About extends AppStatefulLayoutContainer<About> {
     // START BODY HERE
     Widget body = RichText(
       text: TextSpan(
-        text: 'Assigned To List: ${str}',
+        text: 'Assigned To List: $str',
         style: TextStyle(
           fontSize: 20,
           color: Colors.lightBlue,

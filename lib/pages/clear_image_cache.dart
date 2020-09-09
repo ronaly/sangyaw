@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:sangyaw_app/utils/SangyawAppCacheManager.dart';
 import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 
+// ignore: must_be_immutable
 class ClearImageCache extends AppStatelessLayoutContainer {
   @override
   String getTitle() {

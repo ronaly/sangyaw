@@ -1,7 +1,6 @@
 
 import 'dart:collection';
 
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/redux/actions.dart';
@@ -55,7 +54,7 @@ List<String> getUnique(List<String> list) {
   if (list == null || list.length == 0) {
     return [];
   }
-  List<List<String>> raw = list.map((e) => ['${e}'] ).toList();
+  List<List<String>> raw = list.map((e) => ['$e'] ).toList();
 
   List<String> result = raw.reduce(reduceThisElement);
   result.sort();

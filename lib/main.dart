@@ -26,7 +26,6 @@ import 'package:sangyaw_app/redux/reducers.dart';
 import 'package:sangyaw_app/pages/search_by_facebook.dart';
 import 'package:sangyaw_app/pages/search_by_assigned_to.dart';
 import 'package:sangyaw_app/pages/searched_persons.dart';
-import 'package:sangyaw_app/pages/edit_person.dart';
 
 void main() {
   final _initialState = AppState();

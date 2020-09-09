@@ -1,14 +1,10 @@
 import 'dart:collection';
-import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:sangyaw_app/config/config.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
-import 'package:http/http.dart' as http;
 import 'package:sangyaw_app/utils/app_script_utils.dart';
 
 

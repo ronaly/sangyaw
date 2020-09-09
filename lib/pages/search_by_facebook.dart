@@ -5,6 +5,7 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 
 
+// ignore: must_be_immutable
 class SearchByFacebook extends AppStatelessLayoutContainer {
   String theText = 'Search by Facebook Name :)';
   //_formKey is needed to validate the form. The validate method will call the validator function of each textfield
