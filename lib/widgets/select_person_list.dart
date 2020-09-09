@@ -3,35 +3,108 @@ import 'package:flutter/material.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 
-typedef OnPersonSelectFunc = void Function(Person person);
+typedef OnSelectionChange = void Function(Map<int, Person> selectedChanges);
 
 class SelectPersonList extends AppStatelessWidget {
+
+  
+
   List<Person> list;
-  Map<int, bool> selectedMap;
-  OnPersonSelectFunc onPersonSelect;
-  SelectPersonList({this.list, this.selectedMap, this.onPersonSelect});
+  Map<int, Person> selectedMap;
+  OnSelectionChange onSelectionChange;
+  SelectPersonList({this.list, this.selectedMap, this.onSelectionChange});
+
+  
+
+  selectPerson(Person p) {
+    Map<int, Person> map = Map<int, Person>.from(this.selectedMap);
+    if(map[p.id] == null) {
+        map[p.id] = p;
+    } else {
+        map.remove(p.id);
+    }
+
+    this.onSelectionChange(map);
+  }
 
   @override
   Widget buildBody(BuildContext context) {
     Widget contents = getContents(context);
 
 
-    Container header = Container(
-      padding: const EdgeInsets.all(8.0),
-      color: Colors.blue,
-      alignment: Alignment.center,
-      child: Text("Header"),
-    );
+    Container header = getHeader();
 
-    Container footer = Container(
-      padding: const EdgeInsets.all(8.0),
-      color: Colors.blue,
-      alignment: Alignment.center,
-      child: Text("Footer"),
-    );
+    Container footer = getFooter();
 
     return SafeArea( child: Column(children: [header, contents, footer],),);
   }
+  Container decoratedContainer(Widget child) {
+
+    Container cont = Container(
+      
+      decoration: BoxDecoration(
+        // border: Border.all(
+        //   color: Colors.black,
+        //   width: 5,
+        // ),
+        borderRadius: BorderRadius.circular(2),
+        boxShadow: [
+          new BoxShadow(
+            color: Colors.lightBlue[50],
+            offset: new Offset(1.0, 1.0),
+          ),
+        ],
+      ),
+
+      padding: const EdgeInsets.all(2.0),
+      alignment: Alignment.center,
+      child: Card(child: child),
+    );
+    return cont;
+
+  }
+
+  Container getHeader() {
+    Icon ico = Icon(Icons.check_box_outline_blank );
+    if(this.list.length == selectedMap.length) {
+      ico = Icon(Icons.check_box);
+    }
+    if(selectedMap.length >= 1 && selectedMap.length < this.list.length) {
+      ico = Icon(Icons.indeterminate_check_box);
+    }
+    
+    ListTile head =ListTile(
+        leading: IconButton(icon: ico, tooltip: 'Toggle All Selections', onPressed: () {
+          Map<int, Person> map = Map<int, Person>.from(this.selectedMap);
+          if(this.list.length == selectedMap.length) {
+            // all is selected, so unselect all
+            map.clear();
+          } else if(selectedMap.length >= 1 && selectedMap.length < this.list.length) {              
+            // atleast 1 is selected, so unselect all
+            map.clear();
+          } else {
+            // nothing is selected so, select all
+            this.list.forEach((p) {
+              map[p.id] = p;
+            });
+          }
+
+          this.onSelectionChange(map);
+
+        },),
+        title: Text('Selected ${this.selectedMap.length} of ${this.list.length} Persons'),
+      );
+    return this.decoratedContainer(head);
+  }
+
+
+
+  Container getFooter() {
+    
+    Container footer = this.decoratedContainer(Text("Footer"));
+    return footer;
+  }
+
 
   Expanded getContents(BuildContext context) {
      SingleChildScrollView inner = SingleChildScrollView(padding: EdgeInsets.zero,
@@ -54,8 +127,8 @@ class SelectPersonList extends AppStatelessWidget {
     list.forEach((person) {
 
       arr.add(getPersonCard(person, onTap: () {
-        if(this.onPersonSelect != null) {
-          this.onPersonSelect(person);
+        if(this.onSelectionChange != null) {
+          this.selectPerson(person);
         }
       }));
 //      arr.add(getLine());
@@ -66,7 +139,7 @@ class SelectPersonList extends AppStatelessWidget {
 
 
   Widget getPersonCard(Person person, {Function onTap}) {
-    Icon ico = Icon(this.selectedMap[person.id] != null && this.selectedMap[person.id] ? Icons.check_box : Icons.check_box_outline_blank );
+    Icon ico = Icon(this.selectedMap[person.id] != null ? Icons.check_box : Icons.check_box_outline_blank );
     Widget tile = ListTile(
       leading: IconButton(icon: ico, onPressed: onTap,) ,
       title: Text('${person.id} - ${person.facebookName}'),
