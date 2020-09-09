@@ -9,8 +9,8 @@ import 'package:sangyaw_app/widgets/app_stateful_layout_container.dart';
 class BatchUpdateByAssignments extends AppStatelessLayoutContainer {
 
   @override
-  String getTitle(context, AppState state) {
-    return '${this.dc.currentDirectory} Batch Update By Assignments:';
+  String getTitle() {
+    return 'Batch Update By Assignments:';
   }
 
 

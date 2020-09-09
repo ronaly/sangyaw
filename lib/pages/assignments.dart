@@ -9,8 +9,8 @@ import 'package:sangyaw_app/widgets/app_stateful_layout_container.dart';
 class Assignments extends AppStatelessLayoutContainer {
 
   @override
-  String getTitle(context, AppState state) {
-    return '${this.dc.currentDirectory} Assignments:';
+  String getTitle() {
+    return 'Assignments:';
   }
 
 

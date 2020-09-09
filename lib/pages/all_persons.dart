@@ -8,8 +8,8 @@ import 'package:sangyaw_app/widgets/select_person_list.dart';
 class AllPersons extends AppStatelessLayoutContainer {
 
   @override
-  String getTitle(context, AppState state) {
-    return 'Found ${this.dc.totalPersons} in ${this.dc.currentDirectory}';
+  String getTitle() {
+    return 'Total of ${this.dc.totalPersons} Persons';
   }
 
   onPersonSelect(Person p) {

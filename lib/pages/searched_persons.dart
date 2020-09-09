@@ -6,8 +6,8 @@ import 'package:sangyaw_app/widgets/person_list.dart';
 class SearchedPersons extends AppStatelessLayoutContainer {
 
   @override
-  String getTitle(context, AppState state) {
-    return 'Found results in ${this.dc.currentDirectory}';
+  String getTitle() {
+    return 'Search Results:';
   }
 
 

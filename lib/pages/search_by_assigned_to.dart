@@ -4,10 +4,8 @@ import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/widgets/search_assigned_form.dart';
 
 class SearchByAssignedTo extends AppStatelessLayoutContainer {
-  String theText = 'Search by Assigned Name :)';
-
   @override
-  String getTitle(context, AppState state) {
+  String getTitle() {
     return 'My Sangyawan App';
   }
 

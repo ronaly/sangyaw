@@ -13,7 +13,7 @@ class About extends StatefulWidget {
 class _About extends AppStatefulLayoutContainer<About> {
 
   @override
-  String getTitle(context, AppState state) {
+  String getTitle() {
     return 'This is an About Page';
   }
 

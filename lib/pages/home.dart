@@ -8,11 +8,8 @@ class Home extends AppStatelessLayoutContainer {
   String theText = 'Manangyaw ta tanan atong sangyawan :)';
 
   @override
-  String getTitle(context, AppState state) {
-    if(this.dc.currentDirectory == null) {
-      return 'Home';
-    }
-    return '${this.dc.currentDirectory} Home:';
+  String getTitle() {
+    return 'Home';
   }
 
 

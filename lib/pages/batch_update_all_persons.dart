@@ -26,8 +26,8 @@ class _BatchUpdateAllPersons extends  AppStatefulLayoutContainer<BatchUpdateAllP
   }
 
   @override
-  String getTitle(context, AppState state) {
-    return 'Batch Update ${this.dc.totalPersons} Person[s] in ${this.dc.currentDirectory}';
+  String getTitle() {
+    return 'Batch Update ${this.dc.totalPersons} Person[s]';
   }
 
   onSelectionChange(Map<int, Person> selectedChanges) {

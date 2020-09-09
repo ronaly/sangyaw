@@ -27,44 +27,22 @@ class SelectPersonList extends AppStatelessWidget {
     this.onSelectionChange(map);
   }
 
+
   @override
   Widget buildBody(BuildContext context) {
     Widget contents = getContents(context);
 
 
-    Container header = getHeader();
+    Widget header = getHeader();
 
-    Container footer = getFooter();
+    Widget footer = getFooter();
 
-    return SafeArea( child: Column(children: [header, contents, footer],),);
-  }
-  Container decoratedContainer(Widget child) {
+    return expandableContainer(header, contents, footer);
 
-    Container cont = Container(
-      
-      decoration: BoxDecoration(
-        // border: Border.all(
-        //   color: Colors.black,
-        //   width: 5,
-        // ),
-        borderRadius: BorderRadius.circular(2),
-        boxShadow: [
-          new BoxShadow(
-            color: Colors.lightBlue[50],
-            offset: new Offset(1.0, 1.0),
-          ),
-        ],
-      ),
-
-      padding: const EdgeInsets.all(2.0),
-      alignment: Alignment.center,
-      child: Card(child: child),
-    );
-    return cont;
-
+    // return SafeArea( child: Column(children: [header, contents, footer],),);
   }
 
-  Container getHeader() {
+  Widget getHeader() {
     Icon ico = Icon(Icons.check_box_outline_blank );
     if(this.list.length == selectedMap.length) {
       ico = Icon(Icons.check_box);
@@ -99,25 +77,17 @@ class SelectPersonList extends AppStatelessWidget {
 
 
 
-  Container getFooter() {
+  Widget getFooter() {
     
     Container footer = this.decoratedContainer(Text("Footer"));
     return footer;
   }
 
 
-  Expanded getContents(BuildContext context) {
-     SingleChildScrollView inner = SingleChildScrollView(padding: EdgeInsets.zero,
-        physics: ClampingScrollPhysics(),
-        child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
+  Widget getContents(BuildContext context) {
+     Column contents = Column(
               children: buildPersonListsWidgets(context),
-            ),
-
-        ),
-       );
-     Expanded contents = Expanded(child: inner);
+            );
      return contents;
   }
 

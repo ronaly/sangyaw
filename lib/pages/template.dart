@@ -6,7 +6,7 @@ class Template extends AppStatelessLayoutContainer {
   String theText = 'Manangyaw ta tanan atong sangyawan :)';
 
   @override
-  String getTitle(context, AppState state) {
+  String getTitle() {
     return 'This is template, TODO change this';
   }
 

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:sangyaw_app/utils/SangyawAppCacheManager.dart';
 import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 
 class ClearImageCache extends AppStatelessLayoutContainer {
   @override
-  String getTitle(context, AppState state) {
+  String getTitle() {
     return 'Clear Image Cache';
   }
 
@@ -57,7 +58,7 @@ class ClearImageCache extends AppStatelessLayoutContainer {
             Navigator.pop(context);
           }),
           this.buttonWidget(Icon(Icons.delete), 'Clear Image Cache', (){
-            DefaultCacheManager().emptyCache();
+            SangyawAppCacheManager().emptyCache();
             Navigator.pop(context);
           }),
         ]

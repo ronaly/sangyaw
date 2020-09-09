@@ -8,14 +8,9 @@ class BatchOperations extends AppStatelessLayoutContainer {
   String theText = 'Manangyaw ta tanan atong sangyawan :)';
 
   @override
-  String getTitle(context, AppState state) {
-    if(this.dc.currentDirectory == null) {
-      return 'Batch Operations';
-    }
-    return '${this.dc.currentDirectory} Batch Operations:';
+  String getTitle() {
+    return 'Batch Operations';
   }
-
-
 
   Widget buttonWidget(Icon icon, String caption, VoidCallback callback) {
     return Column(children: [
@@ -45,13 +40,12 @@ class BatchOperations extends AppStatelessLayoutContainer {
   @override
   Widget buildBody(context, AppState state) {
 
-
-    return new Container (
+    Widget contents = Container (
       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
       child: getButtons(context),
     );
-  } //widget button
 
+    return expandableContainer(null, contents, null);
 
-
+  }
 }

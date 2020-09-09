@@ -14,7 +14,7 @@ class PersonDetails extends AppStatelessLayoutContainer {
 
 
    @override
-  String getTitle(context, AppState state) {
+  String getTitle() {
     return 'Person Details:';
   }
 

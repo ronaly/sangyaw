@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:sangyaw_app/widgets/app_stateful_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
-import 'package:sangyaw_app/model/person.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 
@@ -16,8 +14,8 @@ class SearchByFacebook extends AppStatelessLayoutContainer {
   GlobalKey<AutoCompleteTextFieldState<String>> facebookGlobalKey = new GlobalKey();
 
   @override
-  String getTitle(context, AppState state) {
-    return 'My Sangyawan App';
+  String getTitle() {
+    return 'Search By Facebook Name:';
   }
 
 

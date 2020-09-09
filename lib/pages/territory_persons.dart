@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/widgets/person_list.dart';
 
 class TerritoryPersons extends AppStatelessLayoutContainer {
 
+  int count;
   @override
-  String getTitle(context, AppState state) {
-    return '${this.dc.currentDirectory} > Assigned To: ${this.dc.currentAssigned} ';
+  String getTitle() {
+    return 'Assigned To: ${this.dc.currentAssigned} ($count)';
   }
 
   Widget buildBody(context, AppState state) {
 
+    List<Person> list = this.dc.findPersonsByTerritory(this.dc.currentAssigned);
+    count = list.length;
+
     // START BODY HERE
-    Widget body = PersonList(list: this.dc.findPersonsByTerritory(this.dc.currentAssigned));
+    Widget body = PersonList(list: list);
 
     // END/RETURN The body
     return body;
