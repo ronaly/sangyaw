@@ -16,6 +16,7 @@ class SangyawAppCacheManager extends BaseCacheManager {
   }
 
   SangyawAppCacheManager._() : super(key,
+      
       maxAgeCacheObject: Duration(days: 30),
       maxNrOfCacheObjects: 20);
 

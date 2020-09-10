@@ -3,7 +3,7 @@ import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 
 // ignore: must_be_immutable
-class BatchOperations extends AppStatelessLayoutContainer {
+class ManageAssignments extends AppStatelessLayoutContainer {
   String theText = 'Manangyaw ta tanan atong sangyawan :)';
 
   @override
@@ -27,10 +27,10 @@ class BatchOperations extends AppStatelessLayoutContainer {
   Widget getButtons(context) {
     return Column(
         children: <Widget> [
-            this.buttonWidget(Icon(Icons.list), 'Batch Update All Persons', () => Navigator.pushNamed(context, '/batch_update_all')),
-            this.buttonWidget(Icon(Icons.assignment), 'Batch Update By Assignment', () => Navigator.pushNamed(context, '/batch_update_by_assignments')),
+            this.buttonWidget(Icon(Icons.list), 'Manage All Persons', () => Navigator.pushNamed(context, '/manage_assignments_all')),
+            this.buttonWidget(Icon(Icons.assignment), 'Manage by Assignment', () => Navigator.pushNamed(context, '/manage_assignments_by_assignments')),
 
-            this.buttonWidget(Icon(Icons.terrain), 'Batch Update By Territory', () => Navigator.pushNamed(context, '/batch_update_by_territories')),
+            this.buttonWidget(Icon(Icons.terrain), 'Manage by Territory', () => Navigator.pushNamed(context, '/manage_assignments_by_territories')),
           ]
         );
 

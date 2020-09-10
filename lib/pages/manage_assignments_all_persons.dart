@@ -6,14 +6,14 @@ import 'package:sangyaw_app/widgets/select_person_list.dart';
 
 
 
-class BatchUpdateAllPersons extends StatefulWidget {
+class ManageAssignmentsAllPersons extends StatefulWidget {
   @override
-  _BatchUpdateAllPersons createState() => new _BatchUpdateAllPersons();
+  _ManageAssignmentsAllPersons createState() => new _ManageAssignmentsAllPersons();
 }
 
 
 
-class _BatchUpdateAllPersons extends  AppStatefulLayoutContainer<BatchUpdateAllPersons>  {
+class _ManageAssignmentsAllPersons extends  AppStatefulLayoutContainer<ManageAssignmentsAllPersons>  {
 
   Map<int, Person> selectedMap;
 

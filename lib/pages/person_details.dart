@@ -4,6 +4,7 @@ import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/widgets/show_photo_view.dart';
 import 'package:sangyaw_app/utils/ui_utils.dart';
 
+// ignore: must_be_immutable
 class PersonDetails extends AppStatelessLayoutContainer {
 
 

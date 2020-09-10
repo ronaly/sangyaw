@@ -6,26 +6,26 @@ import 'package:sangyaw_app/model/app_state.dart';
 
 
 // ignore: must_be_immutable
-class BatchUpdateByTerritories extends AppStatelessLayoutContainer {
+class ManageAssignemntsByAssignments extends AppStatelessLayoutContainer {
 
   @override
   String getTitle() {
-    return 'Batch Update By Territories:';
+    return 'Batch Update By Assignments:';
   }
 
 
   Widget buildBody(context, AppState state) {
     List<Widget> arr =  <Widget>[];
-    this.dc.addressList.forEach((territory) {
-      String name = territory == null || territory == '' ? '- Uncategorized -' : territory;
-      String title = '$name (${this.dc.countPersonsByTerritory(territory.toLowerCase())})';
+    this.dc.assignToList.forEach((preacher) {
+      String name = preacher == null || preacher == '' ? '- Not Assigned -' : preacher;
+      String title = '$name (${this.dc.countPersonsAssignedTo(preacher.toLowerCase())})';
       arr.add(ListTile(
-          leading: Icon(Icons.terrain),
+          leading: Icon(Icons.assignment_ind),
           title: Text(title),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            this.dc.currentAssigned = territory;
-            Navigator.pushNamed(context, '/batch_update_by_territory_persons');
+            this.dc.currentAssigned = preacher;
+            Navigator.pushNamed(context, '/batch_update_assigned_persons');
           },
       ));
       arr.add(SizedBox(
@@ -34,7 +34,7 @@ class BatchUpdateByTerritories extends AppStatelessLayoutContainer {
           color: Colors.grey,
         ),
       ));
-    });
+    }); //end of forEach loop
     return ListView(children: arr);
   }
 }
