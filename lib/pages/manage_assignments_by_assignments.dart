@@ -10,7 +10,7 @@ class ManageAssignemntsByAssignments extends AppStatelessLayoutContainer {
 
   @override
   String getTitle() {
-    return 'Batch Update By Assignments:';
+    return 'Select Current Assignments to Manage';
   }
 
 

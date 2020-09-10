@@ -27,7 +27,7 @@ class _ManageAssignmentsAllPersons extends  AppStatefulLayoutContainer<ManageAss
 
   @override
   String getTitle() {
-    return 'Batch Update ${this.dc.totalPersons} Person[s]';
+    return 'Manage Assignments, All ${this.dc.totalPersons} Person[s]';
   }
 
   onSelectionChange(Map<int, Person> selectedChanges) {

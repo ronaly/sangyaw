@@ -10,7 +10,7 @@ class ManageAssignmentsByTerritories extends AppStatelessLayoutContainer {
 
   @override
   String getTitle() {
-    return 'Batch Update By Territories:';
+    return 'Select Assignments by Territory';
   }
 
 

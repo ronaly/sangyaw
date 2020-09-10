@@ -41,7 +41,7 @@ class Home extends AppStatelessLayoutContainer {
                 this.dc.currentPerson = Person.createEmpty();
                 Navigator.pushNamed(context, '/edit_person');
             }), // Icons: group_work supervisor_account supervised_user_circle transfer_within_a_station 
-            this.buttonWidget(Icon(Icons.group_work), 'Manage Assignments', () => Navigator.pushNamed(context, '/manage_assignments')),
+            this.buttonWidget(Icon(Icons.supervisor_account), 'Manage Assignments', () => Navigator.pushNamed(context, '/manage_assignments')),
           ]
         );
 

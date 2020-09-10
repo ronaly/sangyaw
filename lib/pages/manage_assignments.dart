@@ -8,7 +8,7 @@ class ManageAssignments extends AppStatelessLayoutContainer {
 
   @override
   String getTitle() {
-    return 'Batch Operations';
+    return 'Manage Assignments';
   }
 
   Widget buttonWidget(Icon icon, String caption, VoidCallback callback) {
