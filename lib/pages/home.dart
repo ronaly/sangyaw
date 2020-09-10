@@ -30,7 +30,8 @@ class Home extends AppStatelessLayoutContainer {
   Widget getButtons(context) {
     return Wrap(
         children: <Widget> [
-            this.buttonWidget(Icon(Icons.refresh), 'Refresh Data', () => this.dc.reloadMasterList()),
+            // Icons: refresh sync, update
+            this.buttonWidget(Icon(Icons.sync), 'Refresh Data', () => this.dc.reloadMasterList()),
 //            this.buttonWidget(Icon(Icons.delete_sweep), 'Clear Image Cache', () => Navigator.pushNamed(context, '/clear_image_cache')),
             this.buttonWidget(Icon(Icons.list), 'All Persons', () => Navigator.pushNamed(context, '/all')),
             this.buttonWidget(Icon(Icons.assignment), 'Assignments', () => Navigator.pushNamed(context, '/assignments')),
@@ -39,8 +40,8 @@ class Home extends AppStatelessLayoutContainer {
             this.buttonWidget(Icon(Icons.person_add ), 'Add Person', (){
                 this.dc.currentPerson = Person.createEmpty();
                 Navigator.pushNamed(context, '/edit_person');
-            }),
-            this.buttonWidget(Icon(Icons.format_list_bulleted), 'Manage Assignments', () => Navigator.pushNamed(context, '/manage_assignments')),
+            }), // Icons: group_work supervisor_account supervised_user_circle transfer_within_a_station 
+            this.buttonWidget(Icon(Icons.group_work), 'Manage Assignments', () => Navigator.pushNamed(context, '/manage_assignments')),
           ]
         );
 
