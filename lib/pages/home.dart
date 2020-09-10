@@ -12,8 +12,6 @@ class Home extends AppStatelessLayoutContainer {
     return 'Home';
   }
 
-
-
   Widget buttonWidget(Icon icon, String caption, VoidCallback callback) {
     return Column(children: [
       IconButton(
@@ -28,35 +26,32 @@ class Home extends AppStatelessLayoutContainer {
   }
 
   Widget getButtons(context) {
-    return Wrap(
-        children: <Widget> [
-            // Icons: refresh sync, update
-            this.buttonWidget(Icon(Icons.sync), 'Refresh Data', () => this.dc.reloadMasterList()),
+    return Wrap(children: <Widget>[
+      // Icons: refresh sync, update
+      this.buttonWidget(
+          Icon(Icons.sync), 'Refresh Data', () => this.dc.reloadMasterList()),
 //            this.buttonWidget(Icon(Icons.delete_sweep), 'Clear Image Cache', () => Navigator.pushNamed(context, '/clear_image_cache')),
-            this.buttonWidget(Icon(Icons.list), 'All Persons', () => Navigator.pushNamed(context, '/all')),
-            this.buttonWidget(Icon(Icons.assignment), 'Assignments', () => Navigator.pushNamed(context, '/assignments')),
+      this.buttonWidget(Icon(Icons.list), 'All Persons',
+          () => Navigator.pushNamed(context, '/all')),
+      this.buttonWidget(Icon(Icons.assignment), 'Assignments',
+          () => Navigator.pushNamed(context, '/assignments')),
 
-            this.buttonWidget(Icon(Icons.terrain), 'Territories', () => Navigator.pushNamed(context, '/territories')),
-            this.buttonWidget(Icon(Icons.person_add ), 'Add Person', (){
-                this.dc.currentPerson = Person.createEmpty();
-                Navigator.pushNamed(context, '/edit_person');
-            }), // Icons: group_work supervisor_account supervised_user_circle transfer_within_a_station 
-            this.buttonWidget(Icon(Icons.supervisor_account), 'Manage Assignments', () => Navigator.pushNamed(context, '/manage_assignments')),
-          ]
-        );
-
+      this.buttonWidget(Icon(Icons.terrain), 'Territories',
+          () => Navigator.pushNamed(context, '/territories')),
+      this.buttonWidget(Icon(Icons.person_add), 'Add Person', () {
+        this.dc.currentPerson = Person.createEmpty();
+        Navigator.pushNamed(context, '/edit_person');
+      }), // Icons: group_work supervisor_account supervised_user_circle transfer_within_a_station
+      // this.buttonWidget(Icon(Icons.supervisor_account), 'Manage Assignments', () => Navigator.pushNamed(context, '/manage_assignments')),
+    ]);
   }
 
   @override
   Widget buildBody(context, AppState state) {
-
-
-    return new Container (
+    return new Container(
       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
       child: getButtons(context),
     );
   } //widget button
-
-
 
 }

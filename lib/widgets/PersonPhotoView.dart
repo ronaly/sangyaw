@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/utils/SangyawAppCacheManager.dart';
+import 'package:sangyaw_app/utils/flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:sangyaw_app/utils/spinner.dart';
 
-
-const GOOGLE_DRIVE_SHOW_IMAGE_PATH = 'https://drive.google.com/uc?export=view&id=';
+const GOOGLE_DRIVE_SHOW_IMAGE_PATH =
+    'https://drive.google.com/uc?export=view&id=';
 
 // ignore: must_be_immutable
 class PersonPhotoView extends StatelessWidget {
@@ -17,10 +17,8 @@ class PersonPhotoView extends StatelessWidget {
   PersonPhotoView(this.person, this.useSmall);
   @override
   Widget build(BuildContext context) {
-
-
     if (person.tempImageFile != null) {
-      if(person.tempImageUploading) {
+      if (person.tempImageUploading) {
         return getAppSpinner();
       }
       return PhotoView(
@@ -31,7 +29,7 @@ class PersonPhotoView extends StatelessWidget {
       );
     }
 
-    if(person.profileImage != null && person.profileImage.length > 0) {
+    if (person.profileImage != null && person.profileImage.length > 0) {
       String url = '$GOOGLE_DRIVE_SHOW_IMAGE_PATH${person.profileImage}';
       return CachedPersonPhotoView(url, this.useSmall);
     }
@@ -42,11 +40,8 @@ class PersonPhotoView extends StatelessWidget {
       maxScale: PhotoViewComputedScale.contained * 5.8,
       basePosition: Alignment.center,
     );
-
-
   }
 }
-
 
 // ignore: must_be_immutable
 class CachedPersonPhotoView extends StatefulWidget {
@@ -54,7 +49,8 @@ class CachedPersonPhotoView extends StatefulWidget {
   bool useSmall;
   CachedPersonPhotoView(this.url, this.useSmall);
   @override
-  _CachedPersonPhotoViewState createState() => _CachedPersonPhotoViewState(this.url, this.useSmall);
+  _CachedPersonPhotoViewState createState() =>
+      _CachedPersonPhotoViewState(this.url, this.useSmall);
 }
 
 class _CachedPersonPhotoViewState extends State<CachedPersonPhotoView> {
@@ -75,7 +71,8 @@ class _CachedPersonPhotoViewState extends State<CachedPersonPhotoView> {
   void _downloadFile() {
     setState(() {
       print('Loading URL: $url');
-      fileStream = SangyawAppCacheManager().getFileStream(url, withProgress: true);
+      fileStream =
+          SangyawAppCacheManager().getFileStream(url, withProgress: true);
     });
   }
 
@@ -108,7 +105,11 @@ class DownloadPage extends StatelessWidget {
   final VoidCallback clearCache;
   final bool useSmall;
   const DownloadPage(
-      {Key key, this.fileStream, this.downloadFile, this.clearCache, this.useSmall})
+      {Key key,
+      this.fileStream,
+      this.downloadFile,
+      this.clearCache,
+      this.useSmall})
       : super(key: key);
 
   @override
@@ -130,7 +131,10 @@ class DownloadPage extends StatelessWidget {
           ); // Text(snapshot.error.toString());
         } else if (loading) {
 //          body = this.useSmall ? getAppSmallSpinner() : getAppSpinner();
-          body = CachedPhotoDownloadProgressIndicator(progress: snapshot.data as DownloadProgress, useSmall: this.useSmall,);
+          body = CachedPhotoDownloadProgressIndicator(
+            progress: snapshot.data as DownloadProgress,
+            useSmall: this.useSmall,
+          );
         } else {
           body = CachedPhotoView(
             fileInfo: snapshot.data as FileInfo,
@@ -150,8 +154,6 @@ class PhotoCacheDownload extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return FloatingActionButton(
       heroTag: null,
       onPressed: downloadFile,
@@ -161,18 +163,23 @@ class PhotoCacheDownload extends StatelessWidget {
   }
 }
 
-
 class PhotoCacheDownloadError extends StatelessWidget {
   final VoidCallback downloadFile;
   final String error;
   final bool useSmall;
   final FileInfo fileInfo;
   final VoidCallback clearCache;
-  const PhotoCacheDownloadError({Key key, this.downloadFile, this.error, this.useSmall, this.clearCache, this.fileInfo}) : super(key: key);
+  const PhotoCacheDownloadError(
+      {Key key,
+      this.downloadFile,
+      this.error,
+      this.useSmall,
+      this.clearCache,
+      this.fileInfo})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
 //    if(this.fileInfo != null) {
 //      Widget info = ListView(
 //        children: <Widget>[
@@ -205,18 +212,19 @@ class PhotoCacheDownloadError extends StatelessWidget {
 //
 //    }
 
-
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          FloatingActionButton(
-            heroTag: null,
-            onPressed: downloadFile,
-            tooltip: 'Download',
-            child: Icon(Icons.cloud_download),
-          ),
-          if(!this.useSmall)
+          // FloatingActionButton(
+          //   heroTag: null,
+          //   onPressed: downloadFile,
+          //   tooltip: 'Download',
+          //   child: Icon(Icons.cloud_download),
+          // ),
+          if (fileInfo != null)
+            PhotoView(imageProvider: NetworkImage(fileInfo.originalUrl)),
+          if (!this.useSmall)
             Text('\nImage Download Error, \n try downloading again.'),
         ],
       ),
@@ -234,7 +242,9 @@ class PhotoCacheDownloadError extends StatelessWidget {
 class CachedPhotoDownloadProgressIndicator extends StatelessWidget {
   final DownloadProgress progress;
   final bool useSmall;
-  const CachedPhotoDownloadProgressIndicator({Key key, this.progress, this.useSmall}) : super(key: key);
+  const CachedPhotoDownloadProgressIndicator(
+      {Key key, this.progress, this.useSmall})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -249,10 +259,8 @@ class CachedPhotoDownloadProgressIndicator extends StatelessWidget {
               value: progress?.progress,
             ),
           ),
-          if(!this.useSmall)
-            const SizedBox(width: 20.0),
-          if(!this.useSmall)
-            const Text('Downloading'),
+          if (!this.useSmall) const SizedBox(width: 20.0),
+          if (!this.useSmall) const Text('Downloading'),
         ],
       ),
     );
@@ -267,20 +275,16 @@ class CachedPhotoView extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-
     if (fileInfo.file != null) {
-
       return PhotoView(
         imageProvider: FileImage(new File(fileInfo.file.path)),
         minScale: PhotoViewComputedScale.contained * 0.8,
         maxScale: PhotoViewComputedScale.contained * 5.8,
         basePosition: Alignment.center,
       );
-
     } else {
       return Container();
     }
 //
-
   }
 }

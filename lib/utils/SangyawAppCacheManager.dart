@@ -1,7 +1,8 @@
 
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
+
+import 'flutter_cache_manager/src/cache_manager.dart';
 
 class SangyawAppCacheManager extends BaseCacheManager {
   static const key = "SangyawAppCacheFiles";
