@@ -1,18 +1,22 @@
 import 'cache_info_repository.dart';
 import 'cache_object.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:pool/pool.dart';
 
 const _tableCacheObject = 'cacheObject';
 
 class CacheObjectProvider implements CacheInfoRepository {
-  Database db;
+  final pool = new Pool(1, timeout: new Duration(minutes: 30));
+  Database theDb;
   String path;
 
   CacheObjectProvider(this.path);
 
+  Future<Database> get db => pool.withResource(() => theDb);
+
   @override
   Future open() async {
-    db = await openDatabase(path, version: 3,
+    theDb = await openDatabase(path, version: 3,
         onCreate: (Database db, int version) async {
       db.transaction((txn) async {
         return await txn.execute('''
@@ -74,7 +78,7 @@ class CacheObjectProvider implements CacheInfoRepository {
 
   @override
   Future<CacheObject> insert(CacheObject cacheObject) async {
-    var id = await db.transaction((txn) async {
+    var id = await (await db).transaction((txn) async {
       return await txn.insert(_tableCacheObject, cacheObject.toMap());
     });
     return cacheObject.copyWith(id: id);
@@ -82,7 +86,7 @@ class CacheObjectProvider implements CacheInfoRepository {
 
   @override
   Future<CacheObject> get(String key) async {
-    List<Map> maps = await db.query(_tableCacheObject,
+    List<Map> maps = await (await db).query(_tableCacheObject,
         columns: null, where: '${CacheObject.columnKey} = ?', whereArgs: [key]);
     if (maps.isNotEmpty) {
       return CacheObject.fromMap(maps.first.cast<String, dynamic>());
@@ -92,38 +96,44 @@ class CacheObjectProvider implements CacheInfoRepository {
 
   @override
   Future<int> delete(int id) {
-    return db.transaction((txn) async {
-      return txn.delete(_tableCacheObject,
-          where: '${CacheObject.columnId} = ?', whereArgs: [id]);
+    return db.then((pdb) {
+      return pdb.transaction((txn) async {
+        return txn.delete(_tableCacheObject,
+            where: '${CacheObject.columnId} = ?', whereArgs: [id]);
+      });
     });
   }
 
   @override
   Future deleteAll(Iterable<int> ids) {
-    return db.transaction((txn) async {
-      return txn.delete(_tableCacheObject,
-          where: '${CacheObject.columnId} IN (' + ids.join(',') + ')');
+    return db.then((pdb) {
+      return pdb.transaction((txn) async {
+        return txn.delete(_tableCacheObject,
+            where: '${CacheObject.columnId} IN (' + ids.join(',') + ')');
+      });
     });
   }
 
   @override
   Future<int> update(CacheObject cacheObject) {
-    return db.transaction((txn) async {
-      return txn.update(_tableCacheObject, cacheObject.toMap(),
-          where: '${CacheObject.columnId} = ?', whereArgs: [cacheObject.id]);
+    return db.then((pdb) {
+      return pdb.transaction((txn) async {
+        return txn.update(_tableCacheObject, cacheObject.toMap(),
+            where: '${CacheObject.columnId} = ?', whereArgs: [cacheObject.id]);
+      });
     });
   }
 
   @override
   Future<List<CacheObject>> getAllObjects() async {
     return CacheObject.fromMapList(
-      await db.query(_tableCacheObject, columns: null),
+      await (await db).query(_tableCacheObject, columns: null),
     );
   }
 
   @override
   Future<List<CacheObject>> getObjectsOverCapacity(int capacity) async {
-    return CacheObject.fromMapList(await db.query(
+    return CacheObject.fromMapList(await (await db).query(
       _tableCacheObject,
       columns: null,
       orderBy: '${CacheObject.columnTouched} DESC',
@@ -138,7 +148,7 @@ class CacheObjectProvider implements CacheInfoRepository {
 
   @override
   Future<List<CacheObject>> getOldObjects(Duration maxAge) async {
-    return CacheObject.fromMapList(await db.query(
+    return CacheObject.fromMapList(await (await db).query(
       _tableCacheObject,
       where: '${CacheObject.columnTouched} < ?',
       columns: null,
@@ -148,5 +158,5 @@ class CacheObjectProvider implements CacheInfoRepository {
   }
 
   @override
-  Future close() => db.close();
+  Future close() => db.then((pdb) => pdb.close());
 }

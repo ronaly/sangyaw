@@ -9,11 +9,7 @@ import 'package:sangyaw_app/widgets/photo_editor.dart';
 
 // ignore: must_be_immutable
 class PersonForm extends AppStatelessWidget {
-
-
-
   Widget buildBody(context) {
-
     // START BODY HERE
     Widget body = BlocProvider(
       create: (context) => AllFieldsFormBloc(this.dc),
@@ -31,7 +27,10 @@ class PersonForm extends AppStatelessWidget {
               ),
             ),
             child: Scaffold(
-              appBar: AppBar(title: Text(this.dc.currentPerson.id == null? '${this.dc.currentDirectory} > Add Person' : '${this.dc.currentDirectory} > Edit Person')),
+              appBar: AppBar(
+                  title: Text(this.dc.currentPerson.id == null
+                      ? '${this.dc.currentDirectory} > Add Person'
+                      : '${this.dc.currentDirectory} > Edit Person')),
               bottomNavigationBar: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -175,27 +174,29 @@ class PersonForm extends AppStatelessWidget {
     // END/RETURN The body
     return body;
   }
-
 }
 
-
-
-
-const List<String> AGE_GROUP_OPTIONS = ['', '< 12', '12 to 16', '17 to 25', '26 to 35', '36 to 50', '> 50'];
+const List<String> AGE_GROUP_OPTIONS = [
+  '',
+  '< 12',
+  '12 to 16',
+  '17 to 25',
+  '26 to 35',
+  '36 to 50',
+  '> 50'
+];
 const List<String> GENDER_OPTIONS = ['', 'Male', 'Female'];
 const List<String> MESSENGER_STATUS_OPTIONS = ['', 'Active', 'Inactive'];
-const List<String> PROGRESS_STATUS_OPTIONS =  ['', 'RV', 'BS'];
+const List<String> PROGRESS_STATUS_OPTIONS = ['', 'RV', 'BS'];
 
 class AllFieldsFormBloc extends FormBloc<String, String> {
   final facebookNameText = TextFieldBloc();
   final addressText = TextFieldBloc();
 
-
   final genderSelect = SelectFieldBloc(
     items: GENDER_OPTIONS,
   );
 
-  
   final ageGroupSelect = SelectFieldBloc(
     items: AGE_GROUP_OPTIONS,
   );
@@ -205,7 +206,6 @@ class AllFieldsFormBloc extends FormBloc<String, String> {
     items: MESSENGER_STATUS_OPTIONS,
   );
 
-
   final referenceDetailsText = TextFieldBloc();
   final assignedToText = TextFieldBloc();
 
@@ -213,64 +213,63 @@ class AllFieldsFormBloc extends FormBloc<String, String> {
 
   final dateContactedInput = InputFieldBloc<DateTime, Object>();
 
-
   final remarksText = TextFieldBloc();
 
   final progressStatusSelect = SelectFieldBloc(
     items: PROGRESS_STATUS_OPTIONS,
   );
 
-
-
   DataController dc;
-
-
-
 
   AllFieldsFormBloc(DataController dc) {
     this.dc = dc;
-    
+
     Person cp = dc.currentPerson;
-    
+
     facebookNameText.updateValue(cp.facebookName);
 
     addressText.updateValue(cp.address);
-    addressText.updateSuggestions((pattern) => Future.delayed(Duration(seconds: 0)).then((value) {
-      return dc.addressList.where((suggest) {
-        return suggest.toLowerCase().contains(pattern.toString());
-      }).toList(); 
-    }));
+    addressText.updateSuggestions(
+        (pattern) => Future.delayed(Duration(seconds: 0)).then((value) {
+              return dc.addressList.where((suggest) {
+                return suggest.toLowerCase().contains(pattern.toString());
+              }).toList();
+            }));
 
     String gender = GENDER_OPTIONS.indexOf(cp.gender) < 0 ? '' : cp.gender;
     genderSelect.updateValue(gender);
 
-    String ageGroup = AGE_GROUP_OPTIONS.indexOf(cp.ageGroup) < 0 ? '' : cp.ageGroup;
+    String ageGroup =
+        AGE_GROUP_OPTIONS.indexOf(cp.ageGroup) < 0 ? '' : cp.ageGroup;
     ageGroupSelect.updateValue(ageGroup);
 
-    String messengerStatus = MESSENGER_STATUS_OPTIONS.indexOf(cp.messengerStatus) < 0 ? '' : cp.messengerStatus;
+    String messengerStatus =
+        MESSENGER_STATUS_OPTIONS.indexOf(cp.messengerStatus) < 0
+            ? ''
+            : cp.messengerStatus;
     messengerStatusSelect.updateValue(messengerStatus);
 
     referenceDetailsText.updateValue(cp.referenceDetails);
 
     assignedToText.updateValue(cp.assignedTo);
-    assignedToText.updateSuggestions((pattern) => Future.delayed(Duration(seconds: 0)).then((value) {
-      return dc.assignToList.where((suggest) {
-        return suggest.toLowerCase().contains(pattern.toString());
-      }).toList(); 
-    }));
-
+    assignedToText.updateSuggestions(
+        (pattern) => Future.delayed(Duration(seconds: 0)).then((value) {
+              return dc.assignToList.where((suggest) {
+                return suggest.toLowerCase().contains(pattern.toString());
+              }).toList();
+            }));
 
     preachedByText.updateValue(cp.preachedBy);
-    
-    
+
     dateContactedInput.updateValue(toDate(cp.dateContacted));
 
     remarksText.updateValue(cp.remarks);
 
-    String progressStatus = PROGRESS_STATUS_OPTIONS.indexOf(cp.progressStatus) < 0 ? '' : cp.progressStatus;
+    String progressStatus =
+        PROGRESS_STATUS_OPTIONS.indexOf(cp.progressStatus) < 0
+            ? ''
+            : cp.progressStatus;
     progressStatusSelect.updateValue(progressStatus);
-
-
 
     addFieldBlocs(fieldBlocs: [
       facebookNameText,
@@ -287,27 +286,25 @@ class AllFieldsFormBloc extends FormBloc<String, String> {
     ]);
   }
 
-  void cancelChanges() {
-
-
-  }
+  void cancelChanges() {}
 
   bool isValid() {
     List<String> names = this.dc.lowerCasedFbNameList;
     String name = facebookNameText.value.toLowerCase();
-    if(name == null || name == '') {
+    if (name == null || name == '') {
       facebookNameText.addFieldError('Facebook Name is required');
       return false;
     }
-    if(names.indexOf(name) >= 0) {
+    if (names.indexOf(name) >= 0) {
       if (this.dc.currentPerson.id == null) {
         // This is for add new
         facebookNameText.addFieldError('Facebook Name already exists');
         return false;
       } else {
         Person p = this.dc.findPerson(name);
-        if(p != null && p.id != this.dc.currentPerson.id) {
-          facebookNameText.addFieldError('cannot update Facebook Name is used By other record with ID: ${p.id} ');
+        if (p != null && p.id != this.dc.currentPerson.id) {
+          facebookNameText.addFieldError(
+              'cannot update Facebook Name is used By other record with ID: ${p.id} ');
           return false;
         }
       }
@@ -319,9 +316,6 @@ class AllFieldsFormBloc extends FormBloc<String, String> {
   @override
   void onSubmitting() async {
     try {
-
-
-
       print('++++++++++++++++++++++++++++++++++++++++++++++++++');
       print('facebookName: ${facebookNameText.value}');
       print('address: ${addressText.value}');
@@ -353,29 +347,25 @@ class AllFieldsFormBloc extends FormBloc<String, String> {
 
         print(cp);
 
-        this.dc.savePerson(this.dc.currentPerson).then((savedPerson){
+        this.dc.savePerson(this.dc.currentPerson).then((savedPerson) {
           emitSuccess(canSubmitAgain: true);
         });
-
       } else {
         emitFailure();
       }
-
-
     } catch (e) {
       emitFailure();
     }
   }
 }
 
-
 class LoadingDialog extends StatelessWidget {
   static void show(BuildContext context, {Key key}) => showDialog<void>(
-    context: context,
-    useRootNavigator: false,
-    barrierDismissible: false,
-    builder: (_) => LoadingDialog(key: key),
-  ).then((_) => FocusScope.of(context).requestFocus(FocusNode()));
+        context: context,
+        useRootNavigator: false,
+        barrierDismissible: false,
+        builder: (_) => LoadingDialog(key: key),
+      ).then((_) => FocusScope.of(context).requestFocus(FocusNode()));
 
   static void hide(BuildContext context) => Navigator.pop(context);
 
@@ -418,7 +408,10 @@ class SuccessScreen extends StatelessWidget {
             ),
             SizedBox(height: 10),
             RaisedButton.icon(
-              onPressed: () => Navigator.of(context).popAndPushNamed('/person_details'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).popAndPushNamed('/person_details');
+              },
               icon: Icon(Icons.check),
               label: Text('Ok'),
             ),

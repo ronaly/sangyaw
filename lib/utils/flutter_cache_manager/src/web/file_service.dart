@@ -121,4 +121,8 @@ class HttpGetResponse implements FileServiceResponse {
     }
     return fileExtension;
   }
+
+  String toString() {
+    return _response.toString();
+  }
 }

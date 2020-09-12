@@ -84,9 +84,10 @@ class WebHelper {
     final hasNewFile = statusCodesNewFile.contains(response.statusCode);
     final keepOldFile = statusCodesFileNotChanged.contains(response.statusCode);
     if (!hasNewFile && !keepOldFile) {
+      print(response);
       throw HttpExceptionWithStatus(
         response.statusCode,
-        'Invalid statusCode: ${response?.statusCode}',
+        'Invalid statusCode: ${response?.statusCode}, ${await response?.content}',
         uri: Uri.parse(cacheObject.url),
       );
     }

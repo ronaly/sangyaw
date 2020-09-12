@@ -6,6 +6,7 @@ import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/utils/SangyawAppCacheManager.dart';
 import 'package:sangyaw_app/utils/flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:sangyaw_app/utils/spinner.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const GOOGLE_DRIVE_SHOW_IMAGE_PATH =
     'https://drive.google.com/uc?export=view&id=';
@@ -84,6 +85,7 @@ class _CachedPersonPhotoViewState extends State<CachedPersonPhotoView> {
       );
     }
     return DownloadPage(
+      url: url,
       fileStream: fileStream,
       downloadFile: _downloadFile,
       clearCache: _clearCache,
@@ -104,11 +106,13 @@ class DownloadPage extends StatelessWidget {
   final VoidCallback downloadFile;
   final VoidCallback clearCache;
   final bool useSmall;
+  final String url;
   const DownloadPage(
       {Key key,
       this.fileStream,
       this.downloadFile,
       this.clearCache,
+      this.url,
       this.useSmall})
       : super(key: key);
 
@@ -123,6 +127,7 @@ class DownloadPage extends StatelessWidget {
 
         if (snapshot.hasError) {
           body = PhotoCacheDownloadError(
+            url: url,
             downloadFile: this.downloadFile,
             error: snapshot.error.toString(),
             useSmall: this.useSmall,
@@ -164,6 +169,7 @@ class PhotoCacheDownload extends StatelessWidget {
 }
 
 class PhotoCacheDownloadError extends StatelessWidget {
+  final String url;
   final VoidCallback downloadFile;
   final String error;
   final bool useSmall;
@@ -171,6 +177,7 @@ class PhotoCacheDownloadError extends StatelessWidget {
   final VoidCallback clearCache;
   const PhotoCacheDownloadError(
       {Key key,
+      this.url,
       this.downloadFile,
       this.error,
       this.useSmall,
@@ -216,16 +223,22 @@ class PhotoCacheDownloadError extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          // FloatingActionButton(
-          //   heroTag: null,
-          //   onPressed: downloadFile,
-          //   tooltip: 'Download',
-          //   child: Icon(Icons.cloud_download),
-          // ),
-          if (fileInfo != null)
-            PhotoView(imageProvider: NetworkImage(fileInfo.originalUrl)),
           if (!this.useSmall)
-            Text('\nImage Download Error, \n try downloading again.'),
+            FloatingActionButton(
+              heroTag: null,
+              onPressed: downloadFile,
+              tooltip: 'Download',
+              child: Icon(Icons.cloud_download),
+            ),
+          if (!this.useSmall)
+            Text('\nImage Download Error, \n try downloading again.\n'),
+          PhotoView(imageProvider: NetworkImage(this.url)),
+          Center(
+            child: RaisedButton(
+              onPressed: launchURL,
+              child: Text('Open in Browser'),
+            ),
+          ),
         ],
       ),
     );
@@ -236,6 +249,14 @@ class PhotoCacheDownloadError extends StatelessWidget {
 //      tooltip: 'Download',
 //      child: Icon(Icons.cloud_download),
 //    );
+  }
+
+  launchURL() async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
 
