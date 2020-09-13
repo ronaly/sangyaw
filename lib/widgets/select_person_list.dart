@@ -3,14 +3,34 @@ import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 
-typedef OnSelectionChange = void Function(Map<int, Person> selectedChanges);
+import 'app_stateful_widget.dart';
+
+class SelectPersonList extends StatefulWidget {
+  List<Person> list;
+  // Map<int, Person> selectedMap;
+  // OnSelectionChange onSelectionChange;
+
+  SelectPersonList({this.list});
+
+  @override
+  _SelectPersonList createState() => _SelectPersonList(list: this.list);
+}
 
 // ignore: must_be_immutable
-class SelectPersonList extends AppStatelessWidget {
+class _SelectPersonList extends AppStatefulWidget<SelectPersonList> {
   List<Person> list;
   Map<int, Person> selectedMap;
-  OnSelectionChange onSelectionChange;
-  SelectPersonList({this.list, this.selectedMap, this.onSelectionChange});
+  _SelectPersonList({this.list, this.selectedMap});
+  GlobalKey key = new GlobalKey<AutoCompleteTextFieldState<String>>();
+  String assignTo;
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      assignTo = '';
+      selectedMap = {};
+    });
+  }
 
   selectPerson(Person p) {
     Map<int, Person> map = Map<int, Person>.from(this.selectedMap);
@@ -20,7 +40,9 @@ class SelectPersonList extends AppStatelessWidget {
       map.remove(p.id);
     }
 
-    this.onSelectionChange(map);
+    setState(() {
+      this.selectedMap = map;
+    });
   }
 
   @override
@@ -65,35 +87,48 @@ class SelectPersonList extends AppStatelessWidget {
             });
           }
 
-          this.onSelectionChange(map);
+          setState(() {
+            this.selectedMap = map;
+          });
         },
       ),
       title: Text(
-          'Selected ${this.selectedMap.length} of ${this.list.length} Persons'),
+          'Selected ${this.selectedMap.length} of ${this.list.length} Persons $assignTo'),
     );
     return this.decoratedContainer(head);
   }
 
   Widget getFooter() {
-    List<String> suggestions = this.dc.addressList;
+    List<String> suggestions = this.dc.assignToList;
     Widget textField = new AutoCompleteTextField<String>(
-      decoration: new InputDecoration(
-          prefix: new Icon(Icons.assignment_ind),
-          hintText: "Assign All Selected To:",
-          contentPadding: EdgeInsets.all(8.0),
-          suffixIcon: new Icon(Icons.send)),
-      itemSubmitted: (item) {},
-      key: key,
-      suggestions: suggestions,
-      itemBuilder: (context, suggestion) => new Padding(
-          child: new ListTile(
-            title: new Text(suggestion),
-          ),
-          padding: EdgeInsets.all(8.0)),
-      itemSorter: (a, b) => a.toLowerCase().compareTo(b.toLowerCase()),
-      itemFilter: (suggestion, input) =>
-          suggestion.toLowerCase().startsWith(input.toLowerCase()),
-    );
+        decoration: new InputDecoration(
+            prefix: new Icon(Icons.assignment_ind),
+            hintText: "  Assign All Selected To:",
+            contentPadding: EdgeInsets.all(8.0),
+            suffixIcon: new Icon(Icons.send)),
+        itemSubmitted: (item) {
+          print('The Item is submitted: $item, assignto: $assignTo');
+          setState(() {
+            this.assignTo = item;
+          });
+        },
+        controller: TextEditingController(text: this.assignTo),
+        key: key,
+        suggestions: suggestions,
+        textChanged: (text) {
+          setState(() {
+            this.assignTo = text;
+          });
+        },
+        itemBuilder: (context, suggestion) => new Padding(
+            child: new ListTile(
+              title: new Text(suggestion),
+            ),
+            padding: EdgeInsets.all(8.0)),
+        // itemSorter: (a, b) => a.toLowerCase().compareTo(b.toLowerCase()),
+        itemFilter: (suggestion, input) {
+          return suggestion.toLowerCase().contains(input.toLowerCase());
+        });
 
     return this.decoratedContainer(textField);
   }
@@ -110,9 +145,7 @@ class SelectPersonList extends AppStatelessWidget {
 
     list.forEach((person) {
       arr.add(getPersonCard(person, onTap: () {
-        if (this.onSelectionChange != null) {
-          this.selectPerson(person);
-        }
+        this.selectPerson(person);
       }));
 //      arr.add(getLine());
     });
