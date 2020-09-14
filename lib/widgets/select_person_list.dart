@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/model/person.dart';
-import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 
 import 'app_stateful_widget.dart';
 
+typedef OnAssignToFunc = void Function(String assignTo, List<int> personIds);
+
 class SelectPersonList extends StatefulWidget {
   List<Person> list;
+  OnAssignToFunc onAssignTo;
   // Map<int, Person> selectedMap;
   // OnSelectionChange onSelectionChange;
 
-  SelectPersonList({this.list});
+  SelectPersonList({this.list, this.onAssignTo, this.onAssignTo});
 
   @override
-  _SelectPersonList createState() => _SelectPersonList(list: this.list);
+  _SelectPersonList createState() =>
+      _SelectPersonList(list: this.list, onAssignTo: this.onAssignTo);
 }
 
 // ignore: must_be_immutable
 class _SelectPersonList extends AppStatefulWidget<SelectPersonList> {
   List<Person> list;
   Map<int, Person> selectedMap;
-  _SelectPersonList({this.list, this.selectedMap});
+  OnAssignToFunc onAssignTo;
+  _SelectPersonList({this.list, this.selectedMap, this.onAssignTo});
   GlobalKey key = new GlobalKey<AutoCompleteTextFieldState<String>>();
   String assignTo;
   @override
@@ -99,13 +103,32 @@ class _SelectPersonList extends AppStatefulWidget<SelectPersonList> {
   }
 
   Widget getFooter() {
+    IconButton submit;
+    if (this.selectedMap.length > 0 &&
+        this.assignTo != null &&
+        this.assignTo.length > 0) {
+      Icon ico = Icon(Icons.send);
+      submit = IconButton(
+        icon: ico,
+        onPressed: () {
+          List<int> personIds = this.selectedMap.keys.toList();
+          if (this.onAssignTo != null) {
+            this.onAssignTo(this.assignTo, personIds);
+            return;
+          }
+          // TODO, do a default functionality here
+        },
+      );
+    }
+
     List<String> suggestions = this.dc.assignToList;
     Widget textField = new AutoCompleteTextField<String>(
         decoration: new InputDecoration(
-            prefix: new Icon(Icons.assignment_ind),
-            hintText: "  Assign All Selected To:",
-            contentPadding: EdgeInsets.all(8.0),
-            suffixIcon: new Icon(Icons.send)),
+          prefix: new Icon(Icons.assignment_ind),
+          hintText: "  Assign All Selected To:",
+          contentPadding: EdgeInsets.all(8.0),
+          suffix: submit,
+        ),
         itemSubmitted: (item) {
           print('The Item is submitted: $item, assignto: $assignTo');
           setState(() {

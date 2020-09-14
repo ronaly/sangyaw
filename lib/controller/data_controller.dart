@@ -12,7 +12,8 @@ class SangyawSettings {
   String sheetName;
   String imageFolderId;
   String imageFolderName;
-  SangyawSettings(this.folderId, this.folderName, this.sheetId, this.sheetName, this.imageFolderId, this.imageFolderName);
+  SangyawSettings(this.folderId, this.folderName, this.sheetId, this.sheetName,
+      this.imageFolderId, this.imageFolderName);
 }
 
 class DataController {
@@ -24,19 +25,19 @@ class DataController {
 
   SangyawSettings get currentSettings {
     dynamic settings = AppScriptUtils.getSangyawSettingstMap(store);
-    dynamic sheet = (settings['sheets'] as List).firstWhere((e) => e['fileName'] == this.currentDirectory);
+    dynamic sheet = (settings['sheets'] as List)
+        .firstWhere((e) => e['fileName'] == this.currentDirectory);
     return new SangyawSettings(
         settings['folderId'],
         settings['folderName'],
         sheet['fileId'],
         sheet['fileName'],
         sheet['imageFolderId'],
-        sheet['imageFolderName']
-    );
+        sheet['imageFolderName']);
   }
 
-  SplayTreeMap<int, Person> get masterList =>  store.state.viewMasterList;
-  List<Person> get persons =>  store.state.viewPersons;
+  SplayTreeMap<int, Person> get masterList => store.state.viewMasterList;
+  List<Person> get persons => store.state.viewPersons;
   int get totalPersons => store.state.viewTotalPersons;
 
   List<String> get directories => store.state.viewWorkbooks;
@@ -88,19 +89,17 @@ class DataController {
   }
 
   Future<Person> savePerson(Person person) {
-
     print('===========================');
     print('Saving Person Person!!!!');
     print(person);
     print('===========================');
 
-
     String sheetId = AppScriptUtils.getGoogleSheetId(store);
-    return AppScriptUtils.savePerson(sheetId, person).then((value){
+    return AppScriptUtils.savePerson(sheetId, person).then((value) {
       print('===========================');
       print('Save Person Success!!!!');
       print(value);
-      if(person.id == null) {
+      if (person.id == null) {
         print('Adding Person to MasterList');
         store.dispatch(AddPersonToMasterList(value));
       } else {
@@ -110,7 +109,18 @@ class DataController {
       print('===========================');
       return value;
     });
+  }
 
+  Future<bool> assignPersons(String assignTo, List<int> ids) {
+    print('===========================');
+    print('Assigning IDs to $assignTo!!!!');
+    print(ids);
+    print('===========================');
+
+    String sheetId = AppScriptUtils.getGoogleSheetId(store);
+    return AppScriptUtils.assignPersons(sheetId, assignTo, ids).then((data) {
+      return true;
+    });
   }
 
   reloadMasterList() {
@@ -134,27 +144,30 @@ class DataController {
   List<String> get fbNameList => store.state.viewFbNameList;
   List<String> get lowerCasedFbNameList => store.state.viewLowerFbNameList;
   SplayTreeMap<String, Person> get fbNameIndex => store.state.viewFbNameIndex;
-  SplayTreeMap<String, List<Person>> get personsAssignedToIndex => store.state.viewPersonsAssignedToIndex;
-  SplayTreeMap<String, int> get personsAssignedToCountIndex => store.state.viewPersonsAssignedToCountIndex;
-  SplayTreeMap<String, List<Person>> get personsByTerritoryIndex => store.state.viewPersonsByTerritoryIndex;
-  SplayTreeMap<String, int> get personsByTerritoryCountIndex => store.state.viewPersonsByTerritoryCountIndex;
+  SplayTreeMap<String, List<Person>> get personsAssignedToIndex =>
+      store.state.viewPersonsAssignedToIndex;
+  SplayTreeMap<String, int> get personsAssignedToCountIndex =>
+      store.state.viewPersonsAssignedToCountIndex;
+  SplayTreeMap<String, List<Person>> get personsByTerritoryIndex =>
+      store.state.viewPersonsByTerritoryIndex;
+  SplayTreeMap<String, int> get personsByTerritoryCountIndex =>
+      store.state.viewPersonsByTerritoryCountIndex;
 
   Person findPerson(facebookName) {
     return this.fbNameIndex[facebookName.toString()];
   }
-  
+
   List<Person> findPersonsAssignedTo(String assignedTo) {
     List<Person> list = this.personsAssignedToIndex[assignedTo.toLowerCase()];
-    if(list != null) {
+    if (list != null) {
       return list;
     }
     return [];
   }
 
-
   int countPersonsAssignedTo(String assignedTo) {
     int count = this.personsAssignedToCountIndex[assignedTo.toLowerCase()];
-    if(count != null) {
+    if (count != null) {
       return count;
     }
     return 0;
@@ -162,7 +175,7 @@ class DataController {
 
   List<Person> findPersonsByTerritory(String territory) {
     List<Person> list = this.personsByTerritoryIndex[territory.toLowerCase()];
-    if(list != null) {
+    if (list != null) {
       return list;
     }
     return [];
@@ -170,7 +183,7 @@ class DataController {
 
   int countPersonsByTerritory(String territory) {
     int count = this.personsByTerritoryCountIndex[territory.toLowerCase()];
-    if(count != null) {
+    if (count != null) {
       return count;
     }
     return 0;
@@ -179,7 +192,9 @@ class DataController {
   List<Person> findPersonsFBStartsWith(String startswith) {
     return this.persons.where((p) {
       if (p != null && p.facebookName != null && startswith != null) {
-        return p.facebookName.toLowerCase().startsWith(startswith.toLowerCase());
+        return p.facebookName
+            .toLowerCase()
+            .startsWith(startswith.toLowerCase());
       }
       return false;
     }).toList();
@@ -193,26 +208,4 @@ class DataController {
       return false;
     }).toList();
   }
-
-
 } // DataController class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

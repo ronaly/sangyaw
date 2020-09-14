@@ -9,14 +9,15 @@ import 'dart:convert';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:mime_type/mime_type.dart';
 
-const String APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMqHh-lcYmNinrydajF-oKDiHREcg1313jbi6JsfDVliXSNiA/exec';
+const String APP_SCRIPT_URL =
+    'https://script.google.com/macros/s/AKfycbxMqHh-lcYmNinrydajF-oKDiHREcg1313jbi6JsfDVliXSNiA/exec';
 const String SANGYAW_APP_SETTINGS_URL = '$APP_SCRIPT_URL?action=settings';
-const String SANGYAW_MASTER_LIST_URL = '$APP_SCRIPT_URL?action=listPersons&sheetId=';
+const String SANGYAW_MASTER_LIST_URL =
+    '$APP_SCRIPT_URL?action=listPersons&sheetId=';
 
 typedef AppScriptUtilsUploadStatusFunc = void Function(int sent, int total);
 
 class AppScriptUtils {
-
 // Google App Script Web URL.
 //const String APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsKt8R9yIWp_vMpCxxDmZlhSBFMJp2T5MZmLp7vi_B760KfVM/exec';
 
@@ -31,10 +32,10 @@ class AppScriptUtils {
   }
 
   static dynamic getSangyawSettingstMap(Store<AppState> store) {
-
     List settings = store.state.viewSettings;
     String instance = getSangyawAppFolderInstance();
-    dynamic setting = settings.firstWhere((element) => element['folderName'] == instance);
+    dynamic setting =
+        settings.firstWhere((element) => element['folderName'] == instance);
 
     return setting;
   }
@@ -44,8 +45,9 @@ class AppScriptUtils {
 
     List settings = store.state.viewSettings;
     String instance = getSangyawAppFolderInstance();
-    dynamic setting = settings.firstWhere((element) => element['folderName'] == instance);
-    if( setting['sheets'] != null) {
+    dynamic setting =
+        settings.firstWhere((element) => element['folderName'] == instance);
+    if (setting['sheets'] != null) {
       (setting['sheets'] as List).forEach((e) {
         map[e['fileName']] = e['fileId'];
       });
@@ -57,15 +59,16 @@ class AppScriptUtils {
     return getSangyawSheetMap(store).keys.toList();
   }
 
-
   static Future<List<Person>> getMasterList(String sheetId) {
     String url = '$SANGYAW_MASTER_LIST_URL$sheetId';
     print(url);
-    return http.get(
+    return http
+        .get(
       Uri.encodeFull(url),
-    ).then((http.Response response){
+    )
+        .then((http.Response response) {
       List result = json.decode(response.body) as List;
-      List<Person> persons = result.map((json){
+      List<Person> persons = result.map((json) {
         return Person.fromJson(json);
       }).toList();
       return persons;
@@ -73,23 +76,22 @@ class AppScriptUtils {
   }
 
   static Future<List<dynamic>> getSettings() {
-    return http.get(
+    return http
+        .get(
       Uri.encodeFull(SANGYAW_APP_SETTINGS_URL),
-    ).then((http.Response response){
+    )
+        .then((http.Response response) {
       List result = json.decode(response.body) as List;
-      List<dynamic> settings = result.map((json){
+      List<dynamic> settings = result.map((json) {
         List sheets = json['sheets'];
         return {
           'folderId': json['folderId'],
           'folderName': json['folderName'],
-          'sheets' : sheets,
+          'sheets': sheets,
         };
       }).toList();
       return settings;
-
     });
-
-
   }
 
   static defaultUploadFunc(int sent, int total) {
@@ -121,20 +123,24 @@ class AppScriptUtils {
 
     dynamic options = Options(
       followRedirects: true,
-      validateStatus: (status) { return status < 500; },
+      validateStatus: (status) {
+        return status < 500;
+      },
     );
     dynamic formData = FormData.fromMap(data);
 
     Dio dio = Dio();
 
-    return dio.post(APP_SCRIPT_URL,
+    return dio
+        .post(
+      APP_SCRIPT_URL,
       options: options,
       data: formData,
-    ).then((res) {
-
+    )
+        .then((res) {
       if (res.statusCode == 302) {
         String url = res.headers['location'].first;
-        return dio.get(url).then((res){
+        return dio.get(url).then((res) {
           print('=======Response Data from save======');
           print(res.data);
           return new Person.fromJson(res.data);
@@ -145,9 +151,7 @@ class AppScriptUtils {
       print(res.data);
 
       return new Person.fromJson(res.data);
-
     });
-
   }
 
   static String getImageFormat(Io.File file) {
@@ -157,7 +161,7 @@ class AppScriptUtils {
     print('Mime: $mimeType');
     // supported formats
     // BMP, GIF, JPEG, PNG, SVG
-    switch(mimeType) {
+    switch (mimeType) {
       case 'image/bmp':
         return 'BMP';
       case 'image/gif':
@@ -173,20 +177,20 @@ class AppScriptUtils {
     }
   }
 
-
-  static Future<dynamic> imageUpload(String parentDirId, String imageDirName, Io.File file, String faceBookName, [AppScriptUtilsUploadStatusFunc func]) {
-
+  static Future<dynamic> imageUpload(String parentDirId, String imageDirName,
+      Io.File file, String faceBookName,
+      [AppScriptUtilsUploadStatusFunc func]) {
     //create multipart request for POST or PATCH method
     var format = getImageFormat(file);
-    if(format ==  null) {
+    if (format == null) {
       throw new Exception('Image format is not supported for $file');
     }
 
-
     final bytes = file.readAsBytesSync();
     String img64 = base64Encode(bytes);
-    String name = DateTimeFormat.format(DateTime.now(), format: DateTimeFormats.commonLogFormat);
-    if(faceBookName != null && faceBookName.length > 0) {
+    String name = DateTimeFormat.format(DateTime.now(),
+        format: DateTimeFormats.commonLogFormat);
+    if (faceBookName != null && faceBookName.length > 0) {
       name = faceBookName;
     }
 
@@ -194,15 +198,16 @@ class AppScriptUtils {
 
     // set progress function
     AppScriptUtilsUploadStatusFunc progressFunction = func;
-    if(func == null) {
+    if (func == null) {
       progressFunction = defaultUploadFunc;
     }
 
     dynamic options = Options(
       followRedirects: true,
-      validateStatus: (status) { return status < 500; },
+      validateStatus: (status) {
+        return status < 500;
+      },
     );
-
 
     dynamic formData = FormData.fromMap({
       'action': 'uploadImage',
@@ -212,18 +217,18 @@ class AppScriptUtils {
       'filename': name,
       "file": img64,
     });
-    
 
-    
-    return dio.post(APP_SCRIPT_URL,
+    return dio
+        .post(
+      APP_SCRIPT_URL,
       options: options,
       data: formData,
       onSendProgress: progressFunction,
-    ).then((res){
-
+    )
+        .then((res) {
       if (res.statusCode == 302) {
         String url = res.headers['location'].first;
-        return dio.get(url).then((res){
+        return dio.get(url).then((res) {
           print(res.data);
           return {
             'completed': res.data['completed'],
@@ -238,14 +243,54 @@ class AppScriptUtils {
         'imageId': res.data['imageId'],
         'imageName': res.data['imageName'],
       };
-
     });
   }
 
+  static Future<Person> assignPersons(
+      String sheetId, String assignTo, List<int> ids) {
+    print('=======[Assign To:] $ids ======');
+    Map<String, dynamic> data = {};
+    data['action'] = 'assignPersons';
+    data['sheetId'] = sheetId;
+    data['assignTo'] = assignTo;
+    data['ids'] = ids.join(',');
 
+    print('=======[Person -> Data] Data save to save ======');
+    print(data);
+
+    dynamic options = Options(
+      followRedirects: true,
+      validateStatus: (status) {
+        return status < 500;
+      },
+    );
+    dynamic formData = FormData.fromMap(data);
+
+    Dio dio = Dio();
+
+    return dio
+        .post(
+      APP_SCRIPT_URL,
+      options: options,
+      data: formData,
+    )
+        .then((res) {
+      if (res.statusCode == 302) {
+        String url = res.headers['location'].first;
+        return dio.get(url).then((res) {
+          print('=======Response Data from save======');
+          print(res.data);
+          return res.data;
+        });
+      }
+
+      print('=======Response Data from save======');
+      print(res.data);
+
+      return res.data;
+    });
+  }
 }
-
-
 
 /**
  *
