@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/model/app_state.dart';
+import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/widgets/app_stateless_layout_container.dart';
 import 'package:sangyaw_app/widgets/select_person_list.dart';
 
 import 'loading_dialog.dart';
 import 'success_message.dart';
 
-class ManageAssignmentsAllPersons extends AppStatelessLayoutContainer {
+class ManageAssignmentsByAssignedPersons extends AppStatelessLayoutContainer {
+  int count;
   @override
   String getTitle() {
-    return 'Manage Assignments, All ${this.dc.totalPersons} Person[s]';
+    return 'Manage Assignments, Assigned to ${this.dc.currentAssigned} ($count)';
   }
 
   Widget buildBody(context, AppState state) {
+    List<Person> list = this.dc.findPersonsAssignedTo(this.dc.currentAssigned);
+    count = list.length;
     // START BODY HERE
     Widget body = SelectPersonList(
-      list: this.dc.persons,
+      list: list,
       onAssignTo: (assignTo, personIds) {
         LoadingDialog.show(context);
         this.dc.assignPersons(assignTo, personIds).then((value) {

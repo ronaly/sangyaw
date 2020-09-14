@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -26,6 +25,9 @@ import 'package:sangyaw_app/redux/reducers.dart';
 import 'package:sangyaw_app/pages/search_by_facebook.dart';
 import 'package:sangyaw_app/pages/search_by_assigned_to.dart';
 import 'package:sangyaw_app/pages/searched_persons.dart';
+
+import 'pages/manage_assignments_by_assigned_persons.dart';
+import 'pages/manage_assignments_by_territory_persons.dart';
 
 void main() {
   final _initialState = AppState();
@@ -71,10 +73,14 @@ class MyApp extends StatelessWidget {
           '/clear_image_cache': (context) => ClearImageCache(),
           '/manage_assignments': (context) => ManageAssignments(),
           '/manage_assignments_all': (context) => ManageAssignmentsAllPersons(),
-          '/manage_assignments_by_territories': (context) => ManageAssignmentsByTerritories(),
-          '/manage_assignments_by_assignments': (context) => ManageAssignemntsByAssignments(),
-
-
+          '/manage_assignments_by_territories': (context) =>
+              ManageAssignmentsByTerritories(),
+          '/manage_assignments_by_assignments': (context) =>
+              ManageAssignemntsByAssignments(),
+          '/manage_assignments_by_assigned_persons': (context) =>
+              ManageAssignmentsByAssignedPersons(),
+          '/manage_assignments_by_territory_persons': (context) =>
+              ManageAssignmentsByTerritoryPersons(),
         },
       ),
     );
