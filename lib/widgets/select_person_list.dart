@@ -27,11 +27,14 @@ class _SelectPersonList extends AppStatefulWidget<SelectPersonList> {
   _SelectPersonList({this.list, this.selectedMap, this.onAssignTo});
   GlobalKey key = new GlobalKey<AutoCompleteTextFieldState<String>>();
   String assignTo;
+  String assignError;
+  AutoCompleteTextField<String> textField;
   @override
   void initState() {
     super.initState();
     setState(() {
       assignTo = '';
+      assignError = '';
       selectedMap = {};
     });
   }
@@ -97,37 +100,34 @@ class _SelectPersonList extends AppStatefulWidget<SelectPersonList> {
         },
       ),
       title: Text(
-          'Selected ${this.selectedMap.length} of ${this.list.length} Persons $assignTo'),
+          'Selected ${this.selectedMap.length} of ${this.list.length} Persons'),
     );
     return this.decoratedContainer(head);
   }
 
   Widget getFooter() {
     Icon ico = Icon(Icons.send);
-    IconButton submit = IconButton(
+    IconButton submit;
+    submit = IconButton(
       icon: ico,
       onPressed: () {
-        List<int> personIds = this.selectedMap.keys.toList();
-        if (this.onAssignTo != null) {
-          if (this.selectedMap.length == 0 ||
-              this.assignTo == null ||
-              this.assignTo.length == 0) {}
+        if (this.selectedMap.length == 0) {
+          textField.updateDecoration(
+              decoration: getAutoCompleteDecoration(
+                  submit, 'Cannot Assign, please select a person!!!'));
+        } else {
+          List<int> personIds = this.selectedMap.keys.toList();
+
+          textField.updateDecoration(
+              decoration: getAutoCompleteDecoration(submit, ''));
           this.onAssignTo(this.assignTo, personIds);
-          print('Cannot Assign, No selection, and no person to assign to!!!');
-          return;
         }
-        // TODO, do a default functionality here
       },
     );
 
     List<String> suggestions = this.dc.assignToList;
-    Widget textField = new AutoCompleteTextField<String>(
-        decoration: new InputDecoration(
-          prefix: new Icon(Icons.assignment_ind),
-          hintText: "  Assign All Selected To:",
-          contentPadding: EdgeInsets.all(8.0),
-          suffix: submit,
-        ),
+    this.textField = new AutoCompleteTextField<String>(
+        decoration: getAutoCompleteDecoration(submit, ''),
         itemSubmitted: (item) {
           print('The Item is submitted: $item, assignto: $assignTo');
           setState(() {
@@ -153,6 +153,16 @@ class _SelectPersonList extends AppStatefulWidget<SelectPersonList> {
         });
 
     return this.decoratedContainer(textField);
+  }
+
+  InputDecoration getAutoCompleteDecoration(IconButton submit, String error) {
+    return new InputDecoration(
+      prefix: new Icon(Icons.assignment_ind),
+      hintText: "  Assign All Selected To:",
+      contentPadding: EdgeInsets.all(8.0),
+      errorText: error != '' ? error : null,
+      suffix: submit,
+    );
   }
 
   Widget getContents(BuildContext context) {
