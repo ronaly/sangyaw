@@ -3,8 +3,6 @@ import 'dart:convert';
 
 import 'package:sangyaw_app/model/person.dart';
 
-
-
 // ignore: must_be_immutable
 class AppState {
   List<dynamic> settings = [];
@@ -34,11 +32,10 @@ class AppState {
   SplayTreeMap<String, List<Person>> personsByTerritoryIndex;
   SplayTreeMap<String, int> personsByTerritoryCountIndex;
 
-
-
-  AppState(){
+  AppState() {
     this.settings = [];
-    this.workbooks = []; // SANGYAW_SHEET_IDS.keys.toList(); // ['Pamutan', 'Tuong', 'Error Test'];
+    this.workbooks =
+        []; // SANGYAW_SHEET_IDS.keys.toList(); // ['Pamutan', 'Tuong', 'Error Test'];
     this.masterList = new SplayTreeMap<int, Person>();
     this.loading = true;
     this.appError = false;
@@ -101,43 +98,41 @@ class AppState {
   List<String> get viewLowerFbNameList => lowerFbNameList;
   SplayTreeMap<String, Person> get viewFbNameIndex => fbNameIndex;
 
-
-  SplayTreeMap<String, List<Person>> get viewPersonsAssignedToIndex => personsAssignedToIndex;
-  SplayTreeMap<String, int> get viewPersonsAssignedToCountIndex => personsAssignedToCountIndex;
-  SplayTreeMap<String, List<Person>> get viewPersonsByTerritoryIndex => personsByTerritoryIndex;
-  SplayTreeMap<String, int> get viewPersonsByTerritoryCountIndex => personsByTerritoryCountIndex;
-
-
-
-
+  SplayTreeMap<String, List<Person>> get viewPersonsAssignedToIndex =>
+      personsAssignedToIndex;
+  SplayTreeMap<String, int> get viewPersonsAssignedToCountIndex =>
+      personsAssignedToCountIndex;
+  SplayTreeMap<String, List<Person>> get viewPersonsByTerritoryIndex =>
+      personsByTerritoryIndex;
+  SplayTreeMap<String, int> get viewPersonsByTerritoryCountIndex =>
+      personsByTerritoryCountIndex;
 
   dynamic toJson() => {
-    'settings': settings.hashCode,
-    'workbooks': workbooks,
-    'currentWorkbook': currentWorkbook,
-    'masterList': masterList.hashCode,
-    'loading': loading,
-    'currentPerson': currentPerson.hashCode,
-    'newPerson': newPerson.hashCode,
-    'currentAssigned': currentAssigned,
-    'appError': appError,
-    'appErrorTitle': appErrorTitle,
-    'appErrorMessage': appErrorMessage,
-    'queryTerm': queryTerm,
-    'assignToList': assignToList.hashCode,
-    'addressList': addressList.hashCode,
-    'fbNameList': fbNameList.hashCode,
-    'lowerFbNameList': lowerFbNameList.hashCode,
-    'fbNameIndex': fbNameIndex.hashCode,
-    'personsAssignedToIndex': personsAssignedToIndex.hashCode,
-    'personsAssignedToCountIndex': personsAssignedToCountIndex.hashCode,
-    'personsByTerritoryIndex': personsByTerritoryIndex.hashCode,
-    'personsByTerritoryCountIndex': personsByTerritoryCountIndex.hashCode,
-  };
+        'settings': settings.hashCode,
+        'workbooks': workbooks,
+        'currentWorkbook': currentWorkbook,
+        'masterList': masterList.hashCode,
+        'loading': loading,
+        'currentPerson': currentPerson.hashCode,
+        'newPerson': newPerson.hashCode,
+        'currentAssigned': currentAssigned,
+        'appError': appError,
+        'appErrorTitle': appErrorTitle,
+        'appErrorMessage': appErrorMessage,
+        'queryTerm': queryTerm,
+        'assignToList': assignToList.hashCode,
+        'addressList': addressList.hashCode,
+        'fbNameList': fbNameList.hashCode,
+        'lowerFbNameList': lowerFbNameList.hashCode,
+        'fbNameIndex': fbNameIndex.hashCode,
+        'personsAssignedToIndex': personsAssignedToIndex.hashCode,
+        'personsAssignedToCountIndex': personsAssignedToCountIndex.hashCode,
+        'personsByTerritoryIndex': personsByTerritoryIndex.hashCode,
+        'personsByTerritoryCountIndex': personsByTerritoryCountIndex.hashCode,
+      };
 
   @override
   String toString() {
     return 'AppState: ${JsonEncoder.withIndent('  ').convert(this)}';
   }
-
 }

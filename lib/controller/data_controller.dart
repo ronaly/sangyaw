@@ -119,6 +119,7 @@ class DataController {
 
     String sheetId = AppScriptUtils.getGoogleSheetId(store);
     return AppScriptUtils.assignPersons(sheetId, assignTo, ids).then((data) {
+      store.dispatch(UpdateAssignments(assignTo, ids));
       return true;
     });
   }

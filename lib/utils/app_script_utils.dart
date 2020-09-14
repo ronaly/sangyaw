@@ -246,7 +246,7 @@ class AppScriptUtils {
     });
   }
 
-  static Future<Person> assignPersons(
+  static Future<Map<String, dynamic>> assignPersons(
       String sheetId, String assignTo, List<int> ids) {
     print('=======[Assign To:] $ids ======');
     Map<String, dynamic> data = {};

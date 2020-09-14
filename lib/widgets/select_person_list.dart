@@ -12,7 +12,7 @@ class SelectPersonList extends StatefulWidget {
   // Map<int, Person> selectedMap;
   // OnSelectionChange onSelectionChange;
 
-  SelectPersonList({this.list, this.onAssignTo, this.onAssignTo});
+  SelectPersonList({this.list, this.onAssignTo});
 
   @override
   _SelectPersonList createState() =>
@@ -103,23 +103,22 @@ class _SelectPersonList extends AppStatefulWidget<SelectPersonList> {
   }
 
   Widget getFooter() {
-    IconButton submit;
-    if (this.selectedMap.length > 0 &&
-        this.assignTo != null &&
-        this.assignTo.length > 0) {
-      Icon ico = Icon(Icons.send);
-      submit = IconButton(
-        icon: ico,
-        onPressed: () {
-          List<int> personIds = this.selectedMap.keys.toList();
-          if (this.onAssignTo != null) {
-            this.onAssignTo(this.assignTo, personIds);
-            return;
-          }
-          // TODO, do a default functionality here
-        },
-      );
-    }
+    Icon ico = Icon(Icons.send);
+    IconButton submit = IconButton(
+      icon: ico,
+      onPressed: () {
+        List<int> personIds = this.selectedMap.keys.toList();
+        if (this.onAssignTo != null) {
+          if (this.selectedMap.length == 0 ||
+              this.assignTo == null ||
+              this.assignTo.length == 0) {}
+          this.onAssignTo(this.assignTo, personIds);
+          print('Cannot Assign, No selection, and no person to assign to!!!');
+          return;
+        }
+        // TODO, do a default functionality here
+      },
+    );
 
     List<String> suggestions = this.dc.assignToList;
     Widget textField = new AutoCompleteTextField<String>(

@@ -1,4 +1,3 @@
-
 import 'dart:collection';
 
 import 'package:sangyaw_app/model/app_state.dart';
@@ -37,13 +36,10 @@ import 'package:sangyaw_app/redux/actions.dart';
 //  return action.payload;
 //}
 
-
-
-
 List<String> reduceThisElement(List<String> arrHolder, List<String> tobeAdded) {
   List<String> lowered = arrHolder.map((e) => '$e'.toLowerCase()).toList();
   List<String> newVal = arrHolder.map((e) => e).toList();
-  if(!lowered.contains('${tobeAdded[0]}'.toLowerCase())) {
+  if (!lowered.contains('${tobeAdded[0]}'.toLowerCase())) {
     // add its not yet in the list
     newVal.add(tobeAdded[0]);
   }
@@ -54,36 +50,38 @@ List<String> getUnique(List<String> list) {
   if (list == null || list.length == 0) {
     return [];
   }
-  List<List<String>> raw = list.map((e) => ['$e'] ).toList();
+  List<List<String>> raw = list.map((e) => ['$e']).toList();
 
   List<String> result = raw.reduce(reduceThisElement);
   result.sort();
 
   return result;
-
 }
 
-
-
 List<String> getAssignToList(masterList) {
-  List<String> raw = masterList.values.map<String>((e) => '${e.assignedTo}' ).toList();
+  List<String> raw =
+      masterList.values.map<String>((e) => '${e.assignedTo}').toList();
   return getUnique(raw);
 }
 
 List<String> getAddressList(masterList) {
-  List<String> raw = masterList.values.map<String>((e) => '${e.address}' ).toList() as List<String>;
+  List<String> raw = masterList.values
+      .map<String>((e) => '${e.address}')
+      .toList() as List<String>;
   return getUnique(raw);
 }
 
 List<String> getFbNameList(masterList) {
-  List<String> raw = masterList.values.map<String>((e) => '${e.facebookName}' ).toList() as List<String>;
+  List<String> raw = masterList.values
+      .map<String>((e) => '${e.facebookName}')
+      .toList() as List<String>;
   return getUnique(raw);
 }
 
-
-
 List<String> getLowerFbNameList(masterList) {
-  List<String> raw = masterList.values.map<String>((e) => '${e.facebookName}'.toLowerCase() ).toList() as List<String>;
+  List<String> raw = masterList.values
+      .map<String>((e) => '${e.facebookName}'.toLowerCase())
+      .toList() as List<String>;
   return getUnique(raw);
 }
 
@@ -106,13 +104,10 @@ createIndexesAndAggregates(AppState newState) {
   createPersonsByAssignedToIndex(newState);
   // add personsByTerritoryIndex
   createPersonsByTerritoryIndex(newState);
-
-
-
 }
 
 void createFbNameIndex(AppState newState) {
-   // add fbNameIndexVAlues
+  // add fbNameIndexVAlues
   newState.fbNameIndex = new SplayTreeMap<String, Person>();
   newState.masterList.forEach((key, value) {
     newState.fbNameIndex.addAll({
@@ -122,7 +117,6 @@ void createFbNameIndex(AppState newState) {
 }
 
 void createPersonsByAssignedToIndex(AppState newState) {
-
   // add personsAssignedToIndex
   newState.personsAssignedToIndex = new SplayTreeMap<String, List<Person>>();
   newState.personsAssignedToCountIndex = new SplayTreeMap<String, int>();
@@ -135,20 +129,16 @@ void createPersonsByAssignedToIndex(AppState newState) {
     }).toList();
 
     newState.personsAssignedToIndex.addAll({
-      assignedTo.toLowerCase() : persons,
+      assignedTo.toLowerCase(): persons,
     });
 
     newState.personsAssignedToCountIndex.addAll({
-      assignedTo.toLowerCase() : persons.length,
+      assignedTo.toLowerCase(): persons.length,
     });
-
   });
-
-
 }
 
 void createPersonsByTerritoryIndex(AppState newState) {
-
   // add personsByTerritoryIndex
   newState.personsByTerritoryIndex = new SplayTreeMap<String, List<Person>>();
   newState.personsByTerritoryCountIndex = new SplayTreeMap<String, int>();
@@ -161,16 +151,14 @@ void createPersonsByTerritoryIndex(AppState newState) {
     }).toList();
 
     newState.personsByTerritoryIndex.addAll({
-      address.toLowerCase() : persons,
+      address.toLowerCase(): persons,
     });
 
     newState.personsByTerritoryCountIndex.addAll({
-      address.toLowerCase() : persons.length,
+      address.toLowerCase(): persons.length,
     });
-
   });
 }
-
 
 AppState reducer(AppState prevState, dynamic action) {
   AppState newState = AppState.fromAppState(prevState);
@@ -214,13 +202,16 @@ AppState reducer(AppState prevState, dynamic action) {
     newState.currentPerson = action.payload;
     createIndexesAndAggregates(newState);
   } else if (action is AddPersonToMasterList) {
-    newState.masterList.addAll({
-      action.payload.id: action.payload
-    });
+    newState.masterList.addAll({action.payload.id: action.payload});
     newState.currentPerson = action.payload;
+    createIndexesAndAggregates(newState);
+  } else if (action is UpdateAssignments) {
+    for (var i = 0; i < action.ids.length; i++) {
+      int id = action.ids[i];
+      newState.masterList[id].assignedTo = action.assignTo;
+    }
     createIndexesAndAggregates(newState);
   }
 
   return newState;
-
 }
