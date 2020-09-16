@@ -193,14 +193,13 @@ class _SelectPersonList extends AppStatefulWidget<SelectPersonList> {
         icon: ico,
         onPressed: onTap,
       ),
-      title: Text('${person.id} - ${person.facebookName}'),
+      title: Text(person.title),
       trailing: new Container(
         width: 120,
         height: 120,
         child: person.imageSmall,
       ),
-      subtitle: Text(
-          'Address: ${person.address}, Assigned To: ${person.assignedTo}, Gender: ${person.gender}'),
+      subtitle: Text(person.subTitle),
       onTap: onTap,
     );
     return Card(
