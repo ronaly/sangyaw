@@ -140,6 +140,7 @@ class DataController {
   }
 
   // Indexes and Aggregates
+  List<String> get congregationList => store.state.congregationList;
   List<String> get assignToList => store.state.viewAssignToList;
   List<String> get addressList => store.state.viewAddressList;
   List<String> get fbNameList => store.state.viewFbNameList;

@@ -87,7 +87,7 @@ class WebHelper {
       print(response);
       throw HttpExceptionWithStatus(
         response.statusCode,
-        'Invalid statusCode: ${response?.statusCode}, ${await response?.content}',
+        'Invalid statusCode: ${response?.statusCode}, ${response?.content}',
         uri: Uri.parse(cacheObject.url),
       );
     }

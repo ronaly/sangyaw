@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class HttpPoolFileService extends FileService {
   final pool = new Pool(3, timeout: new Duration(minutes: 30));
-  HttpPoolFileService({http.Client httpClient}) {}
+  HttpPoolFileService({http.Client httpClient});
 
   @override
   Future<FileServiceResponse> get(String url,

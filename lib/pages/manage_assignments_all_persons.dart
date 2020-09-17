@@ -6,6 +6,7 @@ import 'package:sangyaw_app/widgets/select_person_list.dart';
 import 'loading_dialog.dart';
 import 'success_message.dart';
 
+// ignore: must_be_immutable
 class ManageAssignmentsAllPersons extends AppStatelessLayoutContainer {
   @override
   String getTitle() {

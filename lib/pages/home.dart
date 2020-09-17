@@ -44,6 +44,8 @@ class Home extends AppStatelessLayoutContainer {
       }), // Icons: group_work supervisor_account supervised_user_circle transfer_within_a_station
       this.buttonWidget(Icon(Icons.supervisor_account), 'Manage Assignments',
           () => Navigator.pushNamed(context, '/manage_assignments')),
+      this.buttonWidget(Icon(Icons.settings), 'Settings',
+          () => Navigator.pushNamed(context, '/settings')),
     ]);
   }
 

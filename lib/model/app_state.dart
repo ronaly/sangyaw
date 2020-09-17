@@ -22,6 +22,8 @@ class AppState {
   String queryTerm;
 
   // indexes and aggregates
+
+  List<String> congregationList;
   List<String> assignToList;
   List<String> addressList;
   List<String> fbNameList;
@@ -39,6 +41,7 @@ class AppState {
     this.masterList = new SplayTreeMap<int, Person>();
     this.loading = true;
     this.appError = false;
+    this.congregationList = [];
     this.assignToList = [];
     this.addressList = [];
     this.fbNameList = [];
@@ -64,6 +67,7 @@ class AppState {
     appErrorMessage = another.appErrorMessage;
     queryTerm = another.queryTerm;
     assignToList = another.assignToList;
+    congregationList = another.congregationList;
     addressList = another.addressList;
     fbNameList = another.fbNameList;
     lowerFbNameList = another.lowerFbNameList;
@@ -92,6 +96,7 @@ class AppState {
   String get viewQueryTerm => queryTerm;
 
   // indexes and aggregates
+  List<String> get viewCongregationList => congregationList;
   List<String> get viewAssignToList => assignToList;
   List<String> get viewAddressList => addressList;
   List<String> get viewFbNameList => fbNameList;
@@ -107,29 +112,32 @@ class AppState {
   SplayTreeMap<String, int> get viewPersonsByTerritoryCountIndex =>
       personsByTerritoryCountIndex;
 
-  dynamic toJson() => {
-        'settings': settings.hashCode,
-        'workbooks': workbooks,
-        'currentWorkbook': currentWorkbook,
-        'masterList': masterList.hashCode,
-        'loading': loading,
-        'currentPerson': currentPerson.hashCode,
-        'newPerson': newPerson.hashCode,
-        'currentAssigned': currentAssigned,
-        'appError': appError,
-        'appErrorTitle': appErrorTitle,
-        'appErrorMessage': appErrorMessage,
-        'queryTerm': queryTerm,
-        'assignToList': assignToList.hashCode,
-        'addressList': addressList.hashCode,
-        'fbNameList': fbNameList.hashCode,
-        'lowerFbNameList': lowerFbNameList.hashCode,
-        'fbNameIndex': fbNameIndex.hashCode,
-        'personsAssignedToIndex': personsAssignedToIndex.hashCode,
-        'personsAssignedToCountIndex': personsAssignedToCountIndex.hashCode,
-        'personsByTerritoryIndex': personsByTerritoryIndex.hashCode,
-        'personsByTerritoryCountIndex': personsByTerritoryCountIndex.hashCode,
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      'settings': settings.hashCode,
+      'workbooks': workbooks,
+      'currentWorkbook': currentWorkbook,
+      'masterList': masterList.hashCode,
+      'loading': loading,
+      'currentPerson': currentPerson.hashCode,
+      'newPerson': newPerson.hashCode,
+      'currentAssigned': currentAssigned,
+      'appError': appError,
+      'appErrorTitle': appErrorTitle,
+      'appErrorMessage': appErrorMessage,
+      'queryTerm': queryTerm,
+      'congregationList': congregationList.hashCode,
+      'assignToList': assignToList.hashCode,
+      'addressList': addressList.hashCode,
+      'fbNameList': fbNameList.hashCode,
+      'lowerFbNameList': lowerFbNameList.hashCode,
+      'fbNameIndex': fbNameIndex.hashCode,
+      'personsAssignedToIndex': personsAssignedToIndex.hashCode,
+      'personsAssignedToCountIndex': personsAssignedToCountIndex.hashCode,
+      'personsByTerritoryIndex': personsByTerritoryIndex.hashCode,
+      'personsByTerritoryCountIndex': personsByTerritoryCountIndex.hashCode,
+    };
+  }
 
   @override
   String toString() {

@@ -16,6 +16,7 @@ import 'package:sangyaw_app/pages/home.dart';
 import 'package:sangyaw_app/pages/about.dart';
 import 'package:sangyaw_app/pages/person_details.dart';
 import 'package:sangyaw_app/pages/person_form.dart';
+import 'package:sangyaw_app/pages/settings_page.dart';
 import 'package:sangyaw_app/pages/template.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/pages/territories.dart';
@@ -28,6 +29,7 @@ import 'package:sangyaw_app/pages/searched_persons.dart';
 
 import 'pages/manage_assignments_by_assigned_persons.dart';
 import 'pages/manage_assignments_by_territory_persons.dart';
+import 'utils/globals.dart';
 
 void main() {
   final _initialState = AppState();
@@ -58,6 +60,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => Home(),
           '/about': (context) => About(),
+          '/settings': (context) => SettingsPage(),
           '/template': (context) => Template(),
           '/all': (context) => AllPersons(),
           '/search_facebook': (context) => SearchByFacebook(),

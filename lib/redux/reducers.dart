@@ -163,7 +163,7 @@ void createPersonsByTerritoryIndex(AppState newState) {
 AppState reducer(AppState prevState, dynamic action) {
   AppState newState = AppState.fromAppState(prevState);
   if (action is Settings) {
-    newState.settings = action.payload;
+    buildSettings(newState, action);
   } else if (action is Workbooks) {
     newState.workbooks = action.payload;
   } else if (action is CurrentWorkbook) {
@@ -214,4 +214,18 @@ AppState reducer(AppState prevState, dynamic action) {
   }
 
   return newState;
+}
+
+// {folderId: 1EguChx_Tma_4zwbOA-RCuxCuS-xcda0o, folderName: BucaweCong, sheets: [{fileId: 11O-DdnPkUTfGmUsZ0jpPNE9GXHuGTFJQu7TKakr8IzE, fileName: StagingDirectory, imageFolderExists: true, imageFolderCreated: false, imageFolderId: 1FZokHLZsAiFaIY3-9JJtnQ5zUAVpPAMv, imageFolderName: IMG_StagingDirectory}, {fileId: 1Dqt2yNeMH-KTORX36-evAfsl-ftXtNuML5r7ZSwD0fs, fileName: ToongDirectory, imageFolderExists: true, imageFolderCreated: false, imageFolderId: 1h-RwrMe5ykXbGRIupi0ISQlvOl5TuzmE, imageFolderName: IMG_ToongDirectory}, {fileId: 1y-GqdmM20Byli_u-wVB1CbRzUDV0qPhdcb5fH5xowTU, fileName: PamutanDirectory, imageFolderExists: true, imageFolderCreated: false, imageFolderId: 1ziAGOyXCF-Y5gXkMRFgApvGHWuBAveCL, imageFolderName: IMG_PamutanDirectory}]}
+
+void buildSettings(AppState newState, Settings action) {
+  newState.settings = action.payload;
+  if (newState.settings == null) {
+    return;
+  }
+  // List<String> congregations = [];
+  // newState.settings.forEach((setting) {
+  //   congregations.add(setting['folderName']);
+  // });
+  // newState.congregationList = congregations;
 }

@@ -9,6 +9,8 @@ import 'dart:convert';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:mime_type/mime_type.dart';
 
+import 'globals.dart';
+
 const String APP_SCRIPT_URL =
     'https://script.google.com/macros/s/AKfycbxMqHh-lcYmNinrydajF-oKDiHREcg1313jbi6JsfDVliXSNiA/exec';
 const String SANGYAW_APP_SETTINGS_URL = '$APP_SCRIPT_URL?action=settings';
@@ -22,8 +24,8 @@ class AppScriptUtils {
 //const String APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsKt8R9yIWp_vMpCxxDmZlhSBFMJp2T5MZmLp7vi_B760KfVM/exec';
 
   static String getSangyawAppFolderInstance() {
-    // TODO: in the future make this one dynamic based on user settings
-    return 'BucaweCong';
+    return Globals().congregation;
+    // return 'BucaweCong';
   }
 
   static String getGoogleSheetId(Store<AppState> store) {

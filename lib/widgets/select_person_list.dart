@@ -6,6 +6,7 @@ import 'app_stateful_widget.dart';
 
 typedef OnAssignToFunc = void Function(String assignTo, List<int> personIds);
 
+// ignore: must_be_immutable
 class SelectPersonList extends StatefulWidget {
   List<Person> list;
   OnAssignToFunc onAssignTo;
@@ -142,6 +143,7 @@ class _SelectPersonList extends AppStatefulWidget<SelectPersonList> {
             this.assignTo = text;
           });
         },
+        itemSorter: (a, b) => a.compareTo(b),
         itemBuilder: (context, suggestion) => new Padding(
             child: new ListTile(
               title: new Text(suggestion),
