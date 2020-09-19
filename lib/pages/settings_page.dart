@@ -5,10 +5,10 @@ import 'package:sangyaw_app/widgets/sangyaw_app_settings.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
-  _SettingsPage createState() => new _SettingsPage();
+  TheSettingsPage createState() => new TheSettingsPage();
 }
 
-class _SettingsPage extends AppStatefulLayoutContainer<SettingsPage> {
+class TheSettingsPage extends AppStatefulLayoutContainer<SettingsPage> {
   @override
   String getTitle() {
     return 'My SangyawApp Settings:';

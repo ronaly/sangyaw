@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:sangyaw_app/controller/data_controller.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -15,7 +14,8 @@ class DrawerMenu extends StatelessWidget {
       child: StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         builder: (context, state) {
-          this.dataController = new DataController(StoreProvider.of<AppState>(context));
+          this.dataController =
+              new DataController(StoreProvider.of<AppState>(context));
           return ListView(
             padding: EdgeInsets.zero,
             children: getWidgets(context, state),
@@ -26,7 +26,7 @@ class DrawerMenu extends StatelessWidget {
   }
 
   List<Widget> getWidgets(context, AppState state) {
-    List<Widget> arr =  <Widget>[
+    List<Widget> arr = <Widget>[
       DrawerHeader(
         child: Center(
           child: Text(
@@ -45,7 +45,8 @@ class DrawerMenu extends StatelessWidget {
     ];
 
     state.viewWorkbooks.forEach((workbook) {
-      arr.add(getListTile(workbook, workbook == state.viewCurrentWorkbook, onTap: () {
+      arr.add(getListTile(workbook, workbook == state.viewCurrentWorkbook,
+          onTap: () {
 //        StoreProvider.of<AppState>(context)
 //            .dispatch(CurrentWorkbook(workbook));
 //
@@ -55,11 +56,9 @@ class DrawerMenu extends StatelessWidget {
         Navigator.pushNamed(context, '/');
       }));
       arr.add(getLine());
-
     });
 
     return arr;
-
   }
 
   Widget getLine() {
@@ -73,7 +72,7 @@ class DrawerMenu extends StatelessWidget {
 
   Widget getListTile(String title, bool isSelected, {Function onTap}) {
     return ListTile(
-      leading: Icon(Icons.terrain),
+      leading: Icon(Icons.list),
       title: Text(title),
       trailing: Icon(Icons.keyboard_arrow_right),
       selected: isSelected,

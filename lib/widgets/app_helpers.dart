@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sangyaw_app/controller/data_controller.dart';
 import 'package:sangyaw_app/model/app_state.dart';
-import 'package:sangyaw_app/utils/globals.dart';
+import 'package:sangyaw_app/pages/settings_page.dart';
 import 'package:sangyaw_app/utils/spinner.dart';
 
 import 'bottom_menu.dart';
+import 'directory_list.dart';
 import 'drawer_menu.dart';
 import 'sangyaw_app_settings.dart';
 
@@ -106,22 +107,15 @@ mixin AppHelpers {
       } else if (this.dc.loading) {
         strTitle = _loadingTitle;
         return getAppSpinner();
-      } else if (this.dc.globals.congregation == null) {
+      } else if (this.dc.globals.congregation == null ||
+          this is TheSettingsPage) {
         strTitle = 'Please Select your Congreation!';
         renderMe = SangyawAppSettings();
       } else if (this.dc.currentDirectory == null) {
         renderMe = Container(
-          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-          child: RichText(
-            text: TextSpan(
-              text: 'Please select a Directory!',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.lightBlue,
-              ),
-            ),
-          ),
-        );
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+            child: DirectoryList());
         strTitle = 'Please select a Directory';
       } else {
         renderMe = body;
