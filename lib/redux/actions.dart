@@ -12,6 +12,11 @@ ThunkAction<AppState> loadAPISettings = (Store<AppState> store) {
   store.dispatch(new ClearAppErrors());
   store.dispatch(new Loading(true));
   AppScriptUtils.getSettings().then((List<dynamic> settings) {
+    print('============================');
+    settings.forEach((setting) {
+      print(setting);
+    });
+    print('============================');
     store.dispatch(new Settings(settings));
     if (AppScriptUtils.getGoogleSheetNames(store) != null) {
       store.dispatch(new Workbooks(AppScriptUtils.getGoogleSheetNames(store)));
