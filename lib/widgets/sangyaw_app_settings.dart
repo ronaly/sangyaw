@@ -5,12 +5,31 @@ import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 class SangyawAppSettings extends AppStatelessWidget {
   Widget buildBody(BuildContext context) {
     List<Widget> arr = <Widget>[];
+
+    arr.add(ListTile(
+      leading: Icon(Icons.call_to_action),
+      trailing: IconButton(
+        icon: Icon(Icons.sync),
+        onPressed: () {
+          this.dc.loadSettings();
+        },
+      ),
+      title: Text('Reload Congregations List:'),
+    ));
+
+    arr.add(SizedBox(
+      height: 0.5,
+      child: Container(
+        color: Colors.grey,
+      ),
+    ));
+
     this.dc.congregationList.forEach((congregation) {
       String name = congregation == null || congregation == ''
           ? '- Unknown -'
           : congregation;
       String title = name;
-      arr.add(ListTile(
+      ListTile tile = ListTile(
         leading: Icon(Icons.settings),
         title: Text(title),
         trailing: congregation == this.dc.globals.congregation
@@ -22,12 +41,9 @@ class SangyawAppSettings extends AppStatelessWidget {
             this.dc.loadSettings();
           }
         },
-      ));
-      arr.add(SizedBox(
-        height: 0.5,
-        child: Container(
-          color: Colors.grey,
-        ),
+      );
+      arr.add(Card(
+        child: tile,
       ));
     }); //end of forEach loop
     return ListView(children: arr);

@@ -74,10 +74,11 @@ class DrawerMenu extends StatelessWidget {
     return ListTile(
       leading: Icon(Icons.list),
       title: Text(title),
-      trailing: Icon(Icons.keyboard_arrow_right),
+      trailing:
+          isSelected ? Icon(Icons.check) : Icon(Icons.keyboard_arrow_right),
       selected: isSelected,
       subtitle: Text('e-click, aron maka sangyaw sa taga $title'),
-      onTap: onTap,
+      onTap: isSelected ? null : onTap,
     );
   }
 

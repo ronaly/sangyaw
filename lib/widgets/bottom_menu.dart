@@ -21,17 +21,17 @@ class _BottomMenu extends AppStatefulWidget<BottomMenu> {
 
     var bottomNavigationBarItem = BottomNavigationBarItem(
         icon: Icon(
-          Icons.home,
+          settings ? Icons.list : Icons.home,
           size: 30,
           color: Colors.white,
         ),
         // ignore: deprecated_member_use
         title: Text(
-          'Home',
+          settings ? 'Directory List' : 'Home',
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
         activeIcon: Icon(
-          Icons.home,
+          settings ? Icons.list : Icons.home,
           size: 30,
           color: Colors.white,
         ));
