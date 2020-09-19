@@ -21,7 +21,7 @@ class _BottomMenu extends AppStatefulWidget<BottomMenu> {
 
     var bottomNavigationBarItem = BottomNavigationBarItem(
         icon: Icon(
-          settings ? Icons.list : Icons.home,
+          settings ? Icons.storage : Icons.home,
           size: 30,
           color: Colors.white,
         ),
@@ -31,7 +31,7 @@ class _BottomMenu extends AppStatefulWidget<BottomMenu> {
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
         activeIcon: Icon(
-          settings ? Icons.list : Icons.home,
+          settings ? Icons.storage : Icons.home,
           size: 30,
           color: Colors.white,
         ));

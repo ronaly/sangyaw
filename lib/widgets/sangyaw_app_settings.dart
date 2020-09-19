@@ -7,7 +7,7 @@ class SangyawAppSettings extends AppStatelessWidget {
     List<Widget> arr = <Widget>[];
 
     arr.add(ListTile(
-      leading: Icon(Icons.call_to_action),
+      // leading: Icon(Icons.build),
       trailing: IconButton(
         icon: Icon(Icons.sync),
         onPressed: () {
