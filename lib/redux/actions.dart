@@ -6,13 +6,16 @@ import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
 import 'package:sangyaw_app/utils/app_script_utils.dart';
+import 'package:sangyaw_app/utils/globals.dart';
 
 ThunkAction<AppState> loadAPISettings = (Store<AppState> store) {
   store.dispatch(new ClearAppErrors());
   store.dispatch(new Loading(true));
   AppScriptUtils.getSettings().then((List<dynamic> settings) {
     store.dispatch(new Settings(settings));
-    store.dispatch(new Workbooks(AppScriptUtils.getGoogleSheetNames(store)));
+    if (AppScriptUtils.getGoogleSheetNames(store) != null) {
+      store.dispatch(new Workbooks(AppScriptUtils.getGoogleSheetNames(store)));
+    }
     store.dispatch(new Loading(false));
   }).catchError((err) {
     store.dispatch(
@@ -37,6 +40,11 @@ ThunkAction<AppState> getMasterList = (Store<AppState> store) {
     store.dispatch(new MasterList(new SplayTreeMap<int, Person>()));
   });
 };
+
+class SetGlobals {
+  final Globals payload;
+  SetGlobals(this.payload);
+}
 
 class Settings {
   final dynamic payload;

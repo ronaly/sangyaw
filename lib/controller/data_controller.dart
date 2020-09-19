@@ -2,6 +2,7 @@ import 'package:redux/redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/redux/actions.dart';
 import 'package:sangyaw_app/utils/app_script_utils.dart';
+import 'package:sangyaw_app/utils/globals.dart';
 import '../model/person.dart';
 import "dart:collection";
 
@@ -23,8 +24,16 @@ class DataController {
     this.store = store;
   }
 
+  Globals get globals {
+    return this.store.state.viewGlobals;
+  }
+
   SangyawSettings get currentSettings {
     dynamic settings = AppScriptUtils.getSangyawSettingstMap(store);
+    if (settings == null) {
+      print('Settings is null');
+      // return SangyawSettings('', '', '', '', '', '');
+    }
     dynamic sheet = (settings['sheets'] as List)
         .firstWhere((e) => e['fileName'] == this.currentDirectory);
     return new SangyawSettings(
@@ -137,6 +146,12 @@ class DataController {
     this.error = false;
     this.errorTitle = '';
     this.errorMessage = '';
+  }
+
+  loadSettings() {
+    store.dispatch(loadAPISettings(store));
+    store.dispatch(CurrentWorkbook(null));
+    // store.dispatch(getMasterList(store));
   }
 
   // Indexes and Aggregates

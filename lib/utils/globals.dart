@@ -1,25 +1,36 @@
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Globals {
-  // SharedPreferences sangyawAppPref;
-  dynamic sangyawAppPref;
+  SharedPreferences sangyawAppPref;
 
-  static final Globals _global = Globals._internal();
-
-  factory Globals() {
-    if (_global.sangyawAppPref == null) {
-      // SharedPreferences.getInstance().then((value) {
-      //   _global.sangyawAppPref = value;
-      // }).catchError((onError) {
-      //   _global.sangyawAppPref = null;
-      // });
-    }
-    return _global;
+  Globals() {
+    SharedPreferences.getInstance().then((value) => sangyawAppPref = value);
   }
 
-  Globals._internal();
+  intializePref() async {
+    this.sangyawAppPref = await SharedPreferences.getInstance();
+    if (this.sangyawAppPref == null) {
+      print('preferences intialize error');
+      return;
+    }
+    print('preferences intialize success');
+  }
+
   // BucaweCong
-  get congregation => sangyawAppPref?.getString('congregation');
-  set congregation(String cong) =>
-      sangyawAppPref?.setString('congregation', cong);
+  get congregation {
+    if (sangyawAppPref == null) {
+      print('Warning cannot get, Sangyaw Preferences is null');
+      // return 'BucaweCong';
+      return null;
+    }
+    return sangyawAppPref.getString('congregation');
+  }
+
+  set congregation(String cong) {
+    if (sangyawAppPref == null) {
+      print('Warning cannot set, Sangyaw Preferences is null');
+      return;
+    }
+    sangyawAppPref.setString('congregation', cong);
+  }
 }

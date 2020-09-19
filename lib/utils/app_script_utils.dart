@@ -23,8 +23,11 @@ class AppScriptUtils {
 // Google App Script Web URL.
 //const String APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsKt8R9yIWp_vMpCxxDmZlhSBFMJp2T5MZmLp7vi_B760KfVM/exec';
 
-  static String getSangyawAppFolderInstance() {
-    return Globals().congregation;
+  static String getSangyawAppFolderInstance(Store<AppState> store) {
+    if (store.state.globals.congregation != null) {
+      return store.state.globals.congregation;
+    }
+    return null;
     // return 'BucaweCong';
   }
 
@@ -35,7 +38,10 @@ class AppScriptUtils {
 
   static dynamic getSangyawSettingstMap(Store<AppState> store) {
     List settings = store.state.viewSettings;
-    String instance = getSangyawAppFolderInstance();
+    String instance = getSangyawAppFolderInstance(store);
+    if (instance == null) {
+      return null;
+    }
     dynamic setting =
         settings.firstWhere((element) => element['folderName'] == instance);
 
@@ -46,7 +52,10 @@ class AppScriptUtils {
     Map<String, String> map = {};
 
     List settings = store.state.viewSettings;
-    String instance = getSangyawAppFolderInstance();
+    String instance = getSangyawAppFolderInstance(store);
+    if (instance == null) {
+      return null;
+    }
     dynamic setting =
         settings.firstWhere((element) => element['folderName'] == instance);
     if (setting['sheets'] != null) {
@@ -58,6 +67,9 @@ class AppScriptUtils {
   }
 
   static List<String> getGoogleSheetNames(Store<AppState> store) {
+    if (getSangyawSheetMap(store) == null) {
+      return [];
+    }
     return getSangyawSheetMap(store).keys.toList();
   }
 

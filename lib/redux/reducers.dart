@@ -162,7 +162,9 @@ void createPersonsByTerritoryIndex(AppState newState) {
 
 AppState reducer(AppState prevState, dynamic action) {
   AppState newState = AppState.fromAppState(prevState);
-  if (action is Settings) {
+  if (action is SetGlobals) {
+    newState.globals = action.payload;
+  } else if (action is Settings) {
     buildSettings(newState, action);
   } else if (action is Workbooks) {
     newState.workbooks = action.payload;
@@ -223,9 +225,9 @@ void buildSettings(AppState newState, Settings action) {
   if (newState.settings == null) {
     return;
   }
-  // List<String> congregations = [];
-  // newState.settings.forEach((setting) {
-  //   congregations.add(setting['folderName']);
-  // });
-  // newState.congregationList = congregations;
+  List<String> congregations = [];
+  newState.settings.forEach((setting) {
+    congregations.add(setting['folderName']);
+  });
+  newState.congregationList = congregations;
 }

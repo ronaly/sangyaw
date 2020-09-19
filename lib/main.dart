@@ -31,7 +31,7 @@ import 'pages/manage_assignments_by_assigned_persons.dart';
 import 'pages/manage_assignments_by_territory_persons.dart';
 import 'utils/globals.dart';
 
-void main() {
+Future<void> main() async {
   final _initialState = AppState();
   final _store = Store<AppState>(
     reducer,
@@ -41,9 +41,17 @@ void main() {
       new LoggingMiddleware.printer(),
     ],
   );
+
+  MyApp app = MyApp(store: _store);
+  WidgetsFlutterBinding.ensureInitialized()
+    ..attachRootWidget(app)
+    ..scheduleWarmUpFrame();
+  Globals globals = new Globals();
+  await globals.intializePref();
+  _store.dispatch(SetGlobals(globals));
   _store.dispatch(loadAPISettings(_store));
 
-  runApp(MyApp(store: _store));
+  runApp(app);
 }
 
 class MyApp extends StatelessWidget {
@@ -53,6 +61,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print(
+    //     'Settings check 2, Global Congregation is set to: ${store.state.viewGlobals.congregation}');
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(

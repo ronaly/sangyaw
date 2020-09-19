@@ -2,9 +2,11 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:sangyaw_app/model/person.dart';
+import 'package:sangyaw_app/utils/globals.dart';
 
 // ignore: must_be_immutable
 class AppState {
+  Globals globals;
   List<dynamic> settings = [];
   List<String> workbooks;
   String currentWorkbook;
@@ -35,6 +37,8 @@ class AppState {
   SplayTreeMap<String, int> personsByTerritoryCountIndex;
 
   AppState() {
+    this.globals = null;
+    //new Globals();
     this.settings = [];
     this.workbooks =
         []; // SANGYAW_SHEET_IDS.keys.toList(); // ['Pamutan', 'Tuong', 'Error Test'];
@@ -54,6 +58,7 @@ class AppState {
 //    {@required this.workbooks, @required this.masterList, @required this.loading, @required this.appError }
   }
   AppState.fromAppState(AppState another) {
+    globals = another.globals;
     settings = another.settings;
     workbooks = another.workbooks;
     currentWorkbook = another.currentWorkbook;
@@ -77,6 +82,7 @@ class AppState {
     personsByTerritoryIndex = another.personsByTerritoryIndex;
     personsByTerritoryCountIndex = another.personsByTerritoryCountIndex;
   }
+  Globals get viewGlobals => globals;
   dynamic get viewSettings => settings;
   List<String> get viewWorkbooks => workbooks;
   String get viewCurrentWorkbook => currentWorkbook;
@@ -114,6 +120,7 @@ class AppState {
 
   Map<String, dynamic> toJson() {
     return {
+      'globals': globals.hashCode,
       'settings': settings.hashCode,
       'workbooks': workbooks,
       'currentWorkbook': currentWorkbook,
