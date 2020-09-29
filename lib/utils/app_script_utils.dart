@@ -269,6 +269,47 @@ class AppScriptUtils {
     });
   }
 
+  static Future<dynamic> createSheet(String folderId, String sheetName) {
+    Map<String, dynamic> data = {};
+    data['name'] = sheetName;
+    data['folderId'] = folderId;
+    data['action'] = 'createSheet';
+
+    print(data);
+
+    dynamic options = Options(
+      followRedirects: true,
+      validateStatus: (status) {
+        return status < 500;
+      },
+    );
+    dynamic formData = FormData.fromMap(data);
+
+    Dio dio = Dio();
+
+    return dio
+        .post(
+      APP_SCRIPT_URL,
+      options: options,
+      data: formData,
+    )
+        .then((res) {
+      if (res.statusCode == 302) {
+        String url = res.headers['location'].first;
+        return dio.get(url).then((res) {
+          print('======= Create Sheet Response Data ======');
+          print(res.data);
+          return res.data;
+        });
+      }
+
+      print('======= Create Sheet Response Data ======');
+      print(res.data);
+
+      return res.data;
+    });
+  }
+
   static String getImageFormat(Io.File file) {
     String mimeType = mime(file.path);
     print('File Mime type for:');
