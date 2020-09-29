@@ -26,6 +26,7 @@ import 'package:sangyaw_app/redux/reducers.dart';
 import 'package:sangyaw_app/pages/search_by_facebook.dart';
 import 'package:sangyaw_app/pages/search_by_assigned_to.dart';
 import 'package:sangyaw_app/pages/searched_persons.dart';
+import 'package:sangyaw_app/utils/app_script_utils.dart';
 
 import 'pages/manage_assignments_by_assigned_persons.dart';
 import 'pages/manage_assignments_by_territory_persons.dart';
@@ -46,6 +47,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized()
     ..attachRootWidget(app)
     ..scheduleWarmUpFrame();
+  await AppScriptUtils.inialized();
   Globals globals = new Globals();
   await globals.intializePref();
   _store.dispatch(SetGlobals(globals));

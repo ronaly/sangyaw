@@ -1,14 +1,23 @@
 import 'dart:io' as Io;
+import 'package:encrypt/encrypt.dart';
+import 'package:pointycastle/asymmetric/api.dart';
+// import 'dart:typed_data';
+// import 'package:crypto_keys/crypto_keys.dart';
 import 'package:date_time_format/date_time_format.dart';
 import 'package:dio/dio.dart';
+import 'package:encrypt/encrypt.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+// import 'package:pointycastle/export.dart';
 import 'package:redux/redux.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'dart:convert';
 
 import 'package:sangyaw_app/model/person.dart';
 import 'package:mime_type/mime_type.dart';
-import 'package:simple_rsa/simple_rsa.dart';
+// import 'package:steel_crypt/steel_crypt.dart';
+// import 'package:steel_crypt/steel_crypt.dart';
+// import 'package:simple_rsa/simple_rsa.dart';
 
 const String APP_SCRIPT_URL =
     'https://script.google.com/macros/s/AKfycbxMqHh-lcYmNinrydajF-oKDiHREcg1313jbi6JsfDVliXSNiA/exec';
@@ -99,13 +108,15 @@ class AppScriptUtils {
       print('==========aaaaaaaaaaa============');
       List result = json.decode(response.body) as List;
       List<dynamic> settings = result.map((json) {
+        var val = decrypt2(json['md5sha1']);
         List sheets = json['sheets'];
         return {
           'folderId': json['folderId'],
           'folderName': json['folderName'],
           'sheets': sheets,
           'crypt': json['md5sha1'],
-          'password': json['md5sha1'] != null ? decrypt(json['md5sha1']) : null,
+          'password': val,
+          // 'password': json['md5sha1'] != null ? decrypt(json['md5sha1']) : null,
         };
         // if (json['md5sha1'] != null) {
         //   return decrypt(json['md5sha1']).then((value) {
@@ -132,7 +143,34 @@ class AppScriptUtils {
     });
   }
 
+  static var publicKey;
+  static var privKey;
+  static var strPublicKey;
+  static var strPrivKey;
+
+  static inialized() async {
+    strPublicKey = await rootBundle.loadString("assets/public.pem");
+    strPrivKey = await rootBundle.loadString("assets/private.pem");
+
+    publicKey = RSAKeyParser().parse(strPublicKey) as RSAPublicKey;
+    privKey = RSAKeyParser().parse(strPrivKey) as RSAPrivateKey;
+  }
+
+  static String decrypt2(String str) {
+    if (str == null) {
+      return null;
+    }
+    var text = str;
+    for (var i = 0; i < 5; i++) {
+      text = utf8.decode(base64.decode(str));
+    }
+    return text;
+  }
+
   static String decrypt(String str) {
+    if (str == null) {
+      return null;
+    }
     return utf8.decode(base64.decode(str));
     // const PRIVATE_KEY =
     //     "MIIEoQIBAAKCAQBuAGGBgg9nuf6D2c5AIHc8vZ6KoVwd0imeFVYbpMdgv4yYi5ob" +
