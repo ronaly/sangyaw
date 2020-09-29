@@ -55,6 +55,4 @@ flutter_icons:
 flutter: 
   assets: 
     - assets/images/
-    - assets/public.pem
-    - assets/private.pem
   uses-material-design: true
