@@ -63,7 +63,7 @@ class DirectoryList extends AppStatelessWidget {
           onPressed: () {
             InputDialog.show(context, (input) {
               this.createNewDirectory(input);
-            });
+            }, 'Directory Name', 'Add New Directory');
           },
         ),
         title: Text('Add New'),
