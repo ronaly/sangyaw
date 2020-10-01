@@ -97,7 +97,7 @@ class AppScriptUtils {
       print('==========aaaaaaaaaaa============');
       List result = json.decode(response.body) as List;
       List<dynamic> settings = result.map((json) {
-        var val = decrypt2(json['md5sha1']);
+        var val = decrypt(json['md5sha1']);
         List sheets = json['sheets'];
         return {
           'folderId': json['folderId'],
@@ -107,26 +107,6 @@ class AppScriptUtils {
           'password': val,
           // 'password': json['md5sha1'] != null ? decrypt(json['md5sha1']) : null,
         };
-        // if (json['md5sha1'] != null) {
-        //   return decrypt(json['md5sha1']).then((value) {
-        //     print('======================');
-        //     print('The decrypted value: $value');
-        //     print('======================');
-        //     return {
-        //       'folderId': json['folderId'],
-        //       'folderName': json['folderName'],
-        //       'sheets': sheets,
-        //       'md5sha1': '$value',
-        //     };
-        //   });
-        // } else {
-        //   return {
-        //     'folderId': json['folderId'],
-        //     'folderName': json['folderName'],
-        //     'sheets': sheets,
-        //     'md5sha1': null,
-        //   };
-        // }
       }).toList();
       return settings;
     });
@@ -145,13 +125,24 @@ class AppScriptUtils {
     // privKey = RSAKeyParser().parse(strPrivKey) as RSAPrivateKey;
   }
 
-  static String decrypt2(String str) {
+  static String decrypt(String str) {
     if (str == null) {
       return null;
     }
     var text = str;
     for (var i = 0; i < 5; i++) {
-      text = utf8.decode(base64.decode(str));
+      text = utf8.decode(base64.decode(text));
+    }
+    return text;
+  }
+
+  static String encrypt(String str) {
+    if (str == null) {
+      return null;
+    }
+    var text = str;
+    for (var i = 0; i < 5; i++) {
+      text = base64.encode(utf8.encode(text));
     }
     return text;
   }

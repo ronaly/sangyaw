@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sangyaw_app/utils/app_script_utils.dart';
 import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
+import 'package:sangyaw_app/widgets/input_dialog.dart';
 
 // ignore: must_be_immutable
 class SangyawAppSettings extends AppStatelessWidget {
@@ -26,18 +28,37 @@ class SangyawAppSettings extends AppStatelessWidget {
     var congregationList = this.dc.congregationList;
     congregationList.keys.forEach((key) {
       var congregation = congregationList[key];
-      String name = congregation.folderName;
-      String title = name;
+      String title = congregation.folderName;
       ListTile tile = ListTile(
-        leading: Icon(Icons.settings),
+        leading: Icon(congregation.crypt != null ? Icons.lock : Icons.settings),
         title: Text(title),
         trailing: congregation.folderId == this.dc.globals.congregation
             ? Icon(Icons.check)
             : null,
         onTap: () {
           if (congregation != this.dc.globals.congregation) {
-            this.dc.globals.congregation = congregation.folderId;
-            this.dc.loadSettings();
+            if (this.dc.globals.hasStoredPasswordAndMatch(
+                congregation.folderId, congregation.crypt)) {
+              this.dc.globals.congregation = congregation.folderId;
+              this.dc.loadSettings();
+              Navigator.pushNamed(this.context, '/');
+            } else {
+              InputDialog.show(this.context, (password) {
+                String crypt = AppScriptUtils.encrypt(password);
+                if (crypt == congregation.crypt) {
+                  this
+                      .dc
+                      .globals
+                      .setCongregationPassword(congregation.folderId, password);
+
+                  this.dc.globals.congregation = congregation.folderId;
+                  this.dc.loadSettings();
+                  Navigator.pushNamed(this.context, '/');
+                } else {
+                  // TODO: message here
+                }
+              }, 'Password', 'Please enter the password');
+            }
           }
         },
       );

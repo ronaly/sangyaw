@@ -8,7 +8,9 @@ class CongregationSettings {
   String folderId;
   String folderName;
   String password;
-  CongregationSettings([this.folderId, this.folderName, this.password]);
+  String crypt;
+  CongregationSettings(
+      this.folderId, this.folderName, this.password, this.crypt);
 
   String toString() {
     return 'ID: $folderId, Name: $folderName, Password $password';

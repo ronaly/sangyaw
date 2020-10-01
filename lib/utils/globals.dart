@@ -1,3 +1,4 @@
+import 'package:sangyaw_app/utils/app_script_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Globals {
@@ -24,6 +25,25 @@ class Globals {
       return null;
     }
     return sangyawAppPref.getString('congregation');
+  }
+
+  setCongregationPassword(String folderId, String password) {
+    String crypt = AppScriptUtils.encrypt(password);
+    sangyawAppPref.setString('congregation__password__$folderId', crypt);
+  }
+
+  bool hasStoredPasswordAndMatch(String folderId, String crypt) {
+    String stored =
+        sangyawAppPref.getString('congregation__password__$folderId');
+    if (stored == null && crypt == null) {
+      return true;
+    }
+
+    if (stored == crypt) {
+      return true;
+    }
+
+    return false;
   }
 
   set congregation(String cong) {
