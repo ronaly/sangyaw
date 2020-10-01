@@ -18,7 +18,7 @@ class DirectoryList extends AppStatelessWidget {
         },
       ),
       title: Text('Directory List:'),
-      subtitle: Text('Directory List for ${this.dc.globals.congregation}'),
+      subtitle: Text('Directory List for $congregationName'),
     ));
 
     arr.add(SizedBox(
@@ -67,8 +67,7 @@ class DirectoryList extends AppStatelessWidget {
           },
         ),
         title: Text('Add New'),
-        subtitle:
-            Text('Add New Directory for ${this.dc.globals.congregation}')));
+        subtitle: Text('Add New Directory for $congregationName')));
 
     arr.add(SizedBox(
       height: 0.5,

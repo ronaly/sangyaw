@@ -4,6 +4,17 @@ import 'dart:convert';
 import 'package:sangyaw_app/model/person.dart';
 import 'package:sangyaw_app/utils/globals.dart';
 
+class CongregationSettings {
+  String folderId;
+  String folderName;
+  String password;
+  CongregationSettings([this.folderId, this.folderName, this.password]);
+
+  String toString() {
+    return 'ID: $folderId, Name: $folderName, Password $password';
+  }
+}
+
 // ignore: must_be_immutable
 class AppState {
   Globals globals;
@@ -25,7 +36,7 @@ class AppState {
 
   // indexes and aggregates
 
-  List<String> congregationList;
+  Map<String, CongregationSettings> congregationList;
   List<String> assignToList;
   List<String> addressList;
   List<String> fbNameList;
@@ -45,7 +56,7 @@ class AppState {
     this.masterList = new SplayTreeMap<int, Person>();
     this.loading = true;
     this.appError = false;
-    this.congregationList = [];
+    this.congregationList = {};
     this.assignToList = [];
     this.addressList = [];
     this.fbNameList = [];
@@ -102,7 +113,8 @@ class AppState {
   String get viewQueryTerm => queryTerm;
 
   // indexes and aggregates
-  List<String> get viewCongregationList => congregationList;
+  Map<String, CongregationSettings> get viewCongregationList =>
+      congregationList;
   List<String> get viewAssignToList => assignToList;
   List<String> get viewAddressList => addressList;
   List<String> get viewFbNameList => fbNameList;

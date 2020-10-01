@@ -23,21 +23,20 @@ class SangyawAppSettings extends AppStatelessWidget {
         color: Colors.grey,
       ),
     ));
-
-    this.dc.congregationList.forEach((congregation) {
-      String name = congregation == null || congregation == ''
-          ? '- Unknown -'
-          : congregation;
+    var congregationList = this.dc.congregationList;
+    congregationList.keys.forEach((key) {
+      var congregation = congregationList[key];
+      String name = congregation.folderName;
       String title = name;
       ListTile tile = ListTile(
         leading: Icon(Icons.settings),
         title: Text(title),
-        trailing: congregation == this.dc.globals.congregation
+        trailing: congregation.folderId == this.dc.globals.congregation
             ? Icon(Icons.check)
             : null,
         onTap: () {
           if (congregation != this.dc.globals.congregation) {
-            this.dc.globals.congregation = congregation;
+            this.dc.globals.congregation = congregation.folderId;
             this.dc.loadSettings();
           }
         },

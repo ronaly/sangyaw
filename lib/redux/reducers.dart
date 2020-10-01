@@ -225,9 +225,10 @@ void buildSettings(AppState newState, Settings action) {
   if (newState.settings == null) {
     return;
   }
-  List<String> congregations = [];
+  Map<String, CongregationSettings> congregations = {};
   newState.settings.forEach((setting) {
-    congregations.add(setting['folderName']);
+    congregations[setting['folderId']] = new CongregationSettings(
+        setting['folderId'], setting['folderName'], setting['password']);
   });
   newState.congregationList = congregations;
 }

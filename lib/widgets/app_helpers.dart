@@ -88,6 +88,7 @@ mixin AppHelpers {
   Store<AppState> store;
 
   DataController get dc => this.getDataController();
+  String congregationName = '- Unknown -';
 
   final _loadingTitle = 'Loading please wait ...';
 
@@ -99,6 +100,10 @@ mixin AppHelpers {
           this.state = state;
           this.store = StoreProvider.of<AppState>(context);
           this.dataController = new DataController(this.store);
+          this.congregationName = this
+              .dc
+              .congregationList[this.dc.globals.congregation]
+              ?.folderName;
           return func(context, state);
         });
   }
