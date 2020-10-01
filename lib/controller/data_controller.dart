@@ -33,6 +33,11 @@ class DataController {
     if (settings == null) {
       print('Settings is null');
       // return SangyawSettings('', '', '', '', '', '');
+      return null;
+    }
+    if (this.currentDirectory == null) {
+      return new SangyawSettings(
+          settings['folderId'], settings['folderName'], null, null, null, null);
     }
     dynamic sheet = (settings['sheets'] as List)
         .firstWhere((e) => e['fileName'] == this.currentDirectory);
@@ -44,6 +49,9 @@ class DataController {
         sheet['imageFolderId'],
         sheet['imageFolderName']);
   }
+
+  String get currentFolderName => currentSettings?.folderName;
+  String get currentFolderId => currentSettings?.folderId;
 
   SplayTreeMap<int, Person> get masterList => store.state.viewMasterList;
   List<Person> get persons => store.state.viewPersons;

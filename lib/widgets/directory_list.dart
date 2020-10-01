@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sangyaw_app/pages/input_dialog.dart';
+import 'package:sangyaw_app/pages/loading_dialog.dart';
+import 'package:sangyaw_app/widgets/input_dialog.dart';
+import 'package:sangyaw_app/utils/app_script_utils.dart';
 import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 
 // ignore: must_be_immutable
@@ -59,7 +61,9 @@ class DirectoryList extends AppStatelessWidget {
         trailing: IconButton(
           icon: Icon(Icons.create_new_folder),
           onPressed: () {
-            InputDialog.show(context);
+            InputDialog.show(context, (input) {
+              this.createNewDirectory(input);
+            });
           },
         ),
         title: Text('Add New'),
@@ -74,5 +78,19 @@ class DirectoryList extends AppStatelessWidget {
     ));
 
     return ListView(children: arr);
+  }
+
+  void createNewDirectory(String sheetName) {
+    LoadingDialog.show(this.context);
+
+    var folderId = this.dc.currentFolderId;
+    AppScriptUtils.createSheet(folderId, sheetName).then((value) {
+      print('This is the created test');
+      print(value);
+      LoadingDialog.hide(this.context);
+      if (value['created'] == true) {
+        this.dc.loadSettings();
+      }
+    }).catchError((onError) => LoadingDialog.hide(this.context));
   }
 }

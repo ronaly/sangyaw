@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
 
-class InputDialog extends StatelessWidget {
-  static void show(BuildContext context, {Key key}) => showDialog<void>(
+import 'app_stateful_widget.dart';
+
+typedef InputDialogCallback = void Function(String input);
+
+// ignore: must_be_immutable
+class InputDialog extends StatefulWidget {
+  InputDialogCallback callback;
+  InputDialog(this.callback);
+  @override
+  _InputDialog createState() => _InputDialog(this.callback);
+
+  static void show(BuildContext context, InputDialogCallback callback) =>
+      showDialog<void>(
         context: context,
         useRootNavigator: false,
         barrierDismissible: false,
-        builder: (_) => InputDialog(key: key),
+        builder: (_) => InputDialog(callback),
       ).then((_) => FocusScope.of(context).requestFocus(FocusNode()));
 
   static void hide(BuildContext context) => Navigator.pop(context);
+}
 
-  InputDialog({Key key}) : super(key: key);
-
+class _InputDialog extends AppStatefulWidget<InputDialog> {
+  InputDialogCallback callback;
+  _InputDialog(this.callback);
   @override
-  Widget build(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     Text label = Text('The Label');
     IconButton button = IconButton(
         icon: Icon(Icons.send),
         onPressed: () {
           InputDialog.hide(context);
+          this.callback('TheValueReturned');
         });
     return WillPopScope(
       onWillPop: () async => false,

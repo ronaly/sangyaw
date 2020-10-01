@@ -149,11 +149,11 @@ class AppScriptUtils {
   static var strPrivKey;
 
   static inialized() async {
-    strPublicKey = await rootBundle.loadString("assets/public.pem");
-    strPrivKey = await rootBundle.loadString("assets/private.pem");
+    // strPublicKey = await rootBundle.loadString("assets/public.pem");
+    // strPrivKey = await rootBundle.loadString("assets/private.pem");
 
-    publicKey = RSAKeyParser().parse(strPublicKey) as RSAPublicKey;
-    privKey = RSAKeyParser().parse(strPrivKey) as RSAPrivateKey;
+    // publicKey = RSAKeyParser().parse(strPublicKey) as RSAPublicKey;
+    // privKey = RSAKeyParser().parse(strPrivKey) as RSAPrivateKey;
   }
 
   static String decrypt2(String str) {

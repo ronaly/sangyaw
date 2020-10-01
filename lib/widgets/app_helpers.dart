@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:sangyaw_app/controller/data_controller.dart';
 import 'package:sangyaw_app/model/app_state.dart';
 import 'package:sangyaw_app/pages/settings_page.dart';
@@ -82,6 +83,10 @@ mixin AppHelpers {
     return this.dataController;
   }
 
+  BuildContext context;
+  AppState state;
+  Store<AppState> store;
+
   DataController get dc => this.getDataController();
 
   final _loadingTitle = 'Loading please wait ...';
@@ -90,8 +95,10 @@ mixin AppHelpers {
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         builder: (context, state) {
-          this.dataController =
-              new DataController(StoreProvider.of<AppState>(context));
+          this.context = context;
+          this.state = state;
+          this.store = StoreProvider.of<AppState>(context);
+          this.dataController = new DataController(this.store);
           return func(context, state);
         });
   }
