@@ -21,7 +21,7 @@ class MessageDialog extends AppStatelessWidget {
   @override
   Widget buildBody(BuildContext context) {
     Widget body = Scaffold(
-      appBar: AppBar(title: Text('Message')),
+      appBar: AppBar(title: RichText(text: TextSpan(text: this.message))),
       bottomNavigationBar: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
