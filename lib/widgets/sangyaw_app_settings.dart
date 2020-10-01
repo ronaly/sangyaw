@@ -3,6 +3,8 @@ import 'package:sangyaw_app/utils/app_script_utils.dart';
 import 'package:sangyaw_app/widgets/app_stateless_widget.dart';
 import 'package:sangyaw_app/widgets/input_dialog.dart';
 
+import 'message_dialog.dart';
+
 // ignore: must_be_immutable
 class SangyawAppSettings extends AppStatelessWidget {
   Widget buildBody(BuildContext context) {
@@ -55,7 +57,8 @@ class SangyawAppSettings extends AppStatelessWidget {
                   this.dc.loadSettings();
                   Navigator.pushNamed(this.context, '/');
                 } else {
-                  // TODO: message here
+                  MessageDialog.show(this.context,
+                      'Invalid Password, please contact your administrator');
                 }
               }, 'Password', 'Please enter the password');
             }
